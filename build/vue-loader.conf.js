@@ -10,7 +10,6 @@ module.exports = {
   loaders: utils.cssLoaders({
     sourceMap: sourceMapEnabled,
     extract: isProduction,
-    usePostcss:true
   }),
   cssSourceMap: sourceMapEnabled,
   cacheBusting: config.dev.cacheBusting,

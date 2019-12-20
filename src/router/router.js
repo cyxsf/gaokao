@@ -3,6 +3,10 @@ import Router from 'vue-router'
 import Login from '@/pages/other/login'
 import Register from '@/pages/other/register'
 import Home from '@/pages/home/home'
+import Basic from '@/pages/forecast/basic'
+import Prefer from '@/pages/forecast/prefer'
+import Final from '@/pages/forecast/final'
+import User from '@/pages/user/user'
 
 Vue.use(Router)
 
@@ -23,11 +27,39 @@ export default new Router({
       component: Login
     },
     {
-      path: '/reg',
+      path: '/register',
       meta: {
         title: '注册'
       },
       component: Register
+    },
+    {
+      path: '/basic',
+      meta: {
+        title: '基本信息'
+      },
+      component: Basic
+    },
+    {
+      path: '/prefer',
+      meta: {
+        title: '偏好信息'
+      },
+      component: Prefer
+    },
+    {
+      path: '/final',
+      meta: {
+        title: '填报指南'
+      },
+      component: Final
+    },
+    {
+      path: '/user',
+      meta: {
+        title: '个人中心'
+      },
+      component: User
     }
   ]
 })

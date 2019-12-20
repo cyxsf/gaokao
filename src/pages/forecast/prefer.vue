@@ -1,29 +1,30 @@
 <template>
-  <div>
-    <div class="header">登录</div>
-    <div class='main'>
+    <div>
+      <div class="header">偏好信息</div>
+      <div class="main">
         <div class="content">
-          <span>账号</span>
-            <input class="input" type="number" placeholder="请输入手机号"/>
+          <span>省份</span>
         </div>
         <div class="content">
-          <span>密码</span>
-            <input class="input" type="text" placeholder="请输入密码"/>
+          <span>学校类别</span>
+        </div>
+        <div class="content">
+          <span>分数</span>
+          <input type="number" placeholder="高考分数"/>
         </div>
       </div>
-    <div class="btn" @click="goHome">登录</div>
-  </div>
+      <div class="btn" @click="goFinal()">完成</div>
+    </div>
 </template>
 <script>
 export default {
   data () {
     return {
-
     }
   },
   methods: {
-    goHome () {
-      this.$router.push('/')
+    goFinal () {
+      this.$router.push('/final')
     }
   }
 }
@@ -43,13 +44,15 @@ export default {
   border-bottom: 1px solid #cccccc;
 }
 .content span {
-  width: 15%;
-  text-align: center;
+  width: 25%;
+  text-align: left;
+  margin-left: 15px;
 }
-.input {
-  width: 75%;
+.content input {
+  width: 65%;
   height: 30px;
   border: 0;
+  text-align: right;
 }
 .btn {
   width: 100%;

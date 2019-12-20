@@ -48,20 +48,24 @@ export default {
 }
 
 .content {
+  display: flex;
   width: 100%;
-  padding: 15px;
+  height: 45px;
+  align-items: center;
   border-bottom: 1px solid #cccccc;
 }
+.content span {
+  width: 20%;
+  text-align: center;
+}
 .input {
-  position: absolute;
-  width: 72%;
+  width: 65%;
   height: 30px;
-  right: 0;
   border: 0;
 }
 .obtain {
-  position: absolute;
-  right: 10px;
+  width: 15%;
+  text-align: center;
 }
 .btn {
   width: 100%;

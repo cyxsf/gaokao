@@ -3,10 +3,10 @@
         <section class="guide_item" @click="gotoAddress('/')">
             <span>首页</span>
         </section>
-        <section class="guide_item" @click="gotoAddress('/')">
+        <section class="guide_item" @click="gotoAddress('/basic')">
             <span>填报推荐</span>
         </section>
-        <section class="guide_item" @click="goAddress('/')">
+        <section class="guide_item" @click="gotoAddress('/user')">
             <span>个人中心</span>
         </section>
     </div>
