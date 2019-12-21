@@ -3,11 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router/router'
+import IconSvg from './components/icons/IconSvg'
 
+Vue.component('icon-svg', IconSvg)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/pages/other/login'
 import Register from '@/pages/other/register'
+import Forget from '@/pages/other/forget'
 import Home from '@/pages/home/home'
 import Basic from '@/pages/forecast/basic'
 import Prefer from '@/pages/forecast/prefer'
@@ -32,6 +33,13 @@ export default new Router({
         title: '注册'
       },
       component: Register
+    },
+    {
+      path: '/forget',
+      meta: {
+        title: '忘记密码'
+      },
+      component: Forget
     },
     {
       path: '/basic',

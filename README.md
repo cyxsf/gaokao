@@ -29,14 +29,13 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ├── config                   // webpack环境配置（不说明它下面的文件）
 ├── dist                     // 运行build后生成目录(存放需要的发布代码)
 ├── src                      // 生产目录(着重说明)
-│   ├── assets               // 静态资源(css,font,img)
-│   ├── components           // vue组件
-│   ├── config               // Vue全局方法/过滤器
-│   ├── data                 // 数据文件(json)
-│   ├── pages                // 业务页面
-│   ├── main.js              // 项目入口文件
-│   ├── router               // 路由配置
-    └── App.vue              // 项目原始根组件
+    ├── components           // vue组件
+    ├── pages                // 业务页面
+    ├── router               // 路由配置
+    ├── service              // 数据api
+    ├── style                // 静态资源
+    ├── App.vue              // 项目原始根组件
+    └── main.js              // 项目入口文件
 ├── .babelrc                 // babel工具配置
 ├── .editorconfig            // 编码风格配置(不太影响开发)
 ├── .gitignore               // git项目忽略上传的文件/文件夹配置

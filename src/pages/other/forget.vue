@@ -1,7 +1,6 @@
 <template>
   <div>
-    <headTop title='注册' back='登录'></headTop>
-    <div class="header">志愿助手</div>
+    <headTop title='忘记密码'></headTop>
     <div class="main">
       <div class="content">
         <span>手机号</span>
@@ -29,7 +28,7 @@
       </div>
     </div>
     <div class="btn-fa">
-      <button class="btn" @click="goReg">立即注册</button>
+      <button class="btn" @click="goReg">完成</button>
     </div>
   </div>
 </template>
@@ -120,4 +119,7 @@ export default {
 </script>
 <style scoped lang="scss">
 @import '@/style/reg_login.scss';
+.main {
+    margin-top: 70px;
+}
 </style>

@@ -11,13 +11,5 @@ export default {
 </script>
 
 <style>
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: boder-box;
-}
-html,body {
-  height: 100%;
-  width: 100%;
-}
+@import './style/common.scss';
 </style>
