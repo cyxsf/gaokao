@@ -8,8 +8,6 @@ var sql = require('../sqlMap')
 router.post('/addUser', (req, res) => {
   let sqlStr = sql.user.add
   let params = req.body
-  console.log(sqlStr + 'zzz')
-  console.log(params + 'yyy')
   let conn = new DBHelper().getConn()
   console.log(params)
   conn.query(sqlStr, [params.name, params.age], function (err, result) {
