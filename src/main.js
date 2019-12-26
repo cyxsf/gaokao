@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router/router'
+import axios from 'axios'
 import IconSvg from './components/icons/IconSvg'
 
 Vue.component('icon-svg', IconSvg)
+Vue.prototype.$axios = axios
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

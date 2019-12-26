@@ -8,6 +8,7 @@ import Basic from '@/pages/forecast/basic'
 import Prefer from '@/pages/forecast/prefer'
 import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
+import Blog from '@/pages/other/blog'
 
 Vue.use(Router)
 
@@ -68,6 +69,13 @@ export default new Router({
         title: '个人中心'
       },
       component: User
+    },
+    {
+      path: '/blog',
+      meta: {
+        title: 'Blog'
+      },
+      component: Blog
     }
   ]
 })
