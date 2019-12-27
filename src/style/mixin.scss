@@ -1,0 +1,49 @@
+$co: #14334e;
+$fc: #ffffff;
+
+//宽高
+@mixin wh($width,$height) {
+    width: $width;
+    height: $height;
+}
+
+//flex布局垂直居中对齐
+@mixin faj {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+//flex布局水平居中
+@mixin fj {
+    display: flex;
+    justify-content: center;
+}
+
+//flex布局垂直居中
+@mixin fa {
+    display: flex;
+    align-items: center;
+}
+
+//定位上下左右居中
+@mixin center {  
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+//定位上下居中
+@mixin ct {  
+	position: absolute;
+	top: 50%;
+    transform: translateY(-50%);
+}
+
+//定位左右居中
+@mixin cl {  
+	position: absolute;
+	left: 50%;
+    transform: translateX(-50%);
+}

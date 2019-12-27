@@ -18,7 +18,7 @@ router.post('/addUser', (req, res) => {
       res.json(res, result)
     }
   })
-  conn.end()
+  // conn.end()
 })
 
 // 查询用户
@@ -33,7 +33,21 @@ router.post('/selectUser', (req, res) => {
       res.json(result)
     }
   })
-  conn.end()
+  // conn.end()
 })
 
+// 用户登录
+router.post('/userLogin', (req, res) => {
+  let sqlStr = sql.user.login
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid, params.pwd], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
 module.exports = router

@@ -3,8 +3,9 @@
     <form action="">
       姓名：<input type="text" name="username" v-model="userName"><br>
       年龄：<input type="text" name="age" v-model="age"><br>
+          </form>
       <button type="button" @click="addUser">提交信息</button>
-    </form>
+
     <form action="">
       <input type="text" v-model="keywords" placeholder="输入姓名查询">
       <button type="button" @click="selectUser">查询</button>

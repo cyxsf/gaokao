@@ -8,7 +8,7 @@ import Basic from '@/pages/forecast/basic'
 import Prefer from '@/pages/forecast/prefer'
 import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
-import Blog from '@/pages/other/blog'
+import Blog from '@/components/common/alertTip'
 
 Vue.use(Router)
 

@@ -2,7 +2,7 @@
   <div>
     <headTop title='登录'></headTop>
     <div class="header">志愿助手</div>
-    <div class='main'>
+    <form action="">
       <div class="content">
         <span>账号</span>
         <input class="input" type="text" placeholder="请输入手机号" v-model.number="phone"/>
@@ -14,35 +14,71 @@
           <icon-svg class="icon" :icon-class="showPwd?'icon-yanjing_kai':'icon-yanjing_bi'"></icon-svg>
         </div>
       </div>
-    </div>
+    </form>
     <div class="btn-fa">
-      <button class="btn" @click="goHome">登录</button>
+      <button class="btn" @click="goLogin">登录</button>
     </div>
     <div class="foot">
       <span class="goreg" @click="goToAddress('/register')">立即注册</span>
       <span class="forget" @click="goToAddress('/forget')">忘记密码？</span>
     </div>
+    <alert-tip v-if="showAlert" @closeTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
   </div>
 </template>
 <script>
 import headTop from '@/components/common/header'
+import alertTip from '@/components/common/alertTip'
 export default {
   data () {
     return {
       phone: '', // 手机号码
       pwd: '', // 密码
-      showPwd: false // 默认密码不显示
+      showPwd: false, // 默认密码不显示
+      showAlert: false, // 提示框
+      alertText: '', // 提示内容
+      iconType: true // 提示框里icon类型
     }
   },
   components: {
-    headTop
+    headTop,
+    alertTip
   },
   methods: {
-    goHome () {
-      this.$router.push('/')
+    // 登录验证
+    goLogin () {
+      let uid = this.phone
+      let pwd = this.pwd
+      if (!uid) {
+        this.showAlert = true
+        this.alertText = '请输入手机号'
+        return
+      } else if (!pwd) {
+        this.showAlert = true
+        this.alertText = '请输入密码'
+        return
+      }
+      this.axios.post('/api/user/userLogin', {
+        uid, pwd
+      }).then(res => {
+        console.log(res.data[0])
+        if (res.data[0]) {
+          this.$router.push('/')
+        } else {
+          this.showAlert = true
+          this.alertText = '账号或密码错误'
+          this.iconType = false
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
+    // 跳转
     goToAddress (path) {
       this.$router.push(path)
+    },
+    // 关闭提示框
+    closeTip () {
+      this.showAlert = false
     }
   }
 }
