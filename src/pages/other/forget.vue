@@ -1,7 +1,7 @@
 <template>
   <div>
     <headTop title='忘记密码'></headTop>
-    <div class="main">
+    <form action="" class="main">
       <div class="content">
         <span>手机号</span>
         <input class="input" type="text" placeholder="请输入手机号" v-model.number="phone"/>
@@ -26,14 +26,16 @@
           <icon-svg class="icon" :icon-class="showPwdTwo?'icon-yanjing_kai':'icon-yanjing_bi'"></icon-svg>
         </div>
       </div>
-    </div>
+    </form>
     <div class="btn-fa">
-      <button class="btn" @click="goReg">完成</button>
+      <button class="btn" @click="updatePwd">完成</button>
     </div>
+    <alert-tip v-if="showAlert" @closeTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
   </div>
 </template>
 <script>
 import headTop from '@/components/common/header'
+import alertTip from '@/components/common/alertTip'
 // import {mobileCode, checkExsis, sendLogin} from '../../service/getData'
 export default {
   data () {
@@ -53,7 +55,8 @@ export default {
     }
   },
   components: {
-    headTop
+    headTop,
+    alertTip
   },
   computed: {
     // 判断手机号码
@@ -88,8 +91,45 @@ export default {
         */
       }
     },
-    // 进行注册
-    goReg () {
+    // 更新密码
+    updatePwd () {
+      let uid = this.phone
+      let pwdOne = this.pwdOne
+      let pwdTwo = this.pwdTwo
+      if (!uid) {
+        this.showAlert = true
+        this.alertText = '请输入手机号'
+        return
+      } else if (!pwdOne || !pwdTwo) {
+        this.showAlert = true
+        this.alertText = '请输入密码'
+        return
+      } else if (pwdOne !== pwdTwo) {
+        this.showAlert = true
+        this.alertText = '两次输入的密码不一致'
+        this.iconType = false
+        return
+      }
+      this.axios.post('/api/user/userSelect', {
+        uid
+      }).then(res => {
+        console.log(res.data)
+        if (res.data.length === 0) {
+          this.showAlert = true
+          this.alertText = '账号不存在'
+          this.iconType = false
+        } else {
+          this.axios.post('/api/user/userUpdate', {
+            uid, pwdOne
+          }).then(res => {
+            this.$router.push('/login')
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
       /*
       if (!this.rightPhoneNumber) {
         this.showAlert = true
@@ -109,7 +149,6 @@ export default {
         this.RECORD_USERINFO(this.userInfo)
         this.$router.push('/login')
       } */
-      this.$router.push('/login')
     },
     closeTip () {
       this.showAlert = false

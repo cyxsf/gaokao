@@ -2,7 +2,7 @@
   <div>
     <headTop title='注册' back='登录'></headTop>
     <div class="header">志愿助手</div>
-    <div class="main">
+    <form action="" class="main">
       <div class="content">
         <span>手机号</span>
         <input class="input" type="text" placeholder="请输入手机号" v-model.number="phone"/>
@@ -27,9 +27,9 @@
           <icon-svg class="icon" :icon-class="showPwdTwo?'icon-yanjing_kai':'icon-yanjing_bi'"></icon-svg>
         </div>
       </div>
-    </div>
+    </form>
     <div class="btn-fa">
-      <button class="btn" @click="goReg">立即注册</button>
+      <button class="btn" @click="userReg">立即注册</button>
     </div>
   </div>
 </template>
@@ -90,7 +90,7 @@ export default {
       }
     },
     // 进行注册
-    goReg () {
+    userReg () {
       /*
       if (!this.rightPhoneNumber) {
         this.showAlert = true
@@ -110,7 +110,43 @@ export default {
         this.RECORD_USERINFO(this.userInfo)
         this.$router.push('/login')
       } */
-      this.$router.push('/login')
+      let uid = this.phone
+      let pwdOne = this.pwdOne
+      let pwdTwo = this.pwdTwo
+      if (!uid) {
+        this.showAlert = true
+        this.alertText = '请输入手机号'
+        return
+      } else if (!pwdOne || !pwdTwo) {
+        this.showAlert = true
+        this.alertText = '请输入密码'
+        return
+      } else if (pwdOne !== pwdTwo) {
+        this.showAlert = true
+        this.alertText = '两次输入的密码不一致'
+        this.iconType = false
+        return
+      }
+      this.axios.post('/api/user/userSelect', {
+        uid
+      }).then(res => {
+        console.log(res.data)
+        if (res.data.length !== 0) {
+          this.showAlert = true
+          this.alertText = '账号已存在'
+          this.iconType = false
+        } else {
+          this.axios.post('/api/user/userReg', {
+            uid, pwdOne
+          }).then(res => {
+            this.$router.push('/login')
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     closeTip () {
       this.showAlert = false

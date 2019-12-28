@@ -16,7 +16,7 @@
       </div>
     </form>
     <div class="btn-fa">
-      <button class="btn" @click="goLogin">登录</button>
+      <button class="btn" @click="userLogin">登录</button>
     </div>
     <div class="foot">
       <span class="goreg" @click="goToAddress('/register')">立即注册</span>
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     // 登录验证
-    goLogin () {
+    userLogin () {
       let uid = this.phone
       let pwd = this.pwd
       if (!uid) {
