@@ -8,6 +8,8 @@ import Basic from '@/pages/forecast/basic'
 import Prefer from '@/pages/forecast/prefer'
 import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
+import EvalHome from '@/pages/evaluate/home'
+import Holland from '@/pages/evaluate/holland'
 
 Vue.use(Router)
 
@@ -68,6 +70,20 @@ export default new Router({
         title: '个人中心'
       },
       component: User
+    },
+    {
+      path: '/evalhome',
+      meta: {
+        title: '测评首页'
+      },
+      component: EvalHome
+    },
+    {
+      path: '/holland',
+      meta: {
+        title: '霍兰德兴趣测评'
+      },
+      component: Holland
     }
   ]
 })

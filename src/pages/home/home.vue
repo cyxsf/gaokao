@@ -2,6 +2,7 @@
     <div>
       <div class="header"></div>
       <div class="main">
+        <button class="btn" @click="goEvaluation">测评</button>
       </div>
       <foot-guide></foot-guide>
     </div>
@@ -16,6 +17,11 @@ export default {
   },
   components: {
     footGuide
+  },
+  methods: {
+    goEvaluation () {
+      this.$router.push('/evalhome')
+    }
   }
 }
 </script>
