@@ -1,12 +1,13 @@
 <template>
     <div class="mainContain">
-        <div class="proLabel">
-            <span class="sure">{{sure}}</span>
-            <span class="nums">/{{total}}</span>
-        </div>
         <div class="proContain">
             <div class="proItem" v-bind:style="{width:barwidth+'%'}"></div>
         </div>
+        <span class="proLabel">
+            <span class="sure">{{sure}}</span>
+            <span>/</span>
+            <span>{{total}}</span>
+        </span>
     </div>
 </template>
 
@@ -23,23 +24,28 @@ export default {
 
 <style lang="scss" scoped>
 .mainContain {
-    margin-top: 60px;
-}
-.proContain {
-    width: 85%;
-    height: 15px;
-    margin: auto;
-    background: #666666;
-    border-radius: 15px;
+    display: flex;
+    margin-top: 70px;
+    justify-content: center;
+    align-items: center;
 }
 .proLabel {
-    margin-left: 25px;
     font-size: 20px;
-    color:#b2b2b2;
+    color:#333;
+}
+.sure {
+    color: #46a2eb;
+}
+.proContain {
+    width: 80%;
+    height: 20px;
+    margin-right: 10px;
+    background: #b5b5b5;
+    border-radius: 15px;
 }
 .proItem {
-    width: 85%;
-    height: 15px;
+    width: 80%;
+    height: 20px;
     background: #46a2eb;
     border-radius: 15px;
 }

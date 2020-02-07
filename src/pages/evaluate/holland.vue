@@ -18,6 +18,7 @@
 <script>
 import headTop from '@/components/common/header'
 import progressbar from '@/components/common/progress'
+import question from '../../../static/question.json'
 export default {
   data () {
     return {
@@ -45,7 +46,7 @@ export default {
 <style lang="scss" scoped>
 .question {
   height: 220px;
-  margin-top: 20px;
+  margin-top: 10px;
   background: #14334e;
 }
 .yes, .no{
