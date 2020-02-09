@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+module.exports = router
 
 var DBHelper = require('../DBHelper')
 var sql = require('../sqlMap')
@@ -63,5 +64,3 @@ router.post('/userSelect', (req, res) => {
   })
   // conn.end()
 })
-
-module.exports = router

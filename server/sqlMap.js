@@ -6,6 +6,9 @@ var sqlMap = {
     update: 'update user set password = ? where userid = ?',
     select: 'select * from user where userid = ?'
     // select: 'select * from user where name like "%"?"%"'
+  },
+  test: {
+    select: 'select * from questions'
   }
 }
 

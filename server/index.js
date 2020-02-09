@@ -1,5 +1,6 @@
 const http = require('http')
 const userApi = require('./api/userApi')
+const testApi = require('./api/testApi')
 const bodyParser = require('body-parser')
 const express = require('express')
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json())
 
 // 后端api路由
 app.use('/api/user', userApi)
+app.use('/api/test', testApi)
 
 // 监听端口
 server.listen(3000, () => {

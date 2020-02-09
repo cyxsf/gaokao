@@ -4,7 +4,7 @@
             <div class="proItem" v-bind:style="{width:barwidth+'%'}"></div>
         </div>
         <span class="proLabel">
-            <span class="sure">{{sure}}</span>
+            <span class="active">{{active}}</span>
             <span>/</span>
             <span>{{total}}</span>
         </span>
@@ -18,7 +18,7 @@ export default {
 
     }
   },
-  props: ['sure', 'total', 'barwidth']
+  props: ['active', 'total', 'barwidth']
 }
 </script>
 
@@ -33,7 +33,7 @@ export default {
     font-size: 20px;
     color:#333;
 }
-.sure {
+.active {
     color: #46a2eb;
 }
 .proContain {
