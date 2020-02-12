@@ -8,7 +8,9 @@ var sqlMap = {
     // select: 'select * from user where name like "%"?"%"'
   },
   test: {
-    select: 'select * from questions'
+    queSelect: 'select * from questions',
+    resSelect: 'select * from result',
+    cateSelect: 'select * from cate'
   }
 }
 

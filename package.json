@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "echarts": "^4.6.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.5",
     "vue-router": "^3.0.1"

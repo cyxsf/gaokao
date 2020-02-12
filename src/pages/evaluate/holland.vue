@@ -40,12 +40,14 @@ export default {
       if (this.active >= this.total) this.active = this.total
       this.barchange()
       if (this.active >= this.total) {
+        let res = JSON.stringify(myResults)
         this.$router.push({
           path: '/evalresult',
           query: {
-            myResults: myResults
+            res
           }
         })
+        console.log(res)
       } else {
         if (!myResults[que.cateid]) myResults[que.cateid] = 0
         myResults[que.cateid] += answer === que.score ? 1 : 0
