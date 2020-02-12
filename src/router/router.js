@@ -11,7 +11,6 @@ import User from '@/pages/user/user'
 import EvalHome from '@/pages/evaluate/home'
 import Holland from '@/pages/evaluate/holland'
 import EvalResult from '@/pages/evaluate/result'
-import MBTI from '@/pages/evaluate/mbti'
 
 Vue.use(Router)
 
@@ -86,13 +85,6 @@ export default new Router({
         title: '霍兰德兴趣测评'
       },
       component: Holland
-    },
-    {
-      path: '/mbti',
-      meta: {
-        title: 'MBTI性格测评'
-      },
-      component: MBTI
     },
     {
       path: '/evalresult',
