@@ -2,7 +2,8 @@
     <div>
       <div class="header"></div>
       <div class="main">
-        <button class="btn" @click="goEvaluation">测评</button>
+        <button class="btn" @click="goToAddress('/evalhome')">兴趣测试</button>
+        <button class="btn" @click="goToAddress('/final')">填报指南</button>
       </div>
       <foot-guide></foot-guide>
     </div>
@@ -19,8 +20,8 @@ export default {
     footGuide
   },
   methods: {
-    goEvaluation () {
-      this.$router.push('/evalhome')
+    goToAddress (path) {
+      this.$router.push(path)
     }
   }
 }

@@ -11,6 +11,7 @@ import User from '@/pages/user/user'
 import EvalHome from '@/pages/evaluate/home'
 import Holland from '@/pages/evaluate/holland'
 import EvalResult from '@/pages/evaluate/result'
+import Province from '@/components/common/province'
 
 Vue.use(Router)
 
@@ -43,6 +44,13 @@ export default new Router({
         title: '忘记密码'
       },
       component: Forget
+    },
+    {
+      path: '/province',
+      meta: {
+        title: '省份选择'
+      },
+      component: Province
     },
     {
       path: '/basic',

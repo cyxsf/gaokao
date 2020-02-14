@@ -11,6 +11,9 @@ var sqlMap = {
     queSelect: 'select * from questions',
     resSelect: 'select * from result',
     cateSelect: 'select * from cate'
+  },
+  forecast: {
+    proSelect: 'select * from province order by psort'
   }
 }
 
