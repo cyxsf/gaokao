@@ -6,40 +6,52 @@
         输入地点分数等信息，可以帮助我们更加精确推荐适合您填报的学校
       </div>
       <div class="content">
-        <span>生源地</span>
-        <input type="text" placeholder="省份"/>
+        <span class="left">生源地</span>
         <div class="contain" @click="goToAddress('/province')">
+          <span>{{local}}</span>
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </div>
       </div>
       <div class="content">
-        <span>科目类别</span>
-        <p class="cate">{{subject[i]}}</p>
+        <span class="left">科目类别</span>
         <div class="contain" @click="change">
+          <span>{{subject[i]}}</span>
           <icon-svg class="icon" icon-class="icon-qiehuan"></icon-svg>
         </div>
       </div>
       <div class="content">
-        <span>分数</span>
-        <input type="number" placeholder="高考分数"/>
+        <span class="left">分数</span>
+        <input type="number" placeholder="高考分数" v-model.number="score"/>
         <div class="contain">
           <icon-svg class="icon" icon-class="icon-qianbi"></icon-svg>
         </div>
       </div>
-      <button class="btn" @click="goToAddress('/prefer')">完成</button>
+      <button class="btn" @click="finish">完成</button>
+      <alert-tip v-if="showAlert" @submitTip="submitTip" @closeTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
     </div>
 </template>
 <script>
 import headTop from '@/components/common/header'
+import alertTip from '@/components/common/alertTip'
+import { getStore } from '@/config/mUtils'
 export default {
   data () {
     return {
       subject: ['理科', '文科', '艺术类'],
-      i: 0
+      i: 0,
+      local: '', // 省份
+      showAlert: false, // 提示框
+      alertText: '', // 提示内容
+      iconType: true, // 提示框里icon类型
+      score: ''
     }
   },
   components: {
-    headTop
+    headTop,
+    alertTip
+  },
+  meta: {
+    requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
   },
   methods: {
     goToAddress (path) {
@@ -48,7 +60,31 @@ export default {
     change () {
       this.i++
       if (this.i > this.subject.length - 1) this.i = 0
+    },
+    finish () {
+      this.showAlert = true
+      this.alertText = '一旦确定以后无法修改信息'
+    },
+    closeTip () {
+      this.showAlert = false
+    },
+    submitTip () {
+      let uid = getStore('userid')
+      let local = this.local
+      let sub = this.subject[this.i]
+      let score = this.score
+      this.axios.post('/api/data/basic', {
+        uid, local, sub, score
+      }).then(res => {
+        console.log(res.data)
+        this.$router.push('/prefer')
+      }).catch(err => {
+        console.log(err)
+      })
     }
+  },
+  mounted () {
+    this.local = this.$route.query.name
   }
 }
 </script>
@@ -71,9 +107,10 @@ export default {
   width: 100%;
   height: 50px;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid #cccccc;
 }
-.content span {
+.left {
   width: 25%;
   margin-left: 15px;
   text-align: left;
@@ -85,13 +122,8 @@ export default {
   border: 0;
   text-align: right;
 }
-.cate {
-  position: absolute;
-  right: 45px;
-}
 .contain {
-  position: absolute;
-  right: 20px;
+  margin-right: 15px;
 }
 .icon {
   width: 20px;
@@ -102,95 +134,5 @@ export default {
   width: 60%;
   height: 50px;
   margin: 25px auto;
-}
-</style>
-<template>
-    <div>
-        <headTop title='地区'></headTop>
-        <div class="tips back">
-          <span>定位地区</span>
-          <span>定位不准时，请在地区列表中选择</span>
-        </div>
-        <span class="local">{{local}}</span>
-        <div class="back"></div>
-        <section class="province">
-          <ul class="letter">
-            <li v-for="item in province" :key="item.psort" class="info">
-              {{item.name}}
-            </li>
-          </ul>
-        </section>
-    </div>
-</template>
-
-<script>
-import headTop from '@/components/common/header'
-import BMap from 'BMap'
-export default {
-  data () {
-    return {
-      province: {},
-      local: '正在定位所在省' // 当前地区
-    }
-  },
-  methods: {
-    select () {
-      this.axios.post('/api/data/proSelect', {
-      }).then(res => {
-        this.province = res.data
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    city () { // 获取当前省份
-      const geolocation = new BMap.Geolocation()
-      geolocation.getCurPos(function getinfo (position) {
-        let province = position.address.province // 获取省份信息
-        console.log(province)
-        this.local = province
-      }, function (e) {
-        this.local = '定位失败'
-      }, {provider: 'baidu'})
-    }
-  },
-  components: {
-    headTop
-  },
-  mounted () {
-    this.select()
-    this.city()
-  }
-}
-</script>
-
-<style lang="scss" scoped>
-.tips {
-  display: flex;
-  margin-top: 62px;
-  padding: 0 15px;
-  justify-content: space-between;
-  color: #5f5f5f;
-  border-bottom: 1px solid #cccccc;
-}
-.back {
-  height: 28px;
-  background-color: #dddddd;
-}
-.local {
-  display: block;
-  width: 100%;
-  padding-left: 15px;
-  line-height: 35px;
-  color: #d83a2e;
-  border-bottom: 1px solid #cccccc;
-}
-ul {
-  width: 100%;
-  height: 35px;
-}
-li {
-  padding-left: 15px;
-  line-height: 35px;
-  border-bottom: 1px solid #cccccc;
 }
 </style>

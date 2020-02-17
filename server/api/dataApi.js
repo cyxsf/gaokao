@@ -17,3 +17,16 @@ router.post('/proSelect', (req, res) => { // 查找省份
   })
   // conn.end()
 })
+
+router.post('/basic', (req, res) => { // 插入基本信息
+  let sqlStr = sql.forecast.basic
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})

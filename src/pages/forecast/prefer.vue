@@ -1,62 +1,138 @@
 <template>
     <div>
+      <headTop title='填报助手'></headTop>
       <div class="header">偏好信息</div>
-      <div class="main">
-        <div class="content">
-          <span>省份</span>
-        </div>
-        <div class="content">
-          <span>学校类别</span>
-        </div>
-        <div class="content">
-          <span>分数</span>
-          <input type="number" placeholder="高考分数"/>
+      <div class="introduce">
+        输入地点分数等信息，可以帮助我们更加精确推荐适合您填报的学校
+      </div>
+      <div class="content">
+        <span class="left">目标地区</span>
+        <div class="contain" @click="goToAddress('/province')">
+          <span>{{local}}</span>
+          <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </div>
       </div>
-      <div class="btn" @click="goFinal()">完成</div>
+      <div class="content">
+        <span class="left">目标专业</span>
+        <div class="contain" @click="change">
+          <span>{{subject[i]}}</span>
+          <icon-svg class="icon" icon-class="icon-qiehuan"></icon-svg>
+        </div>
+      </div>
+      <div class="content">
+        <span class="left">分数</span>
+        <input type="number" placeholder="高考分数" v-model.number="score"/>
+        <div class="contain">
+          <icon-svg class="icon" icon-class="icon-qianbi"></icon-svg>
+        </div>
+      </div>
+      <button class="btn" @click="finish">完成</button>
+      <alert-tip v-if="showAlert" @submitTip="submitTip" @closeTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
     </div>
 </template>
 <script>
+import headTop from '@/components/common/header'
+import alertTip from '@/components/common/alertTip'
+import { getStore } from '@/config/mUtils'
 export default {
   data () {
     return {
+      subject: ['理科', '文科', '艺术类'],
+      i: 0,
+      local: '', // 省份
+      showAlert: false, // 提示框
+      alertText: '', // 提示内容
+      iconType: true, // 提示框里icon类型
+      score: ''
     }
   },
+  components: {
+    headTop,
+    alertTip
+  },
+  meta: {
+    requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+  },
   methods: {
-    goFinal () {
-      this.$router.push('/final')
+    goToAddress (path) {
+      this.$router.push(path)
+    },
+    change () {
+      this.i++
+      if (this.i > this.subject.length - 1) this.i = 0
+    },
+    finish () {
+      this.showAlert = true
+      this.alertText = '一旦确定以后无法修改信息'
+    },
+    closeTip () {
+      this.showAlert = false
+    },
+    submitTip () {
+      let uid = getStore('userid')
+      let local = this.local
+      let sub = this.subject[this.i]
+      let score = this.score
+      this.axios.post('/api/data/basic', {
+        uid, local, sub, score
+      }).then(res => {
+        console.log(res.data)
+        this.$router.push('/prefer')
+      }).catch(err => {
+        console.log(err)
+      })
     }
+  },
+  mounted () {
+    this.local = this.$route.query.name
   }
 }
 </script>
 <style lang="scss" scoped>
 .header {
   text-align: center;
-  margin: 25px;
+  margin: 80px 0 20px;
   font-size: 25px;
 }
-
+.introduce {
+  display: block;
+  width: 80%;
+  margin: auto;
+  padding: 10px;
+  color: #aaa;
+  text-align: center;
+}
 .content {
   display: flex;
   width: 100%;
-  height: 45px;
+  height: 50px;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid #cccccc;
 }
-.content span {
+.left {
   width: 25%;
-  text-align: left;
   margin-left: 15px;
+  text-align: left;
+  font-size: 18px;
 }
 .content input {
-  width: 65%;
+  width: 58%;
   height: 30px;
   border: 0;
   text-align: right;
 }
+.contain {
+  margin-right: 15px;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+}
 .btn {
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
+  display: block;
+  width: 60%;
+  height: 50px;
+  margin: 25px auto;
 }
 </style>

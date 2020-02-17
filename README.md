@@ -30,10 +30,12 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ├── dist                     // 运行build后生成目录(存放需要的发布代码)
 ├── src                      // 生产目录(着重说明)
     ├── components           // vue组件
+    ├── config               // 基本配置
     ├── pages                // 业务页面
     ├── router               // 路由配置
+    ├── store                // vuex的状态管理
     ├── service              // 数据api
-    ├── style                // 静态资源
+    ├── style                // 样式文件
     ├── App.vue              // 项目原始根组件
     └── main.js              // 项目入口文件
 ├── .babelrc                 // babel工具配置

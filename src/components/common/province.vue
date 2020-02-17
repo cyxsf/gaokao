@@ -5,11 +5,14 @@
           <span>定位地区</span>
           <span>定位不准时，请在地区列表中选择</span>
         </div>
-        <span class="local">{{local}}</span>
+        <div class="local" @click="proSelect(local)">
+          <span>{{local}}</span>
+          <icon-svg icon-class="icon-dingwei"></icon-svg>
+        </div>
         <div class="back"></div>
-        <section class="province">
+        <section v-for="item in province" :key="item.pid" class="province" @click="proSelect(item.name)">
           <ul class="letter">
-            <li v-for="item in province" :key="item.psort" class="info">
+            <li class="info">
               {{item.name}}
             </li>
           </ul>
@@ -27,7 +30,8 @@ export default {
     }
   },
   methods: {
-    city () { // 获取当前省份
+    cur () { // 获取当前省份
+      // eslint-disable-next-line no-undef
       const geolocation = new BMap.Geolocation()
       geolocation.getCurrentPosition((r) => {
         this.local = r.address.province // 获取省份信息
@@ -41,13 +45,21 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    proSelect (name) {
+      this.$router.push({
+        path: '/basic',
+        query: {
+          name
+        }
+      })
     }
   },
   components: {
     headTop
   },
   mounted () {
-    this.city()
+    this.cur()
   }
 }
 </script>

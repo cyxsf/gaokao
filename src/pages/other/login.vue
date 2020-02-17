@@ -28,6 +28,7 @@
 <script>
 import headTop from '@/components/common/header'
 import alertTip from '@/components/common/alertTip'
+import {mapActions} from 'vuex'
 export default {
   data () {
     return {
@@ -44,6 +45,7 @@ export default {
     alertTip
   },
   methods: {
+    ...mapActions(['setUser']),
     // 登录验证
     userLogin () {
       let uid = this.phone
@@ -60,8 +62,10 @@ export default {
       this.axios.post('/api/user/userLogin', {
         uid, pwd
       }).then(res => {
-        console.log(res.data[0])
+        console.log(res.data)
         if (res.data[0]) {
+          let date = res.data[0]
+          this.setUser(date)
           this.$router.push('/')
         } else {
           this.showAlert = true
@@ -83,6 +87,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 @import '@/style/reg_login.scss';
 .content span {

@@ -1,6 +1,6 @@
 var sqlMap = {
   user: {
-    // 添加用户
+    // 注册登录
     reg: 'insert into user(userid,password,root) values(?,?,2)',
     login: 'select * from user where userid = ? and password = ?',
     update: 'update user set password = ? where userid = ?',
@@ -8,11 +8,13 @@ var sqlMap = {
     // select: 'select * from user where name like "%"?"%"'
   },
   test: {
+    // 兴趣测试
     queSelect: 'select * from questions',
     resSelect: 'select * from result',
     cateSelect: 'select * from cate'
   },
   forecast: {
+    // 学校预测
     proSelect: 'select * from province order by psort'
   }
 }

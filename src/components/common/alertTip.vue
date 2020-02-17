@@ -1,9 +1,12 @@
 <template>
     <div class="alert_container">
         <section class="tip_container">
+          <div class="close" @click="closeTip">
+            <icon-svg  icon-class="icon-cuowu"></icon-svg>
+          </div>
           <icon-svg class="icon" :icon-class="iconType?'icon-jinggao':'icon-cuowu'"></icon-svg>
           <span class="tip_text">{{alertText}}</span>
-          <button class="confirm" @click="closeTip">确认</button>
+          <button class="confirm" @click="submitTip">确认</button>
         </section>
     </div>
 </template>
@@ -20,6 +23,9 @@ export default {
   methods: {
     closeTip () {
       this.$emit('closeTip')
+    },
+    submitTip () {
+      this.$emit('submitTip')
     }
   }
 }
@@ -37,7 +43,7 @@ export default {
   @include center;
 }
 .tip_container {
-  display: absolute;
+  display: flex;
   @include wh(280px,180px);
   @include fa;
   animation: tipMove .4s;
@@ -47,6 +53,11 @@ export default {
     @include wh(70px,70px);
     margin: 6px;
   }
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
   .tip_text {
     margin-bottom: 20px;
     color: $fc;
@@ -55,7 +66,7 @@ export default {
     text-align: center;
   }
   .confirm {
-    @include wh(50%,40px);
+    @include wh(45%,40px);
     font-size: 22px;
   }
 }

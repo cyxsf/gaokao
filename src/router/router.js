@@ -15,12 +15,13 @@ import Province from '@/components/common/province'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       meta: {
-        title: '主页面'
+        title: '主页面',
+        requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
       },
       component: Home
     },
@@ -103,3 +104,5 @@ export default new Router({
     }
   ]
 })
+
+export default router
