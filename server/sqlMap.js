@@ -15,7 +15,9 @@ var sqlMap = {
   },
   forecast: {
     // 学校预测
-    proSelect: 'select * from province order by psort'
+    proSelect: 'select * from province order by psort',
+    basInfo: 'insert into userinfo(userid,curplace,subject,score) values(?,?,?,?)',
+    basSelect: 'select * from userinfo where userid = ?'
   }
 }
 

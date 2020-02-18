@@ -3,7 +3,7 @@
         <section class="guide_item" @click="gotoAddress('/')">
             <span>首页</span>
         </section>
-        <section class="guide_item" @click="gotoAddress('/basic')">
+        <section class="guide_item" @click="gotoForecast">
             <span>填报推荐</span>
         </section>
         <section class="guide_item" @click="gotoAddress('/user')">
@@ -12,6 +12,7 @@
     </div>
 </template>
 <script>
+import { getStore } from '@/config/mUtils'
 export default {
   data () {
     return {
@@ -20,6 +21,21 @@ export default {
   methods: {
     gotoAddress (path) {
       this.$router.push(path)
+    },
+    gotoForecast () {
+      let uid = getStore('userid')
+      this.axios.post('/api/data/basSelect', {
+        uid
+      }).then(res => {
+        console.log(res)
+        if (res.data[0]) {
+          this.$router.push('/prefer')
+        } else {
+          this.$router.push('/basic')
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

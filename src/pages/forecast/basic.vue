@@ -73,7 +73,7 @@ export default {
       let local = this.local
       let sub = this.subject[this.i]
       let score = this.score
-      this.axios.post('/api/data/basic', {
+      this.axios.post('/api/data/basInfo', {
         uid, local, sub, score
       }).then(res => {
         console.log(res.data)
