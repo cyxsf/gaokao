@@ -37,7 +37,7 @@ import { getStore } from '@/config/mUtils'
 export default {
   data () {
     return {
-      subject: ['理科', '文科', '艺术类'],
+      subject: ['理科', '文科'],
       i: 0,
       local: '', // 省份
       showAlert: false, // 提示框
@@ -62,25 +62,45 @@ export default {
       if (this.i > this.subject.length - 1) this.i = 0
     },
     finish () {
-      this.showAlert = true
-      this.alertText = '一旦确定以后无法修改信息'
+      let uid = getStore('userid')
+      let local = this.local
+      let sub = this.subject[this.i]
+      let score = this.score
+      if (local === '') {
+        this.showAlert = true
+        this.alertText = '生源地不能为空'
+      } else if (score === '') {
+        this.showAlert = true
+        this.alertText = '高考分数不能为空'
+      } else {
+        this.axios.post('/api/data/basSelect', {
+          uid
+        }).then(res => {
+          if (res.data[0]) {
+            this.axios.post('/api/data/basUpdate', {
+              uid, local, sub, score
+            }).then(res => {
+              this.$router.push('/final')
+            }).catch(err => {
+              console.log(err)
+            })
+          } else {
+            this.axios.post('/api/data/basInfo', {
+              uid, local, sub, score
+            }).then(res => {
+              this.$router.push('/final')
+            }).catch(err => {
+              console.log(err)
+            })
+          }
+        })
+      }
     },
     closeTip () {
       this.showAlert = false
     },
     submitTip () {
-      let uid = getStore('userid')
-      let local = this.local
-      let sub = this.subject[this.i]
-      let score = this.score
-      this.axios.post('/api/data/basInfo', {
-        uid, local, sub, score
-      }).then(res => {
-        console.log(res.data)
-        this.$router.push('/prefer')
-      }).catch(err => {
-        console.log(err)
-      })
+      this.showAlert = false
     }
   },
   mounted () {

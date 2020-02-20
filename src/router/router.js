@@ -5,7 +5,6 @@ import Register from '@/pages/other/register'
 import Forget from '@/pages/other/forget'
 import Home from '@/pages/home/home'
 import Basic from '@/pages/forecast/basic'
-import Prefer from '@/pages/forecast/prefer'
 import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
 import EvalHome from '@/pages/evaluate/home'
@@ -59,13 +58,6 @@ const router = new Router({
         title: '基本信息'
       },
       component: Basic
-    },
-    {
-      path: '/prefer',
-      meta: {
-        title: '偏好信息'
-      },
-      component: Prefer
     },
     {
       path: '/final',

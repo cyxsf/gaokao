@@ -45,3 +45,31 @@ router.post('/basSelect', (req, res) => { // 查找基本信息
   })
   // conn.end()
 })
+
+router.post('/basUpdate', (req, res) => { // 更新基本信息
+  let sqlStr = sql.forecast.basUpdate
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.local, params.sub, params.score, params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/finalTour', (req, res) => { // 填报指南
+  let sqlStr = sql.forecast.finalTour
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.fid, params.sid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})

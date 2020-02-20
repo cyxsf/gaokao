@@ -17,7 +17,9 @@ var sqlMap = {
     // 学校预测
     proSelect: 'select * from province order by psort',
     basInfo: 'insert into userinfo(userid,curplace,subject,score) values(?,?,?,?)',
-    basSelect: 'select * from userinfo where userid = ?'
+    basSelect: 'select * from userinfo where userid = ?',
+    basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
+    finalTour: 'select * from univerinfo where id = ? or id = ?'
   }
 }
 
