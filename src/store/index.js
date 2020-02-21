@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 const state = { // 定义状态
   isLogin: false, // 是否登录
-  userInfo: null // 用户信息
+  userInfo: null, // 用户信息
+  imgPath: null // 头像地址
 }
 
 export default new Vuex.Store({

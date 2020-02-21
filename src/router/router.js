@@ -7,6 +7,7 @@ import Home from '@/pages/home/home'
 import Basic from '@/pages/forecast/basic'
 import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
+import UserInfo from '@/pages/user/userinfo'
 import EvalHome from '@/pages/evaluate/home'
 import Holland from '@/pages/evaluate/holland'
 import EvalResult from '@/pages/evaluate/result'
@@ -74,6 +75,13 @@ const router = new Router({
       component: User
     },
     {
+      path: '/user/info',
+      meta: {
+        title: '账户信息'
+      },
+      component: UserInfo
+    },
+    {
       path: '/evalhome',
       meta: {
         title: '测评首页'
@@ -95,6 +103,24 @@ const router = new Router({
       component: EvalResult
     }
   ]
+})
+
+// 导航守卫
+// 使用router.beforeEach 注册一个全局前置守卫，判断用户是否登录
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
+    const userInfo = JSON.parse(localStorage.getItem('userid')) // 获取本地存储的信息
+    if (userInfo) { // 通过获取当前的token是否存在
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

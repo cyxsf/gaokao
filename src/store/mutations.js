@@ -3,6 +3,7 @@ import { setStore } from '../config/mUtils'
 const RECORD_USER = 'RECORD_USER' // 用常量代替事件类型，使得代码更清晰
 const GET_USERINFO = 'GET_USERINFO'
 const OUT_LOGIN = 'OUT_LOGIN'
+const SAVE_AVANDER = 'SAVE_AVANDER'
 
 export default {
   // 记录用户信息
@@ -10,6 +11,10 @@ export default {
     state.userInfo = info
     state.isLogin = true
     setStore('userid', info.userid)
+  },
+  // 保存图片
+  [SAVE_AVANDER] (state, imgPath) {
+    state.imgPath = imgPath
   },
   // 获取用户信息存入vuex
   [GET_USERINFO] (state, info) {

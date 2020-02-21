@@ -43,6 +43,7 @@ export default {
     align-items: center;
     justify-content: center;
     color: #ffffff;
+    fill: #ffffff;
     background-color: #14334e;
 }
 .back {

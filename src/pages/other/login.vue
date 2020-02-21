@@ -28,7 +28,7 @@
 <script>
 import headTop from '@/components/common/header'
 import alertTip from '@/components/common/alertTip'
-import {mapActions} from 'vuex'
+import {mapMutations} from 'vuex'
 export default {
   data () {
     return {
@@ -45,7 +45,7 @@ export default {
     alertTip
   },
   methods: {
-    ...mapActions(['setUser']),
+    ...mapMutations(['RECORD_USER']),
     // 登录验证
     userLogin () {
       let uid = this.phone
@@ -65,7 +65,7 @@ export default {
         console.log(res.data)
         if (res.data[0]) {
           let date = res.data[0]
-          this.setUser(date)
+          this.RECORD_USER(date)
           this.$router.push('/')
         } else {
           this.showAlert = true
