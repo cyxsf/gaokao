@@ -8,11 +8,14 @@ import VueAxios from 'vue-axios'
 import store from './store/'
 import echarts from 'echarts'
 import IconSvg from './components/icons/IconSvg'
+import Swiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
 // import AgoraRTC from 'agora-rtc-sdk'
 
 Vue.prototype.$echarts = echarts
 Vue.component('icon-svg', IconSvg)
 Vue.use(VueAxios, axios)
+Vue.use(Swiper)
 
 /* eslint-disable no-new */
 new Vue({
