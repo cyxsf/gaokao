@@ -4,6 +4,8 @@ const RECORD_USER = 'RECORD_USER' // 用常量代替事件类型，使得代码�
 const GET_USERINFO = 'GET_USERINFO'
 const OUT_LOGIN = 'OUT_LOGIN'
 const SAVE_AVANDER = 'SAVE_AVANDER'
+const TOGGLE_ISLOGIN = 'TOGGLE_ISLOGIN'
+const TOGGLE_ISSDKREADY = 'TOGGLE_ISSDKREADY'
 
 export default {
   // 记录用户信息
@@ -16,20 +18,17 @@ export default {
   [SAVE_AVANDER] (state, imgPath) {
     state.imgPath = imgPath
   },
-  // 获取用户信息存入vuex
+  // 获取用户信息
   [GET_USERINFO] (state, info) {
-    console.log(info)
-    if (state.info && state.info.userid) {
-      return
-    }
-    if (!state.isLogin) {
-      return
-    }
-    if (!info.message) {
-      state.userInfo = { ...info }
-    } else {
-      state.userInfo = null
-    }
+    state.userID = info.userID
+    state.userSig = info.userSig
+    state.sdkAppID = info.sdkAppID
+  },
+  [TOGGLE_ISLOGIN] (state, isLogin) {
+    state.isLogin = typeof isLogin === 'undefined' ? !state.isLogin : isLogin
+  },
+  [TOGGLE_ISSDKREADY] (state, isSDKReady) {
+    state.isSDKReady = typeof isSDKReady === 'undefined' ? !state.isSDKReady : isSDKReady
   },
   // 退出登录
   [OUT_LOGIN] (state) {

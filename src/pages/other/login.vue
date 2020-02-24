@@ -45,7 +45,7 @@ export default {
     alertTip
   },
   methods: {
-    ...mapMutations(['RECORD_USER']),
+    ...mapMutations(['RECORD_USER', 'TOGGLE_ISSDKREADY']),
     // 登录验证
     userLogin () {
       let uid = this.phone
@@ -62,11 +62,20 @@ export default {
       this.axios.post('/api/user/userLogin', {
         uid, pwd
       }).then(res => {
-        console.log(res.data)
         if (res.data[0]) {
           let date = res.data[0]
           this.RECORD_USER(date)
-          this.$router.push('/')
+          let promise = this.tim.login({userID: uid, userSig: window.genTestUserSig(uid).userSig})
+          promise.then(imResponse => {
+            console.log('登录成功')
+            // this.$router.push('/')
+          }).catch(imError => {
+            if (imError.code === 2000) {
+              console.warn(imError.message + ', 请检查是否正确填写了 SDKAPPID')
+            } else {
+              console.warn(imError.message)
+            }
+          })
         } else {
           this.showAlert = true
           this.alertText = '账号或密码错误'
