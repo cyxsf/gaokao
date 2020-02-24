@@ -50,6 +50,7 @@ export default {
     userLogin () {
       let uid = this.phone
       let pwd = this.pwd
+      let userid = String(this.phone)
       if (!uid) {
         this.showAlert = true
         this.alertText = '请输入手机号'
@@ -65,10 +66,10 @@ export default {
         if (res.data[0]) {
           let date = res.data[0]
           this.RECORD_USER(date)
-          let promise = this.tim.login({userID: uid, userSig: window.genTestUserSig(uid).userSig})
+          let promise = this.tim.login({userID: userid, userSig: window.genTestUserSig(userid).userSig})
           promise.then(imResponse => {
             console.log('登录成功')
-            // this.$router.push('/')
+            this.$router.push('/')
           }).catch(imError => {
             if (imError.code === 2000) {
               console.warn(imError.message + ', 请检查是否正确填写了 SDKAPPID')
