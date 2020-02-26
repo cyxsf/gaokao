@@ -56,6 +56,10 @@ export default new Vuex.Store({
     }
   },
   modules: {
+    conversation,
+    group,
+    friend,
+    blacklist,
     user
   }
 })

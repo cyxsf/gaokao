@@ -49,6 +49,15 @@
       placement="top"
       style="max-height:500px;overflow-y:scroll;"
     >
+      <el-radio-group
+        v-model="atUserID"
+        style="display:flex;flex-decoration: column;"
+        v-for="member in memberList"
+        :key="member.userID"
+        @change="handleSelectAtUser"
+      >
+        <el-radio :label="member.userID">{{ member.nameCard || member.nick || member.userID }}</el-radio>
+      </el-radio-group>
     </el-popover>
     <div class="bottom">
       <textarea
@@ -123,11 +132,6 @@ export default {
       messageContent: '',
       isSendCustomMessage: false,
       surveyDialogVisible: false,
-      form: {
-        data: '',
-        description: '',
-        extension: ''
-      },
       rate: 5, // 评分
       suggestion: '', // 建议
       file: '',
@@ -135,12 +139,14 @@ export default {
       emojiName: emojiName,
       emojiUrl: emojiUrl,
       showAtGroupMember: false,
+      atUserID: '',
       focus: false
     }
   },
   computed: {
     ...mapGetters(['toAccount', 'currentConversationType']),
     ...mapState({
+      memberList: state => state.group.currentMemberList,
       userID: state => state.user.userID
     })
   },
@@ -154,6 +160,28 @@ export default {
   methods: {
     reEditMessage (payload) {
       this.messageContent = payload
+    },
+    handleSelectAtUser () {
+      this.messageContent += this.atUserID + ' '
+      this.showAtGroupMember = false
+    },
+    handleUp () {
+      const index = this.memberList.findIndex(
+        member => member.userID === this.atUserID
+      )
+      if (index - 1 < 0) {
+        return
+      }
+      this.atUserID = this.memberList[index - 1].userID
+    },
+    handleDown () {
+      const index = this.memberList.findIndex(
+        member => member.userID === this.atUserID
+      )
+      if (index + 1 >= this.memberList.length) {
+        return
+      }
+      this.atUserID = this.memberList[index + 1].userID
     },
     handleEnter () {
       if (this.showAtGroupMember) {

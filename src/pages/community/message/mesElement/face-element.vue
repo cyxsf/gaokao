@@ -1,0 +1,49 @@
+<template>
+<message-bubble :isMine=isMine :message=message>
+  <div class="face-element-wrapper">
+    <img :src="url"/>
+  </div>
+</message-bubble>
+</template>
+
+<script>
+import MessageBubble from '../mesBubble'
+export default {
+  name: 'FaceElement',
+  props: {
+    payload: {
+      type: Object,
+      required: true
+    },
+    message: {
+      type: Object,
+      required: true
+    },
+    isMine: {
+      type: Boolean
+    }
+  },
+  components: {
+    MessageBubble
+  },
+  computed: {
+    url () {
+      let name = ''
+      if (this.payload.data.indexOf('@2x') > 0) {
+        name = this.payload.data
+      } else {
+        name = this.payload.data + '@2x'
+      }
+      return `https://imgcache.qq.com/open/qcloud/tim/assets/face-elem/${name}.png`
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.face-element-wrapper{
+  img {
+    max-width: 90px;
+  }
+}
+</style>
