@@ -42,7 +42,7 @@
 </template>
 <script>
 import headTop from '@/components/common/header'
-import {mapState, mapMutations} from 'vuex'
+import {mapState} from 'vuex'
 import { getStore } from '@/config/mUtils'
 export default {
   data () {
@@ -55,13 +55,14 @@ export default {
     headTop
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState({
+      userID: state => state.user.userID
+    })
   },
   methods: {
-    ...mapMutations(['SAVE_AVANDER']),
     initData () {
-      if (this.userInfo && this.userInfo.userid) {
-        this.userid = this.userInfo.userid
+      if (this.userID) {
+        this.userid = this.userID
       } else {
         this.userid = getStore('userid')
       }

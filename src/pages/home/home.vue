@@ -17,6 +17,10 @@
           <span>填报指南</span>
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </router-link>
+        <router-link to="/sendmes" class="list">
+          <span>发送信息</span>
+          <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
+        </router-link>
       </section>
       </div>
       <foot-guide></foot-guide>

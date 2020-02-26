@@ -28,7 +28,6 @@
 <script>
 import headTop from '@/components/common/header'
 import alertTip from '@/components/common/alertTip'
-import {mapMutations} from 'vuex'
 export default {
   data () {
     return {
@@ -45,7 +44,6 @@ export default {
     alertTip
   },
   methods: {
-    ...mapMutations(['RECORD_USER', 'TOGGLE_ISSDKREADY']),
     // 登录验证
     userLogin () {
       let uid = this.phone
@@ -64,11 +62,17 @@ export default {
         uid, pwd
       }).then(res => {
         if (res.data[0]) {
-          let date = res.data[0]
-          this.RECORD_USER(date)
           let promise = this.tim.login({userID: userid, userSig: window.genTestUserSig(userid).userSig})
           promise.then(imResponse => {
             console.log('登录成功')
+            this.$store.commit({
+              type: 'GET_USER_INFO',
+              userID: userid,
+              userSig: window.genTestUserSig(userid).userSig,
+              sdkAppID: window.genTestUserSig('').SDKAppID
+            })
+            this.$store.commit('toggleIsLogin', true)
+            this.$store.commit('startComputeCurrent')
             this.$router.push('/')
           }).catch(imError => {
             if (imError.code === 2000) {

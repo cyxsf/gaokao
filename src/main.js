@@ -19,7 +19,7 @@ window.tim = tim
 window.TIM = TIM
 Vue.prototype.tim = tim
 Vue.prototype.TIM = TIM
-
+Vue.prototype.$bus = new Vue() // event Bus 用于无关系组件间的通信。
 Vue.prototype.$echarts = echarts
 Vue.component('icon-svg', IconSvg)
 Vue.use(VueAxios, axios)
