@@ -68,6 +68,8 @@ export default {
       }
     },
     userOut () {
+      this.$store.dispatch('logout')
+      this.$router.push('/login')
     }
   },
   watch: {

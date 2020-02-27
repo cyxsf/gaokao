@@ -29,6 +29,7 @@
 <script>
 import footGuide from '@/components/common/footer'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -48,9 +49,66 @@ export default {
     swiper,
     swiperSlide
   },
+  computed: {
+    ...mapState({
+      currentUserProfile: state => state.user.currentUserProfile,
+      currentConversation: state => state.conversation.currentConversation,
+      isLogin: state => state.user.isLogin,
+      isSDKReady: state => state.user.isSDKReady,
+      userID: state => state.user.userID
+    })
+  },
+  mounted () {
+    // 初始化监听器
+    this.initListener()
+  },
   methods: {
     goToAddress (path) {
       this.$router.push(path)
+    },
+    initListener () {
+      // 登录成功后会触发 SDK_READY 事件，该事件触发后，可正常使用 SDK 接口
+      this.tim.on(this.TIM.EVENT.SDK_READY, this.onReadyStateUpdate, this)
+      // SDK NOT READT
+      this.tim.on(this.TIM.EVENT.SDK_NOT_READY, this.onReadyStateUpdate, this)
+      // SDK内部出错
+      this.tim.on(this.TIM.EVENT.ERROR, this.onError)
+      // 收到新消息
+      this.tim.on(this.TIM.EVENT.MESSAGE_RECEIVED, this.onReceiveMessage)
+    },
+    onReceiveMessage ({ data: messageList }) {
+      this.handleVideoMessage(messageList)
+      this.handleAt(messageList)
+      this.handleQuitGroupTip(messageList)
+      this.$store.commit('pushCurrentMessageList', messageList)
+    },
+    onError ({ data }) {
+      if (data.message !== 'Network Error') {
+        this.$store.commit('showMessage', {
+          message: data.message,
+          type: 'error'
+        })
+      }
+    },
+    onReadyStateUpdate ({ name }) {
+      // eslint-disable-next-line no-unneeded-ternary
+      const isSDKReady = name === this.TIM.EVENT.SDK_READY ? true : false
+      this.$store.commit('toggleIsSDKReady', isSDKReady)
+
+      if (isSDKReady) {
+        this.tim
+          .getMyProfile()
+          .then(({ data }) => {
+            this.$store.commit('updateCurrentUserProfile', data)
+          })
+          .catch(error => {
+            this.$store.commit('showMessage', {
+              type: 'error',
+              message: error.message
+            })
+          })
+        this.$store.dispatch('getBlacklist')
+      }
     }
   }
 }
