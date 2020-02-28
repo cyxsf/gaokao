@@ -4,9 +4,7 @@
             <icon-svg class="back-icon" icon-class="icon-zuohua"></icon-svg>
             {{backTit}}
         </span>
-        <slot name="left"></slot>
         <span class="title">{{title}}</span>
-        <slot name="right"></slot>
     </div>
 </template>
 <script>
@@ -27,7 +25,7 @@ export default {
     // 如果传递了back,则左侧返回文字显示的是传入的值
     if (this.$options.propsData.back !== undefined) this.backTit = this.$options.propsData.back
     // 如果传递了showLeft(默认是true),则该值决定左侧是否显示
-    if (this.$options.propsData.showLeft !== undefined) this.iSshow = this.$options.propsData.showLeft
+    if (this.$options.propsData.showLeft !== undefined) this.isShow = this.$options.propsData.showLeft
   }
 }
 </script>

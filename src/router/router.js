@@ -13,6 +13,7 @@ import Holland from '@/pages/evaluate/holland'
 import EvalResult from '@/pages/evaluate/result'
 import Province from '@/components/common/province'
 import sendMes from '@/pages/community/message/sendMes'
+import seniors from '@/pages/seniors/home'
 
 Vue.use(Router)
 
@@ -109,6 +110,13 @@ const router = new Router({
         title: '发送消息'
       },
       component: sendMes
+    },
+    {
+      path: '/seniors',
+      meta: {
+        title: '学长学姐'
+      },
+      component: seniors
     }
   ]
 })

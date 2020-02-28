@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     initData () {
-      this.title = '用户名'
+      this.title = this.$route.query.name
     },
     onScroll ({ target: { scrollTop } }) {
       let messageListNode = this.$refs['message-list']

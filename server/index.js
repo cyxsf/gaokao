@@ -2,6 +2,7 @@ const http = require('http')
 const userApi = require('./api/userApi')
 const testApi = require('./api/testApi')
 const dataApi = require('./api/dataApi')
+const seniApi = require('./api/seniApi')
 const bodyParser = require('body-parser')
 const express = require('express')
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 app.use('/api/user', userApi)
 app.use('/api/test', testApi)
 app.use('/api/data', dataApi)
+app.use('/api/seni', seniApi)
 
 // 监听端口
 server.listen(3000, () => {

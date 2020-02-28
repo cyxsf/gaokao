@@ -1,6 +1,6 @@
 <template>
     <div>
-        <headTop title='个人中心'></headTop>
+        <headTop title='个人中心' :showLeft='false'></headTop>
         <section class="userInfo">
           <router-link to='/user/info' class="userlink">
               <span clss="privateImg">
@@ -38,10 +38,12 @@
         <div class="btn-fa">
           <button class="btn" @click="userOut">退出登录</button>
         </div>
+        <footGuide></footGuide>
     </div>
 </template>
 <script>
 import headTop from '@/components/common/header'
+import footGuide from '@/components/common/footer'
 import {mapState} from 'vuex'
 import { getStore } from '@/config/mUtils'
 export default {
@@ -52,7 +54,8 @@ export default {
     }
   },
   components: {
-    headTop
+    headTop,
+    footGuide
   },
   computed: {
     ...mapState({

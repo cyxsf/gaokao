@@ -31,7 +31,7 @@
     <div class="btn-fa">
       <button class="btn" @click="userReg">立即注册</button>
     </div>
-    <alert-tip v-if="showAlert" @closeTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
+    <alert-tip v-if="showAlert" @closeTip="closeTip"  @submitTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
   </div>
 </template>
 <script>

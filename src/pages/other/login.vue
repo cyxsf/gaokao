@@ -22,7 +22,7 @@
       <span class="goreg" @click="goToAddress('/register')">立即注册</span>
       <span class="forget" @click="goToAddress('/forget')">忘记密码？</span>
     </div>
-    <alert-tip v-if="showAlert" @closeTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
+    <alert-tip v-if="showAlert" @closeTip="closeTip"  @submitTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
   </div>
 </template>
 <script>

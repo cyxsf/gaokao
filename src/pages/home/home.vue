@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="header"></div>
+      <headTop title="首页" :showLeft='false'></headTop>
       <div class="main">
         <swiper :options="swiperOption">
           <swiper-slide v-for="item of list" :key="item.id">
@@ -21,12 +21,17 @@
           <span>发送信息</span>
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </router-link>
+        <router-link to="/seniors" class="list">
+          <span>学长学姐</span>
+          <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
+        </router-link>
       </section>
       </div>
-      <foot-guide></foot-guide>
+      <footGuide></footGuide>
     </div>
 </template>
 <script>
+import headTop from '@/components/common/header'
 import footGuide from '@/components/common/footer'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import { mapState } from 'vuex'
@@ -45,6 +50,7 @@ export default {
     }
   },
   components: {
+    headTop,
     footGuide,
     swiper,
     swiperSlide
@@ -115,6 +121,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../style/mixin';
+.main {
+  margin-top: 60px;
+  border-top: 1px solid #ffffff;
+}
 .swiper-img {
   width: 100%;
   height: 250px;

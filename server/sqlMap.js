@@ -1,7 +1,7 @@
 var sqlMap = {
   user: {
     // 注册登录
-    reg: 'insert into user(userid,password,root) values(?,?,2)',
+    reg: 'insert into user(userid,password,root) values(?,?,1)',
     login: 'select * from user where userid = ? and password = ?',
     update: 'update user set password = ? where userid = ?',
     select: 'select * from user where userid = ?'
@@ -20,6 +20,9 @@ var sqlMap = {
     basSelect: 'select * from userinfo where userid = ?',
     basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
     finalTour: 'select * from univerinfo where id = ? or id = ?'
+  },
+  community: {
+    senSelect: 'select * from seniors'
   }
 }
 
