@@ -52,7 +52,7 @@ export default {
         path: '/sendmes',
         query: {name}
       })
-      this.$store.dispatch('checkoutConversation', uid)
+      this.$store.dispatch('checkoutConversation', `C2C${uid}`)
     }
   }
 }

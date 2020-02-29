@@ -1,10 +1,10 @@
 <template>
   <div id="message-send-box-wrapper" :style="focus ? {'backgroundColor': 'white'} : {}">
     <div class="send-header-bar">
-      <el-popover placement="top" width="400" trigger="click">
+      <el-popover placement="top" width="320" trigger="click" class="el-popover">
         <div class="emojis">
           <div v-for="item in emojiName" class="emoji" :key="item" @click="chooseEmoji(item)">
-            <img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
+            <img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px;" />
           </div>
         </div>
         <i class="iconfont icon-smile" slot="reference" title="发表情">
@@ -352,7 +352,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #message-send-box-wrapper {
   box-sizing: border-box;
   overflow: hidden;
@@ -360,6 +360,16 @@ export default {
   margin-top: 70px;
 }
 
+.el-popover {
+  left: 0 !important;
+  min-width: 150px;
+  border-radius: 4px;
+  padding: 12px;
+  text-align: justify;
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+  word-break: break-all;
+}
 .emojis {
   height: 160px;
   box-sizing: border-box;

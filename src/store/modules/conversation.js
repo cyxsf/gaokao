@@ -1,4 +1,4 @@
-import tim from 'tim'
+import tim from '../../tim'
 import TIM from 'tim-js-sdk'
 import store from '..'
 import { titleNotify } from '@/config/mUtils'
@@ -12,6 +12,7 @@ const conversationModules = {
   },
   getters: {
     toAccount: state => {
+      console.log(state.currentConversation)
       if (!state.currentConversation || !state.currentConversation.conversationID) {
         return ''
       }
@@ -151,16 +152,20 @@ const conversationModules = {
      */
     checkoutConversation (context, conversationID) {
       context.commit('resetCurrentMemberList')
+      console.log(conversationID)
       // 1.切换会话前，将切换前的会话进行已读上报
       if (context.state.currentConversation.conversationID) {
         const prevConversationID = context.state.currentConversation.conversationID
         tim.setMessageRead({ conversationID: prevConversationID })
+        console.log(1)
       }
       // 2.待切换的会话也进行已读上报
-      tim.setMessageRead({ conversationID })
+      tim.setMessageRead({ conversationID: 'C2C789' })
+      console.log(2)
       // 3. 获取会话信息
       return tim.getConversationProfile(conversationID).then(({ data }) => {
         // 3.1 更新当前会话
+        console.log(3)
         context.commit('updateCurrentConversation', data.conversation)
         // 3.2 获取消息列表
         context.dispatch('getMessageList', conversationID)

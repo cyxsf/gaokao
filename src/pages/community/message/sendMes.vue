@@ -194,7 +194,7 @@ export default {
 .btn-more-info {
   position: absolute;
   top: 10px;
-  right: -15px;
+  right: 0px;
   border-radius: 50%;
   width: 30px;
   height: 30px;
