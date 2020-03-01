@@ -8,6 +8,10 @@
         <icon-svg class="icon" icon-class="icon-form"></icon-svg>
         <span>填报推荐</span>
       </section>
+      <section class="guide_item" @click="gotoAddress('/basic')">
+        <icon-svg class="icon" icon-class="icon-xiaoxi"></icon-svg>
+        <span>我的消息</span>
+      </section>
       <section class="guide_item" @click="gotoAddress('/user')">
         <icon-svg class="icon" icon-class="icon-account"></icon-svg>
         <span>个人中心</span>

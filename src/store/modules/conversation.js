@@ -157,15 +157,12 @@ const conversationModules = {
       if (context.state.currentConversation.conversationID) {
         const prevConversationID = context.state.currentConversation.conversationID
         tim.setMessageRead({ conversationID: prevConversationID })
-        console.log(1)
       }
       // 2.待切换的会话也进行已读上报
-      tim.setMessageRead({ conversationID: 'C2C789' })
-      console.log(2)
+      tim.setMessageRead({ conversationID })
       // 3. 获取会话信息
       return tim.getConversationProfile(conversationID).then(({ data }) => {
         // 3.1 更新当前会话
-        console.log(3)
         context.commit('updateCurrentConversation', data.conversation)
         // 3.2 获取消息列表
         context.dispatch('getMessageList', conversationID)

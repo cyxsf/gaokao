@@ -15,10 +15,10 @@
       <div class="content">
         <div class="message-list" ref="message-list" @scroll="this.onScroll">
           <div class="more" v-if="!isCompleted">
-            <button
+            <el-button
               type="text"
               @click="$store.dispatch('getMessageList', currentConversation.conversationID)"
-            >查看更多</button>
+            >查看更多</el-button>
           </div>
           <div class="no-more" v-else>没有更多了</div>
           <mesItem v-for="message in currentMessageList" :key="message.ID" :message="message"/>
@@ -95,7 +95,14 @@ export default {
   },
   methods: {
     initData () {
-      this.title = this.$route.query.name
+      if (this.currentConversation.type === 'C2C') {
+        this.title = this.currentConversation.userProfile.nick || this.toAccount
+      } else if (this.currentConversation.type === 'GROUP') {
+        this.title = this.currentConversation.groupProfile.name || this.toAccount
+      } else if (this.currentConversation.conversationID === '@TIM#SYSTEM') {
+        this.title = '系统通知'
+      }
+      this.title = this.toAccount
     },
     onScroll ({ target: { scrollTop } }) {
       let messageListNode = this.$refs['message-list']
@@ -150,7 +157,6 @@ export default {
 .current-conversation-wrapper {
   display: flex;
   height: 100%;
-  background-color: $background-light;
   color: $base;
 }
 .current-conversation {
@@ -158,6 +164,7 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  background-color: $background-light;
 }
 .profile {
   height: 100%;
@@ -200,50 +207,13 @@ export default {
   height: 30px;
   cursor: pointer;
 }
-/*
-&::before {
-  position: absolute;
-  right: 0;
-  z-index: 0;
-  content: "";
-  width: 15px;
-  height: 30px;
-  border: 1px solid $border-base;
-  border-radius: 0 100% 100% 0/50%;
-  border-left: none;
-  background-color: $background-light;
-}
-&::after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  transition: transform 0.8s;
-  border-top: 2px solid $secondary;
-  border-right: 2px solid $secondary;
-  float:right;
-  position:relative;
-  top: 11px;
-  right: 8px;
-  transform:rotate(45deg);
-}
-&.left-arrow {
-  transform: rotate(180deg);
-}
-&::before {
-  background-color: $white;
-}
-&:hover {
-  &::after {
-  border-color: $light-primary;
-  }
-}
-*/
+
 .content {
   display: flex;
   flex: 1;
   flex-direction: column;
-  height: 100%;
   margin-top: 70px;
+  height: 585px;
   overflow: hidden;
   position: relative;
 }
@@ -270,7 +240,11 @@ export default {
   color: $primary;
 }
 .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   border-top: 1px solid $border-base;
+  background-color: $background-light;
 }
 .show-more {
   text-align: right;

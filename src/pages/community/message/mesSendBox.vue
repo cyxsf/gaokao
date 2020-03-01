@@ -1,7 +1,7 @@
 <template>
   <div id="message-send-box-wrapper" :style="focus ? {'backgroundColor': 'white'} : {}">
     <div class="send-header-bar">
-      <el-popover placement="top" width="320" trigger="click" class="el-popover">
+      <el-popover placement="top" width="320" trigger="click">
         <div class="emojis">
           <div v-for="item in emojiName" class="emoji" :key="item" @click="chooseEmoji(item)">
             <img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px;" />
@@ -21,8 +21,8 @@
         <icon-svg icon-class="icon-diaocha"></icon-svg>
       </i>
     </div>
-    <el-dialog title="对IM Web demo的建议和使用感受" :visible.sync="surveyDialogVisible" width="30%">
-      <el-form label-width="100px">
+    <el-dialog title="对该用户的评价和建议" :visible.sync="surveyDialogVisible" width="70%">
+      <el-form label-width="45px">
         <el-form-item label="评分">
           <div class="block">
             <el-rate v-model="rate" :colors="colors" show-text></el-rate>
@@ -39,8 +39,8 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <button @click="surveyDialogVisible = false">取 消</button>
-        <button type="primary" @click="sendSurvey">确 定</button>
+        <el-button @click="surveyDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="sendSurvey">确 定</el-button>
       </span>
     </el-dialog>
     <el-popover
@@ -81,7 +81,7 @@
         placement="left-start"
       >
         <div class="btn-send" @click="sendTextMessage">
-          <div class="tim-icon-send"></div>
+          <icon-svg class="icon" icon-class="icon-send"></icon-svg>
         </div>
       </el-tooltip>
     </div>
@@ -99,38 +99,15 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import {
-  Form,
-  FormItem,
-  Input,
-  Dialog,
-  Popover,
-  RadioGroup,
-  Radio,
-  Tooltip,
-  Rate
-} from 'element-ui'
 import { emojiMap, emojiName, emojiUrl } from '../../../config/emojiMap'
 
 export default {
   name: 'message-send-box',
   props: ['scrollMessageListToButtom'],
-  components: {
-    ElInput: Input,
-    ElForm: Form,
-    ElFormItem: FormItem,
-    ElDialog: Dialog,
-    ElPopover: Popover,
-    ElRadioGroup: RadioGroup,
-    ElRadio: Radio,
-    ElTooltip: Tooltip,
-    ElRate: Rate
-  },
   data () {
     return {
       colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
       messageContent: '',
-      isSendCustomMessage: false,
       surveyDialogVisible: false,
       rate: 5, // 评分
       suggestion: '', // 建议
@@ -160,10 +137,6 @@ export default {
   methods: {
     reEditMessage (payload) {
       this.messageContent = payload
-    },
-    handleSelectAtUser () {
-      this.messageContent += this.atUserID + ' '
-      this.showAtGroupMember = false
     },
     handleUp () {
       const index = this.memberList.findIndex(
@@ -352,24 +325,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '../../../style/mixin';
 #message-send-box-wrapper {
   box-sizing: border-box;
   overflow: hidden;
   padding: 3px 20px 20px 20px;
-  margin-top: 70px;
 }
 
-.el-popover {
-  left: 0 !important;
-  min-width: 150px;
-  border-radius: 4px;
-  padding: 12px;
-  text-align: justify;
-  -webkit-box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-  word-break: break-all;
-}
 .emojis {
   height: 160px;
   box-sizing: border-box;
@@ -398,7 +361,7 @@ export default {
 }
 
 .send-header-bar i:hover {
-  color: #000000;
+  color: $black;
 }
 
 textarea {
@@ -423,16 +386,16 @@ textarea {
 .bottom {
   padding-top: 10px;
   position: relative;
+}
 
-  .btn-send {
-    cursor: pointer;
-    position: absolute;
-    color: #2d8cf0;
-    font-size: 30px;
-    right: 0;
-    bottom: -5px;
-    padding: 6px 6px 4px 4px;
-    border-radius: 50%;
-  }
+.btn-send {
+  cursor: pointer;
+  position: absolute;
+  color: $primary;
+  font-size: 30px;
+  right: 0;
+  bottom: -5px;
+  padding: 6px 6px 4px 4px;
+  border-radius: 50%;
 }
 </style>

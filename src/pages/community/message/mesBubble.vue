@@ -9,7 +9,6 @@
         <!-- <el-dropdown-item command="delete">删除</el-dropdown-item> -->
       </el-dropdown-menu>
     </el-dropdown>
-
     <div class="group-tip-element-wrapper" v-if="message.isRevoked">
       {{text}}
       <el-button type="text" size="mini" class="edit-button" v-show="isEdit" @click="reEdit">&nbsp;重新编辑</el-button>
@@ -109,8 +108,6 @@ export default {
               type: 'warning'
             })
           })
-          break
-        case 'delete':
           break
         default:
           break

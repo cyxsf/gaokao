@@ -40,6 +40,12 @@
             :payload="message.payload"
             :message="message"
           />
+          <custom-element
+            v-else-if="message.type === TIM.TYPES.MSG_CUSTOM"
+            :isMine="isMine"
+            :payload="message.payload"
+            :message="message"
+          />
           <face-element
             v-else-if="message.type === TIM.TYPES.MSG_FACE"
             :isMine="isMine"
@@ -98,6 +104,12 @@
             :isMine="isMine"
             :payload="message.payload"
           />
+          <custom-element
+            v-else-if="message.type === TIM.TYPES.MSG_CUSTOM"
+            :isMine="isMine"
+            :payload="message.payload"
+            :message="message"
+          />
           <face-element
             v-else-if="message.type === TIM.TYPES.MSG_FACE"
             :isMine="isMine"
@@ -141,6 +153,7 @@ import ImageElement from './mesElement/image-element.vue'
 import TextElement from './mesElement/text-element.vue'
 import GroupTipElement from './mesElement/group-tip-element.vue'
 import GroupSystemNoticeElement from './mesElement/group-system-notice-element.vue'
+import CustomElement from './mesElement/custom-element.vue'
 import GeoElement from './mesElement/geo-element.vue'
 
 export default {
@@ -161,6 +174,7 @@ export default {
     TextElement,
     GroupTipElement,
     GroupSystemNoticeElement,
+    CustomElement,
     GeoElement
   },
   data () {
