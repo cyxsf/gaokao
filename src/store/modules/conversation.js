@@ -12,7 +12,6 @@ const conversationModules = {
   },
   getters: {
     toAccount: state => {
-      console.log(state.currentConversation)
       if (!state.currentConversation || !state.currentConversation.conversationID) {
         return ''
       }
@@ -152,7 +151,6 @@ const conversationModules = {
      */
     checkoutConversation (context, conversationID) {
       context.commit('resetCurrentMemberList')
-      console.log(conversationID)
       // 1.切换会话前，将切换前的会话进行已读上报
       if (context.state.currentConversation.conversationID) {
         const prevConversationID = context.state.currentConversation.conversationID

@@ -8,7 +8,7 @@
         <icon-svg class="icon" icon-class="icon-form"></icon-svg>
         <span>填报推荐</span>
       </section>
-      <section class="guide_item" @click="gotoAddress('/basic')">
+      <section class="guide_item" @click="gotoAddress('/mesList')">
         <icon-svg class="icon" icon-class="icon-xiaoxi"></icon-svg>
         <span>我的消息</span>
       </section>

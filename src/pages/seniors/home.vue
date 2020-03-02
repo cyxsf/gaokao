@@ -20,7 +20,7 @@
                   <span>{{item.year}}级</span>
               </span>
             </div>
-            <button class="btn" @click="sendMess(item.userid,item.name)">咨询</button>
+            <button class="btn" @click="sendMess(item.userid)">咨询</button>
         </section>
     </div>
 </template>
@@ -47,11 +47,8 @@ export default {
         this.seniorList = res.data
       })
     },
-    sendMess (uid, name) {
-      this.$router.push({
-        path: '/sendmes',
-        query: {name}
-      })
+    sendMess (uid) {
+      this.$router.push('/sendmes')
       this.$store.dispatch('checkoutConversation', `C2C${uid}`)
     }
   }

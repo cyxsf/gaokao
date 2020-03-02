@@ -40,7 +40,6 @@ import mesItem from '@/pages/community/message/mesItem'
 export default {
   data () {
     return {
-      title: '',
       isShowScrollButtomTips: false,
       preScrollHeight: 0,
       timeout: ''
@@ -61,10 +60,19 @@ export default {
     ...mapGetters(['toAccount', 'hidden']),
     showMessageSendBox () {
       return this.currentConversation.type !== this.TIM.TYPES.CONV_SYSTEM
+    },
+    title () {
+      if (this.currentConversation.type === 'C2C') {
+        return this.currentConversation.userProfile.nick || this.toAccount
+      } else if (this.currentConversation.type === 'GROUP') {
+        return this.currentConversation.groupProfile.name || this.toAccount
+      } else if (this.currentConversation.conversationID === '@TIM#SYSTEM') {
+        return '系统通知'
+      }
+      return this.toAccount
     }
   },
   mounted () {
-    this.initData()
     this.$bus.$on('image-loaded', this.onImageLoaded)
     this.$bus.$on('scroll-bottom', this.scrollMessageListToButtom)
     if (this.currentConversation.conversationID === '@TIM#SYSTEM') {
@@ -94,16 +102,6 @@ export default {
     }
   },
   methods: {
-    initData () {
-      if (this.currentConversation.type === 'C2C') {
-        this.title = this.currentConversation.userProfile.nick || this.toAccount
-      } else if (this.currentConversation.type === 'GROUP') {
-        this.title = this.currentConversation.groupProfile.name || this.toAccount
-      } else if (this.currentConversation.conversationID === '@TIM#SYSTEM') {
-        this.title = '系统通知'
-      }
-      this.title = this.toAccount
-    },
     onScroll ({ target: { scrollTop } }) {
       let messageListNode = this.$refs['message-list']
       if (!messageListNode) {
