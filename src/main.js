@@ -15,6 +15,7 @@ import TIM from 'tim-js-sdk'
 import Avatar from './components/common/avatar'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import './style/icon/tim.css'
 // import AgoraRTC from 'agora-rtc-sdk'
 
 window.tim = tim
