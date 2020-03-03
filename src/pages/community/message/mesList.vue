@@ -39,15 +39,10 @@ export default {
 <style lang="scss" scoped>
 @import '../../../style/mixin';
 .list-container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: $background-dark;
+  padding-top: 60px;
 }
 .scroll-container {
   overflow-y: scroll;
   flex: 1;
-  margin-top: 60px;
 }
 </style>

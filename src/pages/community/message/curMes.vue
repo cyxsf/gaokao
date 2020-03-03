@@ -4,52 +4,51 @@
     :class="{ 'choose': conversation.conversationID === currentConversation.conversationID }"
     @click="selectConversation"
   >
-  <div class="close-btn">
-        <span class="tim-icon-close" title="删除会话" @click="deleteConversation"></span>
-      </div>
-      <div class="warp">
-        <avatar :src="avatar" :type="conversation.type" />
-        <div class="content">
-          <div class="row-1">
-            <div class="name">
-              <div class="text-ellipsis">
-                <span :title="conversation.userProfile.nick || conversation.userProfile.userID"
-                  v-if="conversation.type ===  TIM.TYPES.CONV_C2C"
-                  >{{conversation.userProfile.nick || conversation.userProfile.userID}}
-                </span>
-                <span :title="conversation.groupProfile.name || conversation.groupProfile.groupID"
-                  v-else-if="conversation.type ===  TIM.TYPES.CONV_GROUP"
-                  >{{conversation.groupProfile.name || conversation.groupProfile.groupID}}
-                </span>
-                <span
-                  v-else-if="conversation.type === TIM.TYPES.CONV_SYSTEM"
-                  >系统通知
-                </span>
-              </div>
-            </div>
-            <div class="unread-count">
-              <span class="badge" v-if="showUnreadCount">
-                {{conversation.unreadCount > 99 ? '99+' : conversation.unreadCount}}
+    <div class="close-btn">
+      <span class="tim-icon-close" title="删除会话" @click="deleteConversation"></span>
+    </div>
+    <div class="warp">
+      <avatar :src="avatar" :type="conversation.type" />
+      <div class="content">
+        <div class="row-1">
+          <div class="name">
+            <div class="text-ellipsis">
+              <span :title="conversation.userProfile.nick || conversation.userProfile.userID"
+                v-if="conversation.type ===  TIM.TYPES.CONV_C2C"
+                >{{conversation.userProfile.nick || conversation.userProfile.userID}}
+              </span>
+              <span :title="conversation.groupProfile.name || conversation.groupProfile.groupID"
+                v-else-if="conversation.type ===  TIM.TYPES.CONV_GROUP"
+                >{{conversation.groupProfile.name || conversation.groupProfile.groupID}}
+              </span>
+              <span
+                v-else-if="conversation.type === TIM.TYPES.CONV_SYSTEM"
+                >系统通知
               </span>
             </div>
           </div>
-          <div class="row-2">
-            <div class="summary">
-              <div v-if="conversation.lastMessage" class="text-ellipsis">
-                <span class="remind" style="color:red;" v-if="hasMessageAtMe">[有人提到我]</span>
-                <span class="text" :title="conversation.lastMessage.messageForShow">
-                  {{messageForShow}}
-                </span>
-              </div>
+          <div class="unread-count">
+            <span class="badge" v-if="showUnreadCount">
+              {{conversation.unreadCount > 99 ? '99+' : conversation.unreadCount}}
+            </span>
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="summary">
+            <div v-if="conversation.lastMessage" class="text-ellipsis">
+              <span class="remind" style="color:red;" v-if="hasMessageAtMe">[有人提到我]</span>
+              <span class="text" :title="conversation.lastMessage.messageForShow">
+                {{messageForShow}}
+              </span>
             </div>
-            <div class="date">
-              {{date}}
-            </div>
+          </div>
+          <div class="date">
+            {{date}}
           </div>
         </div>
       </div>
     </div>
-
+  </div>
 </template>
 
 <script>
@@ -198,6 +197,8 @@ export default {
   position: relative;
   overflow: hidden;
   transition: .2s;
+  border-top: 1px solid #ffffff;
+  background-color: $background-light;
   // &:first-child
   //   padding-top 30px
   &:hover {
@@ -215,7 +216,7 @@ export default {
   color: $font-dark;
   transition: all .2s ease;
   &:hover {
-      color: $danger;
+    color: $danger;
   }
 }
 
@@ -232,7 +233,7 @@ export default {
 
 .content {
   flex: 1;
-  height: 40px;
+  height: 45px;
   overflow: hidden;
 }
 .row-1 {
@@ -240,7 +241,7 @@ export default {
   line-height: 21px;
 }
 .name {
-  color: $font-light;
+  color: #303336;
   flex: 1;
   min-width: 0px;
 }
@@ -285,7 +286,7 @@ export default {
   color: $font-dark;
 }
 .choose {
-  background-color: $background;
+  background-color: #9e9e9e;
 }
 .context-menu-button {
   padding: 10px;

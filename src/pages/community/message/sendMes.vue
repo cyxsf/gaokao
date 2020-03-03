@@ -29,6 +29,7 @@
         <mesSendBox/>
       </div>
     </div>
+    <imgPreviewer/>
   </div>
 </template>
 
@@ -37,6 +38,7 @@ import {mapGetters, mapState} from 'vuex'
 import headTop from '@/components/common/header'
 import mesSendBox from '@/pages/community/message/mesSendBox'
 import mesItem from '@/pages/community/message/mesItem'
+import imgPreviewer from '@/components/common/imgPreviewer'
 export default {
   data () {
     return {
@@ -48,7 +50,8 @@ export default {
   components: {
     headTop,
     mesSendBox,
-    mesItem
+    mesItem,
+    imgPreviewer
   },
   computed: {
     ...mapState({
