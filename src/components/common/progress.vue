@@ -25,7 +25,6 @@ export default {
 <style lang="scss" scoped>
 .mainContain {
     display: flex;
-    margin-top: 70px;
     justify-content: center;
     align-items: center;
 }

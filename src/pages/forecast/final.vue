@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="final-page">
       <headTop title='填报指南'></headTop>
       <div class="tabArea">
         <ul class="tab">
@@ -84,8 +84,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tabArea {
-  margin-top: 70px;
+.final-page {
+  padding-top: 70px;
 }
 .tab {
   display: flex;

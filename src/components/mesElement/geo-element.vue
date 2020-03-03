@@ -8,8 +8,7 @@
 </template>
 
 <script>
-import MessageBubble from '../mesBubble'
-
+import MessageBubble from '@/pages/community/message/mesBubble'
 export default {
   name: 'GeoElement',
   components: {

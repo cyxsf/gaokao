@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import MessageBubble from '../mesBubble'
-import { decodeText } from '../../../../config/decodeText'
+import MessageBubble from '@/pages/community/message/mesBubble'
+import { decodeText } from '@/config/decodeText'
 
 export default {
   name: 'TextElement',

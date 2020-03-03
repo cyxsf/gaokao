@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="current-conversation-wrapper">
     <div class="current-conversation" @scroll="onScroll">
       <headTop :title="title"></headTop>
       <!--<div class="header">
@@ -156,13 +156,14 @@ export default {
   display: flex;
   height: 100%;
   color: $base;
+  background-color: $background-light;
 }
 .current-conversation {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: $background-light;
+  padding-top: 60px;
 }
 .profile {
   height: 100%;
@@ -210,10 +211,8 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-top: 70px;
-  height: 585px;
+  height: 100%;
   overflow: hidden;
-  position: relative;
 }
 .message-list {
   width: 100%;
@@ -238,11 +237,8 @@ export default {
   color: $primary;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   border-top: 1px solid $border-base;
-  background-color: $background-light;
 }
 .show-more {
   text-align: right;

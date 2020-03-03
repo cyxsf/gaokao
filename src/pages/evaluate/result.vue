@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="result-page">
       <headTop title='霍兰德兴趣测试'></headTop>
       <div class="result">
         <span class="rs">您的霍兰德类型是:{{rs}}</span>
@@ -121,8 +121,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.result {
-  margin-top: 70px;
+.result-page {
+  padding-top: 70px;
 }
 .rs {
   margin: 16px;

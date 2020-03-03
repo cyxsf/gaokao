@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home-page">
       <headTop title="首页" :showLeft='false'></headTop>
       <div class="main">
         <swiper :options="swiperOption">
@@ -185,8 +185,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../style/mixin';
+.home-page {
+  padding-top: 60px;
+}
 .main {
-  margin-top: 60px;
   border-top: 1px solid #ffffff;
 }
 .swiper-img {

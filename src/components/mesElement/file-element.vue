@@ -18,8 +18,7 @@
 </template>
 
 <script>
-import MessageBubble from '../mesBubble'
-import { Progress } from 'element-ui'
+import MessageBubble from '@/pages/community/message/mesBubble'
 export default {
   name: 'FileElement',
   props: {
@@ -36,8 +35,7 @@ export default {
     }
   },
   components: {
-    MessageBubble,
-    ElProgress: Progress
+    MessageBubble
   },
   computed: {
     fileName () {

@@ -31,10 +31,8 @@
 </template>
 
 <script>
-import { Dialog, Form, FormItem, RadioGroup, Radio } from 'element-ui'
-import MessageBubble from '../mesBubble'
-import { translateGroupSystemNotice } from '../../../../config/common'
-
+import MessageBubble from '@/pages/community/message/mesBubble'
+import { translateGroupSystemNotice } from '@/config/common'
 export default {
   name: 'GroupSystemNoticeElement',
   props: {
@@ -48,11 +46,6 @@ export default {
     }
   },
   components: {
-    ElDialog: Dialog,
-    ElForm: Form,
-    ElFormItem: FormItem,
-    ElRadioGroup: RadioGroup,
-    ElRadio: Radio,
     MessageBubble
   },
   data () {

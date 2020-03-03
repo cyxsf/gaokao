@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="register-page">
     <headTop title='注册' back='登录'></headTop>
     <div class="header">志愿助手</div>
-    <form action="" class="main">
+    <form>
       <div class="content">
         <span>手机号</span>
         <input class="input" type="text" placeholder="请输入手机号" v-model.number="phone"/>
@@ -157,4 +157,7 @@ export default {
 </script>
 <style scoped lang="scss">
 @import '@/style/reg_login.scss';
+.register-page {
+  padding-top: 80px;
+}
 </style>

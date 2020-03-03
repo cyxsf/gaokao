@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home-page">
       <headTop title='霍兰德兴趣测评'></headTop>
       <div class="main">
         <div class="holland">
@@ -33,8 +33,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.holland {
-  margin-top: 70px;
+.home-page {
+  padding-top: 70px;
 }
 .title {
   display: block;

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="province-page">
         <headTop title='地区'></headTop>
         <div class="tips back">
           <span>定位地区</span>
@@ -65,9 +65,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.province-page {
+  padding-top: 62px;
+}
 .tips {
   display: flex;
-  margin-top: 62px;
   padding: 0 15px;
   justify-content: space-between;
   color: #5f5f5f;

@@ -11,8 +11,7 @@
 </template>
 
 <script>
-import MessageBubble from '../mesBubble'
-import { Progress } from 'element-ui'
+import MessageBubble from '@/pages/community/message/mesBubble'
 import { mapGetters } from 'vuex'
 export default {
   name: 'ImageElemnt',
@@ -30,8 +29,7 @@ export default {
     }
   },
   components: {
-    MessageBubble,
-    ElProgress: Progress
+    MessageBubble
   },
   computed: {
     ...mapGetters(['imgUrlList']),

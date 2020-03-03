@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="userinfo-page">
       <headTop title='账户信息'></headTop>
       <section class="listCom">
         <div class="list">
@@ -35,8 +35,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../style/mixin';
-.listCom {
-  margin-top: 60px;
+.userinfo-page {
+  padding-top: 60px;
 }
 .list {
   @include fa;

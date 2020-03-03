@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="user-page">
         <headTop title='个人中心' :showLeft='false'></headTop>
         <section class="userInfo">
           <router-link to='/user/info' class="userlink">
@@ -87,8 +87,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../style/mixin';
+.user-page {
+  padding-top: 60px;
+}
 .userInfo {
-  margin-top: 60px;
   border-top: 1px solid #ffffff;
 }
 .userlink {

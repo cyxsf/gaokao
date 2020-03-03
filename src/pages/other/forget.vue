@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="forget-page">
     <headTop title='忘记密码'></headTop>
-    <form action="" class="main">
+    <div class="header">志愿助手</div>
+    <form>
       <div class="content">
         <span>手机号</span>
         <input class="input" type="text" placeholder="请输入手机号" v-model.number="phone"/>
@@ -158,7 +159,7 @@ export default {
 </script>
 <style scoped lang="scss">
 @import '@/style/reg_login.scss';
-.main {
-    margin-top: 70px;
+.forget-page {
+  padding-top: 80px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="basic-page">
       <headTop title='填报助手'></headTop>
       <div class="header">基本信息</div>
       <div class="introduce">
@@ -109,9 +109,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.basic-page {
+  padding-top: 80px;
+}
 .header {
   text-align: center;
-  margin: 80px 0 20px;
+  margin-bottom: 20px;
   font-size: 25px;
 }
 .introduce {

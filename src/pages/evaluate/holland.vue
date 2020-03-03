@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home-page">
       <headTop title='霍兰德兴趣测试'></headTop>
       <progressbar :active="active" :total="total" :barwidth="barwidth">
       </progressbar>
@@ -81,6 +81,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.home-page {
+  padding-top: 70px;
+}
 .question {
   height: 200px;
   margin-top: 15px;

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="seniors-page">
         <headTop title="学长学姐"></headTop>
         <nav class="selects">
             <div class="selectBox">选择框一</div>
@@ -57,10 +57,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../style/mixin';
+.seniors-page {
+  padding-top: 60px;
+}
 .selects{
   display: flex;
   width: 100%;
-  margin-top: 60px;
   border: 1px solid #cccccc;
 }
 .listCom {
