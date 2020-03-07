@@ -2,9 +2,22 @@
     <div class="seniors-page">
         <headTop title="学长学姐"></headTop>
         <nav class="selects">
-            <div class="selectBox">选择框一</div>
-            <div class="selectBox">选择框二</div>
-            <div class="selectBox">选择框三</div>
+            <el-select class="selectBox" clearable v-model="selectSchool" placeholder="学校">
+              <el-option
+              v-for="item in seniorList"
+              :key ="item.id"
+              :label="item.school"
+              :value ="item.school">
+              </el-option>
+            </el-select>
+            <el-select class="selectBox" clearable v-model="selectMajor" placeholder="专业">
+              <el-option
+              v-for="item in seniorList"
+              :key ="item.userid"
+              :label="item.major"
+              :value ="item.major">
+              </el-option>
+            </el-select>
         </nav>
         <section class="listCom" v-for="item in seniorList" :key='item.userid'>
             <span clss="privateImg">
@@ -31,7 +44,9 @@ export default {
   data () {
     return {
       imgUrl: require('@/images/timg.png'),
-      seniorList: {}
+      seniorList: {},
+      selectSchool: '',
+      selectMajor: ''
     }
   },
   components: {
@@ -50,6 +65,21 @@ export default {
     sendMess (uid) {
       this.$router.push('/sendmes')
       this.$store.dispatch('checkoutConversation', `C2C${uid}`)
+    },
+    select (f, c) {
+      if (f !== '') {
+        this.seniorList.filter(temp => {
+          return temp['school']
+        })
+      }
+    }
+  },
+  watch: {
+    selectSchool (n, o) {
+      this.select(this.selectSchool, this.selectMajor)
+    },
+    selectMajor: function (n, o) {
+      this.select(this.selectSchool, this.selectMajor)
     }
   }
 }

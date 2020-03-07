@@ -3,9 +3,7 @@
         <headTop title='个人中心' :showLeft='false'></headTop>
         <section class="userInfo">
           <router-link to='/user/info' class="userlink">
-              <span clss="privateImg">
-                <img :src="imgUrl" alt="用户头像">
-              </span>
+              <avatar :src="currentUserProfile.avatar"/>
               <span class="userid">用户：{{userid}}</span>
           </router-link>
         </section>
@@ -27,13 +25,13 @@
             </div>
             <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
           </div>
-          <div class="list">
+          <router-link to='/user/iden' class="list">
             <div class="left">
               <icon-svg class="icon" icon-class="icon-chengji"></icon-svg>
               <span>身份认证</span>
             </div>
             <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
-          </div>
+          </router-link>
         </section>
         <div class="btn-fa">
           <button class="btn" @click="userOut">退出登录</button>
@@ -50,7 +48,9 @@ export default {
   data () {
     return {
       userid: '', // 用户
-      imgUrl: require('@/images/timg.png')
+      form: {
+        avatar: ''
+      }
     }
   },
   components: {
@@ -59,13 +59,13 @@ export default {
   },
   computed: {
     ...mapState({
-      userID: state => state.user.userID
+      currentUserProfile: state => state.user.currentUserProfile
     })
   },
   methods: {
     initData () {
-      if (this.userID) {
-        this.userid = this.userID
+      if (this.currentUserProfile.userID) {
+        this.userid = this.currentUserProfile.userID
       } else {
         this.userid = getStore('userid')
       }
@@ -99,11 +99,15 @@ export default {
   color: #ffffff;
   background-color: $co;
   flex-direction: column;
-}
-img {
+  .avatar {
   width: 50px;
   height: 50px;
+  }
+  .userid {
+    margin-top: 10px;
+  }
 }
+
 .infoData {
   display: flex;
   padding: 10px;
@@ -131,6 +135,7 @@ img {
   width: 100%;
   height: 50px;
   padding: 0 15px;
+  color: $black;
   justify-content: space-between;
   border-bottom: 1px solid #cccccc;
 }

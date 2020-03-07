@@ -8,6 +8,7 @@ import Basic from '@/pages/forecast/basic'
 import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
 import UserInfo from '@/pages/user/userinfo'
+import Iden from '@/pages/user/identity'
 import EvalHome from '@/pages/evaluate/home'
 import Holland from '@/pages/evaluate/holland'
 import EvalResult from '@/pages/evaluate/result'
@@ -83,6 +84,13 @@ const router = new Router({
         title: '账户信息'
       },
       component: UserInfo
+    },
+    {
+      path: '/user/iden',
+      meta: {
+        title: '身份认证'
+      },
+      component: Iden
     },
     {
       path: '/evalhome',
