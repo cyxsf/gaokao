@@ -82,7 +82,7 @@ router.post('/finalTour', (req, res) => { // 填报指南
   // conn.end()
 })
 
-const IMG_PATH = path.resolve('../src/images/uploads/')
+const IMG_PATH = path.resolve('../static/uploads/')
 router.post('/upload', multipartyMiddleware, async (req, res) => {
   console.log(req.body) // 返回请求主体
   console.log(req.files) // 文件属性，包含文件的所有信息
@@ -137,7 +137,7 @@ function RenameFile (oldPath, newPath) {
 
 function getImgSrc () {
   return new Promise((resolve, reject) => {
-    fs.readdir(path.resolve('../src/images/uploads'), (err, result) => {
+    fs.readdir(path.resolve('../static/uploads'), (err, result) => {
       if (err) {
         return reject(err)
       }

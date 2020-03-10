@@ -33,7 +33,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     ├── temp                 // 暂时存放上传的图片
     ├── DBHelper.js          // 连接MySQL数据库
     ├── index.js             // 主配置文件
-    ├── sqlMap.js            // 数据库语句
+    └── sqlMap.js            // 数据库语句
 ├── src                      // 生产目录(着重说明)
     ├── components           // vue组件
     ├── config               // 基本配置
@@ -46,6 +46,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     └── main.js              // 项目入口文件
     └── tim.js               // 腾讯即时通讯文件
 |—— static                   //存放静态资源
+    └── uploads              // 上传的图片
 ├── .babelrc                 // babel工具配置
 ├── .editorconfig            // 编码风格配置(不太影响开发)
 ├── .gitignore               // git项目忽略上传的文件/文件夹配置

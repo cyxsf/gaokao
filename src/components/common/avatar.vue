@@ -21,7 +21,7 @@ export default {
   computed: {
     avatarSrc: function () {
       let src = this.src
-      if (/^(https:|http:|\/\/)/.test(src)) {
+      if (src !== '') {
         return src
       } else {
         return this.defaultSrc

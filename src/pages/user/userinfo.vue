@@ -53,7 +53,15 @@ export default {
       currentUserProfile: state => state.user.currentUserProfile
     })
   },
+  mounted () {
+    this.inieData()
+  },
   methods: {
+    inieData () {
+      if (this.currentUserProfile.nick !== '') {
+        this.nick = this.currentUserProfile.nick
+      }
+    },
     handleSendImageClick () {
       this.$refs.imagePicker.click()
     },
@@ -77,11 +85,16 @@ export default {
       this.axios.get('/api/data/getImgList')
         .then((res) => {
           console.log(res.data)
-          _this.imgUrl = res.data
+          _this.imgUrl = './static' + res.data[0]
         })
     },
     handleEdit () {
-
+      this.tim.updateMyProfile({
+        nick: this.nick,
+        avatar: this.imgUrl
+      }).then(() => {
+        console.log('修改成功')
+      })
     }
   }
 }

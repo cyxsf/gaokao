@@ -4,7 +4,7 @@
         <section class="userInfo">
           <router-link to='/user/info' class="userlink">
               <avatar :src="currentUserProfile.avatar"/>
-              <span class="userid">用户：{{userid}}</span>
+              <span class="userid">用户：{{currentUserProfile.nick || currentUserProfile.userID}}</span>
           </router-link>
         </section>
         <section class="infoData">

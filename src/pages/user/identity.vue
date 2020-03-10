@@ -59,15 +59,28 @@ export default {
       let $target = e.target || e.srcElement
       let file = $target.files[0]
       var _this = this
-      var dataURL = URL.createObjectURL(file)
-      // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
-      if ($target.id === 'imagePick') {
-        _this.imgStr = dataURL
-        _this.isShowOne = false
-      } else {
-        this.imgStrs = dataURL
-        this.isShowTwo = false
+      // FormData保存图片信息
+      var formData = new FormData()
+      formData.append('file', file)
+      // console.log(formData.get('file'))
+      let config = {
+        headers: {'Content-Type': 'multipart/form-data'}
       }
+      this.axios.post('/api/data/upload', formData, config)
+        .then((res) => {
+          console.log(res.data)
+        })
+      this.axios.get('/api/data/getImgList')
+        .then((res) => {
+          console.log(res.data)
+          if ($target.id === 'imagePick') {
+            _this.imgStr = './static' + res.data[0]
+            _this.isShowOne = false
+          } else {
+            this.imgStrs = './static' + res.data[1]
+            this.isShowTwo = false
+          }
+        })
     },
     handleEdit () {
     }
