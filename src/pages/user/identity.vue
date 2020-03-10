@@ -59,18 +59,14 @@ export default {
       let $target = e.target || e.srcElement
       let file = $target.files[0]
       var _this = this
-      var reader = new FileReader()
-      reader.readAsDataURL(file) // 读出 base64
-      reader.onloadend = function () {
-        // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
-        var dataURL = reader.result
-        if ($target.id === 'imagePick') {
-          _this.imgStr = dataURL
-          _this.isShowOne = false
-        } else {
-          _this.imgStrs = dataURL
-          _this.isShowTwo = false
-        }
+      var dataURL = URL.createObjectURL(file)
+      // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
+      if ($target.id === 'imagePick') {
+        _this.imgStr = dataURL
+        _this.isShowOne = false
+      } else {
+        this.imgStrs = dataURL
+        this.isShowTwo = false
       }
     },
     handleEdit () {

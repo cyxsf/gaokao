@@ -5,6 +5,14 @@ module.exports = router
 var DBHelper = require('../DBHelper')
 var sql = require('../sqlMap')
 
+const multiparty = require('connect-multiparty')
+const fs = require('fs')
+const path = require('path')
+
+const multipartyMiddleware = multiparty({
+  uploadDir: './temp'
+}) // 设置上传文件存放的地址
+
 router.post('/proSelect', (req, res) => { // 查找省份
   let sqlStr = sql.forecast.proSelect
   let conn = new DBHelper().getConn()
@@ -73,3 +81,68 @@ router.post('/finalTour', (req, res) => { // 填报指南
   })
   // conn.end()
 })
+
+const IMG_PATH = path.resolve('../src/images/uploads/')
+router.post('/upload', multipartyMiddleware, async (req, res) => {
+  console.log(req.body) // 返回请求主体
+  console.log(req.files) // 文件属性，包含文件的所有信息
+  console.log(req.files.file.path) // 文件路径
+  try {
+    let files = req.files
+    for (let item in files) {
+      let tmpPath = files[item].path
+      let name = files[item].name
+
+      let d = new Date()
+      let getDate = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`
+
+      let newImgPath = path.resolve(IMG_PATH, `${getDate}_${name}`)
+      let result = await RenameFile(tmpPath, newImgPath)
+
+      if (!result) {
+        return res.send({
+          errCode: -50000,
+          msg: 'upload error'
+        })
+      }
+    }
+    res.send({
+      errCode: 0,
+      msg: 'upload success'
+    })
+  } catch (err) {
+    return res.send({
+      errCode: -50000,
+      msg: 'upload error'
+    })
+  }
+})
+
+router.get('/getImgList', async (req, res) => {
+  let result = await getImgSrc()
+  res.send(result)
+})
+
+function RenameFile (oldPath, newPath) {
+  return new Promise((resolve, reject) => {
+    fs.rename(oldPath, newPath, (err) => {
+      if (err) {
+        console.log(err)
+        return reject(err)
+      }
+      resolve(true)
+    })
+  })
+}
+
+function getImgSrc () {
+  return new Promise((resolve, reject) => {
+    fs.readdir(path.resolve('../src/images/uploads'), (err, result) => {
+      if (err) {
+        return reject(err)
+      }
+      result = result.map(item => '/uploads/' + item)
+      resolve(result)
+    })
+  })
+}

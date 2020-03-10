@@ -17,7 +17,6 @@
     "echarts": "^4.6.0",
     "element-ui": "^2.13.0",
     "mysql": "^2.18.1",
-    "tim": "^6.5.2",
     "tim-js-sdk": "^2.4.2",
     "vue": "^2.5.2",
     "vue-awesome-swiper": "^3.1.3",

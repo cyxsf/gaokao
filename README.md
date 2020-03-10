@@ -28,16 +28,24 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ├── build                    // webpack打包配置（不说明它下面的文件）
 ├── config                   // webpack环境配置（不说明它下面的文件）
 ├── dist                     // 运行build后生成目录(存放需要的发布代码)
+├── server                   // node.js后端代码
+    ├── api                  // 各种api文件
+    ├── temp                 // 暂时存放上传的图片
+    ├── DBHelper.js          // 连接MySQL数据库
+    ├── index.js             // 主配置文件
+    ├── sqlMap.js            // 数据库语句
 ├── src                      // 生产目录(着重说明)
     ├── components           // vue组件
     ├── config               // 基本配置
+    ├── images               // 各种图片
     ├── pages                // 业务页面
     ├── router               // 路由配置
     ├── store                // vuex的状态管理
-    ├── service              // 数据api
     ├── style                // 样式文件
     ├── App.vue              // 项目原始根组件
     └── main.js              // 项目入口文件
+    └── tim.js               // 腾讯即时通讯文件
+|—— static                   //存放静态资源
 ├── .babelrc                 // babel工具配置
 ├── .editorconfig            // 编码风格配置(不太影响开发)
 ├── .gitignore               // git项目忽略上传的文件/文件夹配置
@@ -46,4 +54,3 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ├── _config.yml              // git pages选择风格生成的
 ├── package.json             // 项目依赖配置信息
 |—— index.html               //首页文件
-|—— static                   //存放静态资源

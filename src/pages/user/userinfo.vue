@@ -61,32 +61,27 @@ export default {
       let $target = e.target || e.srcElement
       let file = $target.files[0]
       var _this = this
-      var reader = new FileReader()
-      reader.readAsDataURL(file) // 读出 base64
-      reader.onloadend = function () {
-        // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
-        var dataURL = reader.result
-        console.log(dataURL)
-        _this.imgUrl = dataURL
-        // 下面逻辑处理
+      // FormData保存图片信息
+      var formData = new FormData()
+      formData.append('file', file)
+      // console.log(formData.get('file'))
+      let config = {
+        headers: {'Content-Type': 'multipart/form-data'}
       }
-      this.tim
-        .updateMyProfile({
-          avatar: _this.imgUrl
+      this.axios.post('/api/data/upload', formData, config)
+        .then((res) => {
+          console.log(res.data)
+          // 加一个随机的时间戳，系统会使用服务器返回的图片
+          // _this.imgUrl = res.data + `?t+${Math.random()}`
         })
-        .then(() => {
-          this.$store.commit('showMessage', {
-            message: '修改成功'
-          })
-        })
-        .catch(imError => {
-          this.$store.commit('showMessage', {
-            message: imError.message,
-            type: 'error'
-          })
+      this.axios.get('/api/data/getImgList')
+        .then((res) => {
+          console.log(res.data)
+          _this.imgUrl = res.data
         })
     },
     handleEdit () {
+
     }
   }
 }
