@@ -9,17 +9,17 @@
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </section>
       </router-link>
-      <router-link :to="{path:'/user/majorSelect', query: {school}}" class="list">
+      <router-link :to="{path:'/user/majorSelect', query: {school}}" class="list" v-show="showMajor">
         <span>专业名称</span>
         <section class="contain">
           <p>{{major}}</p>
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </section>
       </router-link>
-      <router-link to="/seniors" class="list">
+      <section class="list">
         <span>入学年份</span>
-        <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
-      </router-link>
+        <el-date-picker v-model="value" type="year" placeholder="选择年"></el-date-picker>
+      </section>
     </section>
     <div class="upload-contain">
     <div class="user-header" @click="handleClicks">
@@ -42,6 +42,7 @@
 
 <script>
 import headTop from '@/components/common/header'
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
@@ -50,7 +51,9 @@ export default {
       imgStr: require('../../images/upload.png'),
       imgStrs: require('../../images/upload.png'),
       school: '', // 学校
-      major: '' // 专业
+      major: '', // 专业
+      showMajor: false,
+      value: ''
     }
   },
   components: {
@@ -59,6 +62,16 @@ export default {
   mounted () {
     this.school = this.$route.query.school
     this.major = this.$route.query.major
+  },
+  computed: {
+    ...mapState({
+      currentUserProfile: state => state.user.currentUserProfile
+    })
+  },
+  watch: {
+    school () {
+      if (this.school !== undefined) this.showMajor = true
+    }
   },
   methods: {
     handleClick () {
@@ -95,6 +108,17 @@ export default {
         })
     },
     handleEdit () {
+      let uid = this.currentUserProfile.userID
+      let school = this.school
+      let major = this.major
+      let year = this.value
+      let imgStr = this.imgStr
+      let imgStrs = this.imgStrs
+      this.axios.post('/api/data/insertIden', {
+        uid, school, major, year, imgStr, imgStrs
+      }).then((res) => {
+        this.$router.push('/user')
+      })
     }
   }
 }

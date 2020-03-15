@@ -28,6 +28,9 @@ var sqlMap = {
     // 学校、专业选择
     schoolSelect: 'select * from univerinfo where curplace = ?',
     majorSelect: 'select * from majors where school = ?'
+  },
+  iden: {
+    insertIden: 'insert into identity(userid,school,major,year,imgStr,imgStrs) values(?,?,?,?,?,?)'
   }
 }
 
