@@ -15,7 +15,7 @@ var sqlMap = {
   },
   forecast: {
     // 学校预测
-    proSelect: 'select * from province order by psort',
+    proSelect: 'select * from province',
     basInfo: 'insert into userinfo(userid,curplace,subject,score) values(?,?,?,?)',
     basSelect: 'select * from userinfo where userid = ?',
     basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
@@ -23,6 +23,11 @@ var sqlMap = {
   },
   community: {
     senSelect: 'select * from seniors'
+  },
+  select: {
+    // 学校、专业选择
+    schoolSelect: 'select * from univerinfo where curplace = ?',
+    majorSelect: 'select * from majors where school = ?'
   }
 }
 

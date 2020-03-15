@@ -9,6 +9,8 @@ import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
 import UserInfo from '@/pages/user/userinfo'
 import Iden from '@/pages/user/identity'
+import schoolSelect from '@/pages/user/schoolSelect'
+import majorSelect from '@/pages/user/majorSelect'
 import EvalHome from '@/pages/evaluate/home'
 import Holland from '@/pages/evaluate/holland'
 import EvalResult from '@/pages/evaluate/result'
@@ -91,6 +93,20 @@ const router = new Router({
         title: '身份认证'
       },
       component: Iden
+    },
+    {
+      path: '/user/schoolSelect',
+      meta: {
+        title: '学校选择'
+      },
+      component: schoolSelect
+    },
+    {
+      path: '/user/majorSelect',
+      meta: {
+        title: '专业选择'
+      },
+      component: majorSelect
     },
     {
       path: '/evalhome',

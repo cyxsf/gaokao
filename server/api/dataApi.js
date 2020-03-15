@@ -146,3 +146,31 @@ function getImgSrc () {
     })
   })
 }
+
+router.post('/schoolSelect', (req, res) => { // 学校选择
+  let sqlStr = sql.select.schoolSelect
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.cur], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/majorSelect', (req, res) => { // 专业选择
+  let sqlStr = sql.select.majorSelect
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.school], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})

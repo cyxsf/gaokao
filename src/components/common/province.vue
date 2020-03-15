@@ -13,7 +13,7 @@
         <section v-for="item in province" :key="item.pid" class="province" @click="proSelect(item.name)">
           <ul class="letter">
             <li class="info">
-              {{item.name}}
+              {{item.name+item.premark}}
             </li>
           </ul>
         </section>

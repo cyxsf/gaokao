@@ -2,13 +2,19 @@
   <div class="iden-page">
     <headTop title="身份认证"></headTop>
     <section class="listCom">
-      <router-link to="/final" class="list">
+      <router-link to="/user/schoolSelect" class="list">
         <span>学校名称</span>
-        <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
+        <section class="contain">
+          <p>{{school}}</p>
+          <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
+        </section>
       </router-link>
-      <router-link to="/seniors" class="list">
+      <router-link :to="{path:'/user/majorSelect', query: {school}}" class="list">
         <span>专业名称</span>
-        <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
+        <section class="contain">
+          <p>{{major}}</p>
+          <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
+        </section>
       </router-link>
       <router-link to="/seniors" class="list">
         <span>入学年份</span>
@@ -42,11 +48,17 @@ export default {
       isShowOne: true,
       isShowTwo: true,
       imgStr: require('../../images/upload.png'),
-      imgStrs: require('../../images/upload.png')
+      imgStrs: require('../../images/upload.png'),
+      school: '', // 学校
+      major: '' // 专业
     }
   },
   components: {
     headTop
+  },
+  mounted () {
+    this.school = this.$route.query.school
+    this.major = this.$route.query.major
   },
   methods: {
     handleClick () {
@@ -101,6 +113,12 @@ export default {
   color: #000000;
   justify-content: space-between;
   border-bottom: 1px solid #cccccc;
+}
+.contain {
+  @include faj;
+}
+.contain p {
+  margin-right: 10px;
 }
 .upload-contain {
   @include faj;
