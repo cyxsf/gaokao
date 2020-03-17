@@ -1,25 +1,10 @@
 <template>
     <div class="seniors-page">
         <headTop title="学长学姐"></headTop>
-        <nav class="selects">
-            <el-select class="selectBox" clearable v-model="selectSchool" placeholder="学校">
-              <el-option
-              v-for="item in seniorList"
-              :key ="item.id"
-              :label="item.school"
-              :value ="item.school">
-              </el-option>
-            </el-select>
-            <el-select class="selectBox" clearable v-model="selectMajor" placeholder="专业">
-              <el-option
-              v-for="item in seniorList"
-              :key ="item.userid"
-              :label="item.major"
-              :value ="item.major">
-              </el-option>
-            </el-select>
-        </nav>
-        <section class="listCom" v-for="item in seniorList" :key='item.userid'>
+        <el-input placeholder="搜索关键词" v-model="keyword" class="selects" @change='queryData'>
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+          <section class="listCom" v-for="item in seniorList" :key='item.userid'>
             <span clss="privateImg">
                 <img :src="imgUrl" alt="用户头像">
             </span>
@@ -34,7 +19,7 @@
               </span>
             </div>
             <button class="btn" @click="sendMess(item.userid)">咨询</button>
-        </section>
+          </section>
     </div>
 </template>
 
@@ -45,8 +30,8 @@ export default {
     return {
       imgUrl: require('@/images/timg.png'),
       seniorList: {},
-      selectSchool: '',
-      selectMajor: ''
+      keyword: '',
+      oldList: {}
     }
   },
   components: {
@@ -60,26 +45,24 @@ export default {
       this.axios.post('/api/seni/senSelect', {
       }).then(res => {
         this.seniorList = res.data
+        this.oldList = this.seniorList
       })
     },
     sendMess (uid) {
       this.$router.push('/sendmes')
       this.$store.dispatch('checkoutConversation', `C2C${uid}`)
     },
-    select (f, c) {
-      if (f !== '') {
-        this.seniorList.filter(temp => {
-          return temp['school']
-        })
+    queryData () {
+      let keyValue = this.keyword
+      if (keyValue === '' || keyValue === null) {
+        this.seniorList = this.oldList
+      } else {
+        let list = this.seniorList.filter(item =>
+          item.name.indexOf(keyValue) !== -1 ||
+          item.school.indexOf(keyValue) !== -1 ||
+          item.major.indexOf(keyValue) !== -1)
+        this.seniorList = list
       }
-    }
-  },
-  watch: {
-    selectSchool (n, o) {
-      this.select(this.selectSchool, this.selectMajor)
-    },
-    selectMajor: function (n, o) {
-      this.select(this.selectSchool, this.selectMajor)
     }
   }
 }
