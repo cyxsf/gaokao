@@ -3,6 +3,7 @@ const userApi = require('./api/userApi')
 const testApi = require('./api/testApi')
 const dataApi = require('./api/dataApi')
 const seniApi = require('./api/seniApi')
+const pubApi = require('./api/pubApi')
 const bodyParser = require('body-parser')
 const express = require('express')
 
@@ -18,6 +19,7 @@ app.use('/api/user', userApi)
 app.use('/api/test', testApi)
 app.use('/api/data', dataApi)
 app.use('/api/seni', seniApi)
+app.use('/api/pub', pubApi)
 
 // 监听端口
 server.listen(3000, () => {

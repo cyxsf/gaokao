@@ -15,9 +15,12 @@ import EvalHome from '@/pages/evaluate/home'
 import Holland from '@/pages/evaluate/holland'
 import EvalResult from '@/pages/evaluate/result'
 import Province from '@/components/common/province'
-import sendMes from '@/pages/community/message/sendMes'
-import mesList from '@/pages/community/message/mesList'
-import seniors from '@/pages/seniors/home'
+import SendMes from '@/pages/community/message/sendMes'
+import MesList from '@/pages/community/message/mesList'
+import Seniors from '@/pages/seniors/home'
+import PubArticle from '@/pages/publish/pubArticle'
+import Article from '@/pages/publish/article'
+import RaiseQue from '@/pages/publish/raiseQue'
 
 Vue.use(Router)
 
@@ -134,21 +137,42 @@ const router = new Router({
       meta: {
         title: '发送消息'
       },
-      component: sendMes
+      component: SendMes
     },
     {
       path: '/mesList',
       meta: {
         title: '我的消息'
       },
-      component: mesList
+      component: MesList
     },
     {
       path: '/seniors',
       meta: {
         title: '学长学姐'
       },
-      component: seniors
+      component: Seniors
+    },
+    {
+      path: '/pubArticle',
+      meta: {
+        title: '发布文章'
+      },
+      component: PubArticle
+    },
+    {
+      path: '/Article',
+      meta: {
+        title: '文章展示'
+      },
+      component: Article
+    },
+    {
+      path: '/raiseQue',
+      meta: {
+        title: '提出问题'
+      },
+      component: RaiseQue
     }
   ]
 })

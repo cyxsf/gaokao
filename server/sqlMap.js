@@ -31,6 +31,10 @@ var sqlMap = {
   },
   iden: {
     insertIden: 'insert into identity(userid,school,major,year,imgStr,imgStrs) values(?,?,?,?,?,?)'
+  },
+  publish: {
+    insertArt: 'insert into pubArticle(userid,title,markdown,html) values(?,?,?,?)',
+    selectArt: 'select * from pubArticle where userid = ?'
   }
 }
 

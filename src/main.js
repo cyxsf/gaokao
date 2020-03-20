@@ -16,6 +16,8 @@ import Avatar from './components/common/avatar'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './style/icon/tim.css'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 // import AgoraRTC from 'agora-rtc-sdk'
 
 window.tim = tim
@@ -33,6 +35,7 @@ Vue.component('icon-svg', IconSvg)
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
 Vue.use(Swiper)
+Vue.use(mavonEditor)
 
 /* eslint-disable no-new */
 new Vue({
