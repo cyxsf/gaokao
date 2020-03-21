@@ -1,13 +1,15 @@
 <template>
   <div class="article-page">
+    <el-backtop style="z-index:2000" :right="20" :bottom="20"></el-backtop>
     <headTop title="文章展示"></headTop>
-    <span class="title">{{title}}</span>
-    <mavon-editor
-    v-model="markdown"
-    :toolbarsFlag='false'
-    :subfield='false'
-    defaultOpen='preview'
-    class="content"/>
+    <section class="article">
+      <span class="title">{{title}}</span>
+      <mavon-editor
+      v-model="markdown"
+      :toolbarsFlag='false'
+      :subfield='false'
+      defaultOpen='preview'/>
+    </section>
   </div>
 </template>
 
@@ -30,13 +32,13 @@ export default {
     })
   },
   mounted () {
-    this.initData()
+    let id = this.$route.query.id
+    this.initData(id)
   },
   methods: {
-    initData () {
-      let uid = this.currentUserProfile.userID
+    initData (id) {
       this.axios.post('/api/pub/selectArt', {
-        uid
+        id
       }).then(res => {
         this.markdown = res.data[0].markdown
         this.title = res.data[0].title
@@ -50,7 +52,6 @@ export default {
 .article-page {
   padding-top: 60px;
   height: 100%;
-  overflow: scroll;
 }
 .title {
   display: block;
@@ -58,9 +59,11 @@ export default {
   padding: 10px;
   text-align: center;
 }
-.content {
+.article {
   width: 100%;
+  /*
   height: 100%;
   overflow: scroll;
+  */
 }
 </style>

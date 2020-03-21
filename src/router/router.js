@@ -9,6 +9,7 @@ import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
 import UserInfo from '@/pages/user/userinfo'
 import Iden from '@/pages/user/identity'
+import ArtList from '@/pages/user/artList'
 import schoolSelect from '@/pages/user/schoolSelect'
 import majorSelect from '@/pages/user/majorSelect'
 import EvalHome from '@/pages/evaluate/home'
@@ -96,6 +97,13 @@ const router = new Router({
         title: '身份认证'
       },
       component: Iden
+    },
+    {
+      path: '/user/artList',
+      meta: {
+        title: '我的文章'
+      },
+      component: ArtList
     },
     {
       path: '/user/schoolSelect',

@@ -18,13 +18,13 @@
           </div>
         </section>
         <section class="listCom">
-          <div class="list">
+          <router-link to='/user/artList' class="list">
             <div class="left">
               <icon-svg class="icon" icon-class="icon-chengji"></icon-svg>
-              <span>我的成绩</span>
+              <span>我的文章</span>
             </div>
             <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
-          </div>
+          </router-link>
           <router-link to='/user/iden' class="list">
             <div class="left">
               <icon-svg class="icon" icon-class="icon-chengji"></icon-svg>

@@ -19,9 +19,19 @@
         <icon-svg class="icon" icon-class="icon-account"></icon-svg>
         <span>个人中心</span>
       </section>
-      <el-drawer :visible.sync="drawer" direction="btt" :before-close="handleClose">
-        <input placeholder="提出问题" @click="gotoAddress('/raiseQue')"/>
-        <section>
+      <el-drawer
+      :visible.sync="drawer"
+      direction="btt"
+      :with-header="false"
+      :before-close="handleClose"
+      :append-to-body="true">
+        <div class="close" @click="handleClose">
+          <icon-svg class="icon" icon-class="icon-cuowu"></icon-svg>
+        </div>
+        <el-input placeholder="提出问题" @click="gotoAddress('/raiseQue')">
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+        <section class="item-list">
          <section class="guide_item" @click="gotoAddress('/mesList')">
           <icon-svg class="icon" icon-class="icon-xiaoxi"></icon-svg>
           <span>回答问题</span>
@@ -77,5 +87,15 @@ export default {
 .icon {
   width: 30px;
   height: 30px;
+}
+.close {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item-list {
+  display: flex;
+  padding: 25px;
 }
 </style>

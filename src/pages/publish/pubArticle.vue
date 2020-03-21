@@ -9,6 +9,7 @@
 <script>
 import headTop from '@/components/common/header'
 import {mapState} from 'vuex'
+import { getFullTime } from '../../config/date'
 export default {
   data () {
     return {
@@ -30,11 +31,12 @@ export default {
       let title = this.title
       let html = this.$refs.editor.d_render
       let markdown = this.content
+      let date = getFullTime(new Date())
       this.axios.post('/api/pub/insertArt', {
-        uid, title, markdown, html
+        uid, title, markdown, html, date
       }).then(res => {
         console.log(res.data)
-        this.$router.push('/Article')
+        // this.$router.push('/Article')
       })
     },
     saveDoc (markdown, html) {

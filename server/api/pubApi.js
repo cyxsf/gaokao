@@ -9,7 +9,21 @@ router.post('/insertArt', (req, res) => { // 插入发表的文章
   let sqlStr = sql.publish.insertArt
   let params = req.body
   let conn = new DBHelper().getConn()
-  conn.query(sqlStr, [params.uid, params.title, params.markdown, params.html], (err, result) => {
+  conn.query(sqlStr, [params.uid, params.title, params.markdown, params.html, params.date], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/myArtList', (req, res) => { // 用户自己发布文章列表
+  let sqlStr = sql.publish.myArtList
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid], (err, result) => {
     if (err) {
       res.json(err)
     } else {
@@ -23,7 +37,7 @@ router.post('/selectArt', (req, res) => { // 查找发表的文章
   let sqlStr = sql.publish.selectArt
   let params = req.body
   let conn = new DBHelper().getConn()
-  conn.query(sqlStr, [params.uid], (err, result) => {
+  conn.query(sqlStr, [params.id], (err, result) => {
     if (err) {
       res.json(err)
     } else {

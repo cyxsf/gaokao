@@ -30,6 +30,10 @@ export function getFullDate (date) {
   return `${getDate(date)} ${getTime(date)}`
 }
 
+export function getFullTime (date) {
+  return `${getDate(date)} ${getTime(date, false)}`
+}
+
 export function isToday (date) {
   return date.toDateString() === new Date().toDateString()
 }
