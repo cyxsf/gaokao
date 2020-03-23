@@ -31,7 +31,7 @@ export function getFullDate (date) {
 }
 
 export function getFullTime (date) {
-  return `${getDate(date)} ${getTime(date, false)}`
+  return `${getDate(date)} ${getTime(date, true)}`
 }
 
 export function isToday (date) {

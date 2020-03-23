@@ -33,9 +33,11 @@ var sqlMap = {
     insertIden: 'insert into identity(userid,school,major,year,imgStr,imgStrs) values(?,?,?,?,?,?)'
   },
   publish: {
-    insertArt: 'insert into pubArticle(userid,title,markdown,html,date) values(?,?,?,?,?)',
+    insertArt: 'insert into pubArticle(id,userid,title,markdown,html,date) values(?,?,?,?,?,?)',
     myArtList: 'select * from pubArticle where userid = ?',
-    selectArt: 'select * from pubArticle where id = ?'
+    selectArt: 'select * from pubArticle where id = ?',
+    delArt: 'delete from pubArticle where id = ?',
+    updateArt: 'update pubArticle set userid =?,title=?,markdown=?,html=?,date=? where id = ?'
   }
 }
 

@@ -2,19 +2,20 @@
   <div class="publish-page">
     <headTop title="写文章" :showRight='true' @goSend='goSend'></headTop>
     <input class="title" placeholder="请输入标题" v-model='title'/>
-    <mavon-editor v-model='content' class='content' @save='saveDoc' ref='editor'/>
+    <mavon-editor v-model='content' class='content' ref='editor'/>
   </div>
 </template>
 
 <script>
 import headTop from '@/components/common/header'
 import {mapState} from 'vuex'
-import { getFullTime } from '../../config/date'
+import { getFullTime, getFullDate } from '../../config/date'
 export default {
   data () {
     return {
       title: '',
-      content: ''
+      content: '',
+      id: ''
     }
   },
   components: {
@@ -25,23 +26,46 @@ export default {
       currentUserProfile: state => state.user.currentUserProfile
     })
   },
+  mounted () {
+    this.id = this.$route.query.id
+    this.initData(this.id)
+  },
   methods: {
+    initData (id) {
+      this.axios.post('/api/pub/selectArt', {
+        id
+      }).then(res => {
+        if (res.data[0]) {
+          this.title = res.data[0].title
+          this.content = res.data[0].markdown
+        }
+      })
+    },
     goSend () {
       let uid = this.currentUserProfile.userID
       let title = this.title
       let html = this.$refs.editor.d_render
       let markdown = this.content
-      let date = getFullTime(new Date())
-      this.axios.post('/api/pub/insertArt', {
-        uid, title, markdown, html, date
+      let date = getFullDate(new Date())
+      let pid = uid + getFullTime(new Date())
+      let id = this.id
+      this.axios.post('/api/pub/selectArt', {
+        id
       }).then(res => {
-        console.log(res.data)
-        // this.$router.push('/Article')
+        if (res.data[0]) {
+          this.axios.post('/api/pub/updateArt', {
+            uid, title, markdown, html, date, id
+          }).then(res => {
+            this.$router.push('/user/artList')
+          })
+        } else {
+          this.axios.post('/api/pub/insertArt', {
+            pid, uid, title, markdown, html, date
+          }).then(res => {
+            this.$router.push('/user/artList')
+          })
+        }
       })
-    },
-    saveDoc (markdown, html) {
-      console.log('markdown内容' + markdown)
-      console.log('html内容:' + html)
     }
   }
 }
