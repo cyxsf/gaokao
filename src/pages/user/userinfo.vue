@@ -1,37 +1,37 @@
 <template>
   <div class="userinfo-page">
-      <headTop title='账户信息'></headTop>
-      <section class="listCom">
-        <div class="list">
-          <span>头像</span>
-          <div class="info" @click="handleSendImageClick">
-            <avatar :src="currentUserProfile.avatar"/>
-            <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
-          </div>
+    <headTop title='账户信息'></headTop>
+    <section class="listCom">
+      <div class="list">
+        <span>头像</span>
+        <div class="info" @click="handleSendImageClick">
+          <avatar :src="currentUserProfile.avatar || imgUrl"/>
+          <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </div>
-        <div class="list">
-          <span>用户名</span>
-          <div class="info">
-            <input type="text" v-model="nick" class="nick"/>
-            <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
-          </div>
+      </div>
+      <div class="list">
+        <span>用户名</span>
+        <div class="info">
+          <input type="text" v-model="nick" class="nick"/>
+          <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </div>
-        <router-link to='/forget' class="list">
-          <span>登录密码</span>
-          <div class="info">
-            <p>修改</p>
-            <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
-          </div>
-        </router-link>
-      </section>
-      <button class="btn" @click="handleEdit">确认修改</button>
-      <input
-      type="file"
-      id="imagePicker"
-      ref="imagePicker"
-      accept=".jpg, .jpeg, .png, .gif"
-      @change="sendAvatar"
-      style="display:none" />
+      </div>
+      <router-link to='/forget' class="list">
+        <span>登录密码</span>
+        <div class="info">
+          <p>修改</p>
+          <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
+        </div>
+      </router-link>
+    </section>
+    <button class="btn" @click="handleEdit">确认修改</button>
+    <input
+    type="file"
+    id="imagePicker"
+    ref="imagePicker"
+    accept=".jpg, .jpeg, .png, .gif"
+    @change="sendAvatar"
+    style="display:none" />
   </div>
 </template>
 
@@ -78,14 +78,13 @@ export default {
       }
       this.axios.post('/api/data/upload', formData, config)
         .then((res) => {
-          console.log(res.data)
-          // 加一个随机的时间戳，系统会使用服务器返回的图片
-          // _this.imgUrl = res.data + `?t+${Math.random()}`
-        })
-      this.axios.get('/api/data/getImgList')
-        .then((res) => {
-          console.log(res.data)
-          _this.imgUrl = './static' + res.data[0]
+          if (res.data.errCode === 0) {
+            this.axios.get('/api/data/getImgList')
+              .then((res) => {
+                console.log(res.data[0])
+                _this.imgUrl = './static' + res.data[0]
+              })
+          }
         })
     },
     handleEdit () {

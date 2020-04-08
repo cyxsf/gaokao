@@ -18,7 +18,7 @@
       </router-link>
       <section class="list">
         <span>入学年份</span>
-        <el-date-picker v-model="value" type="year" placeholder="选择年"></el-date-picker>
+        <el-date-picker v-model="value" type="year" placeholder="选择年" :picker-options="pickerOptions"></el-date-picker>
       </section>
     </section>
     <div class="upload-contain">
@@ -53,7 +53,12 @@ export default {
       school: '', // 学校
       major: '', // 专业
       showMajor: false,
-      value: ''
+      value: '',
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() > Date.now() - 8.64e6
+        }
+      }
     }
   },
   components: {
@@ -94,16 +99,18 @@ export default {
       this.axios.post('/api/data/upload', formData, config)
         .then((res) => {
           console.log(res.data)
-        })
-      this.axios.get('/api/data/getImgList')
-        .then((res) => {
-          console.log(res.data)
-          if ($target.id === 'imagePick') {
-            _this.imgStr = './static' + res.data[0]
-            _this.isShowOne = false
-          } else {
-            this.imgStrs = './static' + res.data[1]
-            this.isShowTwo = false
+          if (res.data.errCode === 0) {
+            this.axios.get('/api/data/getImgList')
+              .then((res) => {
+                console.log(res.data)
+                if ($target.id === 'imagePick') {
+                  _this.imgStr = './static' + res.data[0]
+                  _this.isShowOne = false
+                } else {
+                  this.imgStrs = './static' + res.data[0]
+                  this.isShowTwo = false
+                }
+              })
           }
         })
     },
@@ -111,7 +118,8 @@ export default {
       let uid = this.currentUserProfile.userID
       let school = this.school
       let major = this.major
-      let year = this.value
+      let date = new Date(this.value)
+      let year = date.getFullYear()
       let imgStr = this.imgStr
       let imgStrs = this.imgStrs
       this.axios.post('/api/data/insertIden', {

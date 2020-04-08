@@ -83,6 +83,7 @@ router.post('/finalTour', (req, res) => { // 填报指南
 })
 
 const IMG_PATH = path.resolve('../static/uploads/')
+const IMG_PATH2 = path.resolve('../../gaokao-back/static/uploads/')
 router.post('/upload', multipartyMiddleware, async (req, res) => {
   console.log(req.body) // 返回请求主体
   console.log(req.files) // 文件属性，包含文件的所有信息
@@ -91,15 +92,18 @@ router.post('/upload', multipartyMiddleware, async (req, res) => {
     let files = req.files
     for (let item in files) {
       let tmpPath = files[item].path
-      let name = files[item].name
+      // let name = files[item].name
 
       let d = new Date()
-      let getDate = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`
+      let getTime = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getTime()}`
 
-      let newImgPath = path.resolve(IMG_PATH, `${getDate}_${name}`)
+      let newImgPath = path.resolve(IMG_PATH, `${getTime}.png`)
+      let newImgPath2 = path.resolve(IMG_PATH2, `${getTime}.png`)
+
       let result = await RenameFile(tmpPath, newImgPath)
+      let result2 = await copyFile(newImgPath, newImgPath2)
 
-      if (!result) {
+      if (!result || !result2) {
         return res.send({
           errCode: -50000,
           msg: 'upload error'
@@ -135,6 +139,18 @@ function RenameFile (oldPath, newPath) {
   })
 }
 
+function copyFile (oldPath, newPath) {
+  return new Promise((resolve, reject) => {
+    fs.copyFile(oldPath, newPath, (err) => {
+      if (err) {
+        console.log(err)
+        return reject(err)
+      }
+      resolve(true)
+    })
+  })
+}
+
 function getImgSrc () {
   return new Promise((resolve, reject) => {
     fs.readdir(path.resolve('../static/uploads'), (err, result) => {
@@ -142,6 +158,7 @@ function getImgSrc () {
         return reject(err)
       }
       result = result.map(item => '/uploads/' + item)
+      result = result.slice(-1)
       resolve(result)
     })
   })
