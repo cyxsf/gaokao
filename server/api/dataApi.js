@@ -191,17 +191,3 @@ router.post('/majorSelect', (req, res) => { // 专业选择
   })
   // conn.end()
 })
-
-router.post('/insertIden', (req, res) => { // 专业选择
-  let sqlStr = sql.iden.insertIden
-  let params = req.body
-  let conn = new DBHelper().getConn()
-  conn.query(sqlStr, [params.uid, params.school, params.major, params.year, params.imgStr, params.imgStrs], (err, result) => {
-    if (err) {
-      res.json(err)
-    } else {
-      res.json(result)
-    }
-  })
-  // conn.end()
-})

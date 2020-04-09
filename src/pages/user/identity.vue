@@ -122,10 +122,22 @@ export default {
       let year = date.getFullYear()
       let imgStr = this.imgStr
       let imgStrs = this.imgStrs
-      this.axios.post('/api/data/insertIden', {
-        uid, school, major, year, imgStr, imgStrs
+      this.axios.post('/api/seni/examIden', {
+        uid
       }).then((res) => {
-        this.$router.push('/user')
+        if (res.data[0]) {
+          this.axios.post('/api/seni/upIden', {
+            school, major, year, imgStr, imgStrs, uid
+          }).then((res) => {
+            this.$router.push('/user')
+          })
+        } else {
+          this.axios.post('/api/seni/insertIden', {
+            uid, school, major, year, imgStr, imgStrs
+          }).then((res) => {
+            this.$router.push('/user')
+          })
+        }
       })
     }
   }

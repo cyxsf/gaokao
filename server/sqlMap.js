@@ -30,7 +30,9 @@ var sqlMap = {
     majorSelect: 'select * from majors where school = ?'
   },
   iden: {
-    insertIden: 'insert into identity(userid,school,major,year,imgStr,imgStrs) values(?,?,?,?,?,?)'
+    insertIden: 'insert into identity(userid,school,major,year,imgStr,imgStrs,exam) values(?,?,?,?,?,?,0)',
+    selIden: 'select * from identity where userid = ?',
+    upIden: 'update identity set school=?,major=?,year=?,imgStr=?,imgStrs=?,exam=0 where userid=?'
   },
   publish: {
     insertArt: 'insert into pubArticle(id,userid,title,markdown,html,date) values(?,?,?,?,?,?)',
