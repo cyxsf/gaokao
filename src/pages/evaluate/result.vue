@@ -11,7 +11,7 @@
           <p class="occu">推荐职业:{{occu}}</p>
         </div>
       </div>
-      <button class="return" @click="goToAddress">重新测试</button>
+      <button class="return" @click="goToAddress">填报推荐</button>
     </div>
 </template>
 <script>
@@ -110,7 +110,7 @@ export default {
       })
     },
     goToAddress () {
-      this.$router.push('/holland')
+      this.$router.push('/basic')
     }
   },
   mounted () {
@@ -125,11 +125,11 @@ export default {
   padding-top: 70px;
 }
 .rs {
-  margin: 16px;
+  margin: 15px;
   font-size: 22px;
 }
 .incli, .major, .occu{
-  margin: 16px;
+  margin: 15px;
   font-size: 18px;
 }
 #myResultTab {
@@ -141,12 +141,12 @@ export default {
   display: block;
   text-align: center;
   font-size: 22px;
-  line-height: 60px;
+  margin-top: 20px;
 }
 .return {
   display: block;
   width: 80%;
   height: 50px;
-  margin: auto;
+  margin: 35px auto;
 }
 </style>

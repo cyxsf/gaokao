@@ -127,13 +127,12 @@ export default {
           this.axios.post('/api/user/userReg', {
             uid, pwdOne
           }).then(res => {
+            this.axios.post('/api/user/basInfo', {
+              uid
+            }).then((res) => {})
             this.$router.push('/login')
-          }).catch(err => {
-            console.log(err)
           })
         }
-      }).catch(err => {
-        console.log(err)
       })
     },
     closeTip () {

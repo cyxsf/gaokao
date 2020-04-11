@@ -243,11 +243,6 @@ export default {
         }
       })
       this.$store.commit('pushCurrentMessageList', message)
-      Object.assign(this.form, {
-        data: '',
-        description: '',
-        extension: ''
-      })
       this.tim
         .sendMessage(message)
         .then(() => {

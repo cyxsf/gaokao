@@ -4,7 +4,10 @@ var sqlMap = {
     reg: 'insert into user(userid,password,root) values(?,?,1)',
     login: 'select * from user where userid = ? and password = ?',
     update: 'update user set password = ? where userid = ?',
-    select: 'select * from user where userid = ?'
+    select: 'select * from user where userid = ?',
+    upInfo: 'update userinfo set name = ?, avatar = ? where userid = ?',
+    basInfo: 'insert into userinfo(userid,name,avatar) values(?,?,?)',
+    senSelect: 'select * from seniors a join userinfo b on a.userid = b.userid where a.userid <> ?'
     // select: 'select * from user where name like "%"?"%"'
   },
   test: {
@@ -16,13 +19,8 @@ var sqlMap = {
   forecast: {
     // 学校预测
     proSelect: 'select * from province',
-    basInfo: 'insert into userinfo(userid,curplace,subject,score) values(?,?,?,?)',
-    basSelect: 'select * from userinfo where userid = ?',
     basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
     finalTour: 'select * from univerinfo where id = ? or id = ?'
-  },
-  community: {
-    senSelect: 'select * from seniors'
   },
   select: {
     // 学校、专业选择
@@ -30,6 +28,7 @@ var sqlMap = {
     majorSelect: 'select * from majors where school = ?'
   },
   iden: {
+    senSelect: 'select * from seniors where userid <> ?',
     insertIden: 'insert into identity(userid,school,major,year,imgStr,imgStrs,exam) values(?,?,?,?,?,?,0)',
     selIden: 'select * from identity where userid = ?',
     upIden: 'update identity set school=?,major=?,year=?,imgStr=?,imgStrs=?,exam=0 where userid=?'

@@ -73,26 +73,10 @@ export default {
         this.showAlert = true
         this.alertText = '高考分数不能为空'
       } else {
-        this.axios.post('/api/data/basSelect', {
-          uid
+        this.axios.post('/api/data/basUpdate', {
+          uid, local, sub, score
         }).then(res => {
-          if (res.data[0]) {
-            this.axios.post('/api/data/basUpdate', {
-              uid, local, sub, score
-            }).then(res => {
-              this.$router.push('/final')
-            }).catch(err => {
-              console.log(err)
-            })
-          } else {
-            this.axios.post('/api/data/basInfo', {
-              uid, local, sub, score
-            }).then(res => {
-              this.$router.push('/final')
-            }).catch(err => {
-              console.log(err)
-            })
-          }
+          this.$router.push('/final')
         })
       }
     },

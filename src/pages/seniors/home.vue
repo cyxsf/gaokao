@@ -6,11 +6,11 @@
         </el-input>
           <section class="listCom" v-for="item in seniorList" :key='item.userid'>
             <span clss="privateImg">
-                <img :src="imgUrl" alt="用户头像">
+                <img :src="item.avatar" alt="用户头像">
             </span>
             <div class="info">
                 <div class="nameinfo">
-                  <span class="name">{{item.name}}</span>
+                  <span class="name">{{item.name || item.userid}}</span>
                   <span>{{item.school}}</span>
                 </div>
               <span class="userinfo">
@@ -25,10 +25,10 @@
 
 <script>
 import headTop from '@/components/common/header'
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
-      imgUrl: require('@/images/timg.png'),
       seniorList: {},
       keyword: '',
       oldList: {}
@@ -40,11 +40,21 @@ export default {
   mounted () {
     this.initData()
   },
+  computed: {
+    ...mapState({
+      currentUserProfile: state => state.user.currentUserProfile
+    })
+  },
   methods: {
     initData () {
-      this.axios.post('/api/seni/senSelect', {
+      let uid = this.currentUserProfile.userID
+      this.axios.post('/api/user/senSelect', {
+        uid
       }).then(res => {
         this.seniorList = res.data
+        this.seniorList.forEach(function (item, index) {
+          if (item.avatar === '') item.avatar = 'https://imgcache.qq.com/open/qcloud/video/act/webim-avatar/avatar-2.png'
+        })
         this.oldList = this.seniorList
       })
     },

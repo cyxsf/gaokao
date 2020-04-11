@@ -6,8 +6,7 @@ var DBHelper = require('../DBHelper')
 var sql = require('../sqlMap')
 var smsUtil = require('../../src/config/sendCode')
 
-// 用户注册
-router.post('/userReg', (req, res) => {
+router.post('/userReg', (req, res) => { // 用户注册
   let sqlStr = sql.user.reg
   let params = req.body
   let conn = new DBHelper().getConn()
@@ -21,8 +20,7 @@ router.post('/userReg', (req, res) => {
   // conn.end()
 })
 
-// 用户登录
-router.post('/userLogin', (req, res) => {
+router.post('/userLogin', (req, res) => { // 用户登录
   let sqlStr = sql.user.login
   let params = req.body
   let conn = new DBHelper().getConn()
@@ -36,8 +34,7 @@ router.post('/userLogin', (req, res) => {
   // conn.end()
 })
 
-// 更新用户密码
-router.post('/userUpdate', (req, res) => {
+router.post('/userUpdate', (req, res) => { // 更新用户密码
   let sqlStr = sql.user.update
   let params = req.body
   let conn = new DBHelper().getConn()
@@ -51,9 +48,50 @@ router.post('/userUpdate', (req, res) => {
   // conn.end()
 })
 
-// 查找用户
-router.post('/userSelect', (req, res) => {
+router.post('/userSelect', (req, res) => { // 查找用户
   let sqlStr = sql.user.select
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/basInfo', (req, res) => { // 插入用户信息
+  let sqlStr = sql.user.basInfo
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid, '', ''], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/upInfo', (req, res) => { // 更新用户信息
+  let sqlStr = sql.user.upInfo
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.name, params.avatar, params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/senSelect', (req, res) => { // 查找学长学姐
+  let sqlStr = sql.user.senSelect
   let params = req.body
   let conn = new DBHelper().getConn()
   conn.query(sqlStr, [params.uid], (err, result) => {

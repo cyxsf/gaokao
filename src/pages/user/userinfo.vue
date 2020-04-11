@@ -81,19 +81,23 @@ export default {
           if (res.data.errCode === 0) {
             this.axios.get('/api/data/getImgList')
               .then((res) => {
-                console.log(res.data[0])
                 _this.imgUrl = './static' + res.data[0]
               })
           }
         })
     },
     handleEdit () {
+      let uid = this.currentUserProfile.userID
+      let name = this.nick
+      let avatar = this.imgUrl
       this.tim.updateMyProfile({
         nick: this.nick,
         avatar: this.imgUrl
-      }).then(() => {
-        console.log('修改成功')
-      })
+      }).then(() => {})
+      this.axios.post('/api/user/upInfo', {
+        name, avatar, uid
+      }).then((res) => {})
+      this.$router.push('/user')
     }
   }
 }
