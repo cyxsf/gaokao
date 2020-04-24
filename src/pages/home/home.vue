@@ -13,10 +13,12 @@
           <span>兴趣测试</span>
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </router-link>
+        <!--
         <router-link to="/final" class="list">
           <span>填报指南</span>
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </router-link>
+        -->
         <router-link to="/seniors" class="list">
           <span>学长学姐</span>
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>

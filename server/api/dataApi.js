@@ -40,11 +40,39 @@ router.post('/basUpdate', (req, res) => { // 更新基本信息
   // conn.end()
 })
 
+router.post('/basSelect', (req, res) => { // 查找基本信息
+  let sqlStr = sql.forecast.basSelect
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/schoolSelect', (req, res) => { // 查找基本信息
+  let sqlStr = sql.forecast.schoolSelect
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.school], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
 router.post('/finalTour', (req, res) => { // 填报指南
   let sqlStr = sql.forecast.finalTour
   let params = req.body
   let conn = new DBHelper().getConn()
-  conn.query(sqlStr, [params.fid, params.sid], (err, result) => {
+  conn.query(sqlStr, [params.cur, params.sub, params.score], (err, result) => {
     if (err) {
       res.json(err)
     } else {

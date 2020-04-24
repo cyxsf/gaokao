@@ -32,53 +32,82 @@
 
 <script>
 import headTop from '@/components/common/header'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
       tabs: [
-        {id: 0, title: '可冲击', iscurTab: true},
+        {id: 0, title: '可保底', iscurTab: false},
         {id: 1, title: '较稳妥', iscurTab: false},
-        {id: 2, title: '可保底', iscurTab: false}
+        {id: 2, title: '可冲击', iscurTab: true}
       ],
       curtab: 0, // 当前被选择tab标识,用来渲染tab选中样式
       i: 0,
-      tabContent: {},
-      fid: '91',
-      sid: '141'
+      tabContent: [],
+      initDatas: [],
+      risk: {
+        low: 0,
+        middle: 5,
+        high: 10
+      }
     }
   },
   components: {
     headTop
   },
+  computed: {
+    ...mapState({
+      userID: state => state.user.userID
+    })
+  },
   methods: {
     toggletab (index) {
       this.curtab = index // 将选中的tab的index赋给curtab
       this.i = index
+      let data = this.initDatas
+      let score = data.score
       if (index === 0) {
         this.isShowTab = true
-        this.fid = '91'
-        this.sid = '141'
+        score = data.score * (this.risk.low / 100 + 1)
       } else if (index === 1) {
-        this.fid = '58'
-        this.sid = '90'
+        score = data.score * (this.risk.middle / 100 + 1)
       } else {
-        this.fid = '113'
-        this.sid = '163'
+        score = data.score * (this.risk.high / 100 + 1)
       }
-      this.finalTour()
+      this.finalTour(data.curplace, data.subject, score)
     },
-    finalTour () {
-      let fid = this.fid
-      let sid = this.sid
-      this.axios.post('/api/data/finalTour', {
-        fid, sid
+    initData () {
+      let uid = this.userID
+      this.axios.post('/api/data/basSelect', {
+        uid
       }).then(res => {
-        this.tabContent = res.data
+        let result = res.data[0]
+        this.finalTour(result.curplace, result.subject, result.score)
+        this.initDatas = result
+      })
+    },
+    finalTour (cur, sub, score) {
+      this.axios.post('/api/data/finalTour', {
+        cur, sub, score
+      }).then(res => {
+        var that = this
+        var promiseAll = res.data.map(function (item) {
+          let school = item.school
+          return that.axios.post('/api/data/schoolSelect', {school})
+        })
+        that.axios.all(promiseAll).then(resArr => {
+          that.tabContent = []
+          resArr.forEach((res, i) => {
+            if (res.data.length !== 0) {
+              that.tabContent.push(res.data[0])
+            }
+          })
+        })
       })
     }
   },
   mounted () {
-    this.finalTour()
+    this.initData()
   }
 }
 </script>

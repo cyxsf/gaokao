@@ -34,7 +34,7 @@ export default {
       // eslint-disable-next-line no-undef
       const geolocation = new BMap.Geolocation()
       geolocation.getCurrentPosition((r) => {
-        this.local = r.address.province // 获取省份信息
+        this.local = r.address.province.replace(/省/g, '')// 获取省份信息
       }, function (e) {
         this.local = '定位失败'
       }, { enableHighAccuracy: true })

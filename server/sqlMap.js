@@ -20,7 +20,9 @@ var sqlMap = {
     // 学校预测
     proSelect: 'select * from province',
     basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
-    finalTour: 'select * from univerinfo where id = ? or id = ?'
+    basSelect: ' select * from userinfo where userid = ?',
+    finalTour: 'select school from forPoint where curplace = ? and subject = ? and ?>=lowest',
+    schoolSelect: 'select * from univerinfo where school = ?'
   },
   select: {
     // 学校、专业选择
