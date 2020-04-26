@@ -72,7 +72,7 @@ router.post('/finalTour', (req, res) => { // 填报指南
   let sqlStr = sql.forecast.finalTour
   let params = req.body
   let conn = new DBHelper().getConn()
-  conn.query(sqlStr, [params.cur, params.sub, params.score], (err, result) => {
+  conn.query(sqlStr, [params.cur, params.sub, params.low, params.high], (err, result) => {
     if (err) {
       res.json(err)
     } else {
@@ -164,7 +164,7 @@ function getImgSrc () {
   })
 }
 
-router.post('/schoolSelect', (req, res) => { // 学校选择
+router.post('/schSelect', (req, res) => { // 学校选择
   let sqlStr = sql.select.schoolSelect
   let params = req.body
   let conn = new DBHelper().getConn()

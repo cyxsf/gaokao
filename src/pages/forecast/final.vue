@@ -7,7 +7,7 @@
           @click="toggletab(index)">{{tab.title}}</li>
         </ul>
       </div>
-      <div class="tabContent" v-for="item in tabContent" :key="item.id">
+      <div class="tabContent" v-for="(item, index) in tabContent" :key="item.school+index">
         <section class="content" v-show="curtab===i">
           <span class="univerIcon">
               <img :src="item.img">
@@ -45,10 +45,9 @@ export default {
       i: 0,
       tabContent: [],
       initDatas: [],
-      risk: {
-        low: 0,
-        middle: 5,
-        high: 10
+      score: {
+        high: 0,
+        low: 0
       }
     }
   },
@@ -65,16 +64,20 @@ export default {
       this.curtab = index // 将选中的tab的index赋给curtab
       this.i = index
       let data = this.initDatas
-      let score = data.score
+      this.score.low = data.score
+      this.score.high = data.score
       if (index === 0) {
         this.isShowTab = true
-        score = data.score * (this.risk.low / 100 + 1)
+        this.score.low = data.score - 50
+        this.score.high = data.score - 20
       } else if (index === 1) {
-        score = data.score * (this.risk.middle / 100 + 1)
+        this.score.low = data.score - 20
+        this.score.high = data.score - 10
       } else {
-        score = data.score * (this.risk.high / 100 + 1)
+        this.score.low = data.score - 10
+        this.score.high = data.score + 10
       }
-      this.finalTour(data.curplace, data.subject, score)
+      this.finalTour(data.curplace, data.subject, this.score.low, this.score.high)
     },
     initData () {
       let uid = this.userID
@@ -82,13 +85,13 @@ export default {
         uid
       }).then(res => {
         let result = res.data[0]
-        this.finalTour(result.curplace, result.subject, result.score)
+        this.finalTour(result.curplace, result.subject, result.score - 50, result.score - 20)
         this.initDatas = result
       })
     },
-    finalTour (cur, sub, score) {
+    finalTour (cur, sub, low, high) {
       this.axios.post('/api/data/finalTour', {
-        cur, sub, score
+        cur, sub, low, high
       }).then(res => {
         var that = this
         var promiseAll = res.data.map(function (item) {

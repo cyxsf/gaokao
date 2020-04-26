@@ -21,7 +21,7 @@ var sqlMap = {
     proSelect: 'select * from province',
     basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
     basSelect: ' select * from userinfo where userid = ?',
-    finalTour: 'select school from forPoint where curplace = ? and subject = ? and ?>=lowest',
+    finalTour: 'select distinct school from forPoint where curplace = ? and subject = ? and lowest >= ? and lowest < ? order by lowest',
     schoolSelect: 'select * from univerinfo where school = ?'
   },
   select: {

@@ -5,7 +5,7 @@
       <div class="list">
         <span>头像</span>
         <div class="info" @click="handleSendImageClick">
-          <avatar :src="currentUserProfile.avatar || imgUrl"/>
+          <avatar :src="imgUrl || currentUserProfile.avatar"/>
           <icon-svg class="icon" icon-class="icon-youhua"></icon-svg>
         </div>
       </div>

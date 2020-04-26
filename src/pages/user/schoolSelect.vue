@@ -42,23 +42,23 @@ export default {
     initData () {
       this.axios.post('/api/data/proSelect')
         .then((res) => {
-          console.log(res.data)
+          // console.log(res.data)
           this.proList = res.data
         })
       let cur = '北京'
-      this.axios.post('/api/data/schoolSelect', {
+      this.axios.post('/api/data/schSelect', {
         cur
       }).then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         this.dataList = res.data
       })
     },
     chooseMenu (index, cur) {
       this.menuIndex = index
-      this.axios.post('/api/data/schoolSelect', {
+      this.axios.post('/api/data/schSelect', {
         cur
       }).then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         this.dataList = res.data
       })
     },

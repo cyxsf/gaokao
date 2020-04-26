@@ -21,7 +21,7 @@
             >查看更多</el-button>
           </div>
           <div class="no-more" v-else>没有更多了</div>
-          <mesItem v-for="message in currentMessageList" :key="message.ID" :message="message"/>
+          <mesItem v-for="(message, index) in currentMessageList" :key="message.ID+index" :message="message"/>
         </div>
         <div v-show="isShowScrollButtomTips" class="newMessageTips" @click="scrollMessageListToButtom">回到最新位置</div>
       </div>

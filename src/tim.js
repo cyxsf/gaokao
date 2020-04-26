@@ -11,7 +11,7 @@ let options = {
 let tim = TIM.create(options) // SDK 实例通常用 tim 表示
 
 // 设置 SDK 日志输出级别，详细分级请参见 setLogLevel 接口的说明
-tim.setLogLevel(0) // 普通级别，日志量较多，接入时建议使用
+tim.setLogLevel(1) // 普通级别，日志量较多，接入时建议使用
 // tim.setLogLevel(1); // release 级别，SDK 输出关键信息，生产环境时建议使用
 
 // 注册 COS SDK 插件
