@@ -5,6 +5,9 @@ import Register from '@/pages/other/register'
 import Forget from '@/pages/other/forget'
 import Home from '@/pages/home/home'
 import Basic from '@/pages/forecast/basic'
+import Prefer from '@/pages/forecast/prefer'
+import PreReg from '@/components/common/preReg'
+import PreMajor from '@/components/common/preMajor'
 import Final from '@/pages/forecast/final'
 import User from '@/pages/user/user'
 import UserInfo from '@/pages/user/userinfo'
@@ -68,6 +71,27 @@ const router = new Router({
         title: '基本信息'
       },
       component: Basic
+    },
+    {
+      path: '/prefer',
+      meta: {
+        title: '偏好信息'
+      },
+      component: Prefer
+    },
+    {
+      path: '/preReg',
+      meta: {
+        title: '地域偏好'
+      },
+      component: PreReg
+    },
+    {
+      path: '/preMajor',
+      meta: {
+        title: '地域偏好'
+      },
+      component: PreMajor
     },
     {
       path: '/final',

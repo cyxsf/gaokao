@@ -3,7 +3,7 @@
       <headTop title='填报助手'></headTop>
       <div class="header">基本信息</div>
       <div class="introduce">
-        输入地点分数等信息，可以帮助我们更加精确推荐适合您填报的学校
+        输入地点分数等基本信息，可以帮助我们推荐适合您填报的学校
       </div>
       <div class="content">
         <span class="left">生源地</span>
@@ -33,7 +33,7 @@
 <script>
 import headTop from '@/components/common/header'
 import alertTip from '@/components/common/alertTip'
-import { getStore } from '@/config/mUtils'
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
@@ -45,6 +45,11 @@ export default {
       iconType: true, // 提示框里icon类型
       score: ''
     }
+  },
+  computed: {
+    ...mapState({
+      currentUserProfile: state => state.user.currentUserProfile
+    })
   },
   components: {
     headTop,
@@ -62,7 +67,7 @@ export default {
       if (this.i > this.subject.length - 1) this.i = 0
     },
     finish () {
-      let uid = getStore('userid')
+      let uid = this.currentUserProfile.userID
       let local = this.local
       let sub = this.subject[this.i]
       let score = this.score
@@ -76,7 +81,7 @@ export default {
         this.axios.post('/api/data/basUpdate', {
           uid, local, sub, score
         }).then(res => {
-          this.$router.push('/final')
+          this.$router.push('/prefer')
         })
       }
     },

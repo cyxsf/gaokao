@@ -14,15 +14,23 @@ var sqlMap = {
     // 兴趣测试
     queSelect: 'select * from questions',
     resSelect: 'select * from result',
-    cateSelect: 'select * from cate'
+    cateSelect: 'select * from cate',
+    upInfo: 'update userinfo set cateid = ? where userid = ?'
   },
   forecast: {
     // 学校预测
     proSelect: 'select * from province',
     basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
     basSelect: ' select * from userinfo where userid = ?',
+    preUpdate: 'update userinfo set preapp = ?, prereg = ?, premajor = ? where userid = ?',
     finalTour: 'select distinct school from forPoint where curplace = ? and subject = ? and lowest >= ? and lowest < ? order by lowest',
-    schoolSelect: 'select * from univerinfo where school = ?'
+    schoolSelect: 'select * from univerinfo where school = ?',
+    resSelect: 'select * from result where cateid = ?',
+    preReg: 'select * from preReg',
+    preMajor: 'select * from preMajor',
+    regSel: 'select * from preReg where region = ?',
+    majorSel: 'select * from preMajor where major = ?',
+    goPre: 'select * from userinfo where userid = ? and curplace <> ? and subject <> ? and score <> ?'
   },
   select: {
     // 学校、专业选择

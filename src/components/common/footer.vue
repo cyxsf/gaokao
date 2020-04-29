@@ -4,7 +4,7 @@
         <icon-svg class="icon" icon-class="icon-home"></icon-svg>
         <span>首页</span>
       </section>
-      <section class="guide_item" @click="gotoAddress('/basic')">
+      <section class="guide_item" @click="gotoGuide">
         <icon-svg class="icon" icon-class="icon-form"></icon-svg>
         <span>填报推荐</span>
       </section>
@@ -45,15 +45,33 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
       drawer: false
     }
   },
+  computed: {
+    ...mapState({
+      currentUserProfile: state => state.user.currentUserProfile
+    })
+  },
   methods: {
     gotoAddress (path) {
       this.$router.push(path)
+    },
+    gotoGuide () {
+      let uid = this.currentUserProfile.userID
+      this.axios.post('/api/data/goPre', {
+        uid
+      }).then(res => {
+        if (res.data[0]) {
+          this.$router.push('/prefer')
+        } else {
+          this.$router.push('/basic')
+        }
+      })
     },
     handleClose (done) { // 点击ESC,drawer会关闭
       this.timer = setTimeout(() => {

@@ -13,6 +13,20 @@ const multipartyMiddleware = multiparty({
   uploadDir: './temp'
 }) // 设置上传文件存放的地址
 
+router.post('/goPre', (req, res) => { // 是否直接跳转到偏好
+  let sqlStr = sql.forecast.goPre
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid, '', '', ''], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
 router.post('/proSelect', (req, res) => { // 查找省份
   let sqlStr = sql.forecast.proSelect
   let conn = new DBHelper().getConn()
@@ -31,6 +45,20 @@ router.post('/basUpdate', (req, res) => { // 更新基本信息
   let params = req.body
   let conn = new DBHelper().getConn()
   conn.query(sqlStr, [params.local, params.sub, params.score, params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/preUpdate', (req, res) => { // 更新基本信息
+  let sqlStr = sql.forecast.preUpdate
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.preApp, params.reg, params.major, params.uid], (err, result) => {
     if (err) {
       res.json(err)
     } else {
@@ -59,6 +87,74 @@ router.post('/schoolSelect', (req, res) => { // 查找基本信息
   let params = req.body
   let conn = new DBHelper().getConn()
   conn.query(sqlStr, [params.school], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/resSelect', (req, res) => { // 查找测评结果信息
+  let sqlStr = sql.forecast.resSelect
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.cateid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/preReg', (req, res) => { // 查找地域偏好
+  let sqlStr = sql.forecast.preReg
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/preMajor', (req, res) => { // 查找专业偏好
+  let sqlStr = sql.forecast.preMajor
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/regSel', (req, res) => { // 查找专业偏好
+  let sqlStr = sql.forecast.regSel
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.item], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/majorSel', (req, res) => { // 查找专业偏好
+  let sqlStr = sql.forecast.majorSel
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.item], (err, result) => {
     if (err) {
       res.json(err)
     } else {

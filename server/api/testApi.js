@@ -43,3 +43,17 @@ router.post('/cateSelect', (req, res) => { // 查找类型
   })
   // conn.end()
 })
+
+router.post('/upInfo', (req, res) => { // 查找类型
+  let sqlStr = sql.test.upInfo
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.cateid, params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})

@@ -17,7 +17,7 @@ export default {
       backTit: '返回',
       isShow: true,
       isShowRight: false,
-      sendTit: '发布'
+      sendTit: '完成'
     }
   },
   methods: {

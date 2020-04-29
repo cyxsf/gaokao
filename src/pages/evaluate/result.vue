@@ -16,6 +16,7 @@
 </template>
 <script>
 import headTop from '@/components/common/header'
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
@@ -29,6 +30,11 @@ export default {
   },
   components: {
     headTop
+  },
+  computed: {
+    ...mapState({
+      currentUserProfile: state => state.user.currentUserProfile
+    })
   },
   methods: {
     draw (results) {
@@ -108,9 +114,24 @@ export default {
           }
         }
       })
+      let cateid = values[0][0]
+      let uid = this.currentUserProfile.userID
+      this.axios.post('/api/test/upInfo', {
+        cateid, uid
+      }).then(res => {
+      })
     },
     goToAddress () {
-      this.$router.push('/basic')
+      let uid = this.currentUserProfile.userID
+      this.axios.post('/api/data/goPre', {
+        uid
+      }).then(res => {
+        if (res.data[0]) {
+          this.$router.push('/prefer')
+        } else {
+          this.$router.push('/basic')
+        }
+      })
     }
   },
   mounted () {
