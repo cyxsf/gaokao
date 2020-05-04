@@ -18,7 +18,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './style/icon/tim.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-// import AgoraRTC from 'agora-rtc-sdk'
 
 window.tim = tim
 window.TIM = TIM

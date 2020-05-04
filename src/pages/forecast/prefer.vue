@@ -62,9 +62,15 @@ export default {
       let preApp = this.preApp[this.i]
       let reg = this.reg
       let major = this.major
-      this.axios.post('/api/data/preUpdate', {
-        preApp, reg, major, uid
+      this.axios.post('/api/data/preUpdate', {preApp, reg, major, uid})
+      this.axios.post('/api/data/basSelect', {
+        uid
       }).then(res => {
+        let result = res.data[0]
+        let score = parseInt(result.score)
+        this.finalTour(result.curplace, result.subject, score - 50, score - 20, result.prereg, 0.65, 0)
+        this.finalTour(result.curplace, result.subject, score - 20, score - 10, result.prereg, 0.55, 1)
+        this.finalTour(result.curplace, result.subject, score - 10, score + 10, result.prereg, 0.4, 2)
         this.$router.push('/final')
       })
     },
@@ -83,6 +89,42 @@ export default {
             this.major = res.data[0].major
           })
         }
+      })
+    },
+    finalTour (cur, sub, low, high, reg, rate, cate) {
+      let uid = this.currentUserProfile.userID
+      this.axios.post('/api/data/finalTour', {
+        cur, sub, low, high
+      }).then(res => {
+        var that = this
+        var promiseAll = res.data.map(function (item) {
+          let school = item.school
+          return that.axios.post('/api/data/schoolSelect', {school})
+        })
+        that.axios.all(promiseAll).then(resArr => {
+          that.tabContent = []
+          resArr.forEach((res, i) => {
+            if (res.data.length !== 0) {
+              let school = res.data[0].school
+              if (reg) {
+                let temp = reg.split(' ')
+                res.data[0].count = 0
+                for (let i = 0; i < temp.length; i++) {
+                  if (temp[i] === res.data[0].curplace) {
+                    that.axios.post('/api/data/inseReco', {uid, school, rate, cate})
+                  } else {
+                    res.data[0].count++
+                  }
+                }
+                if (res.data[0].count === temp.length) {
+                  that.axios.post('/api/data/delReco', {uid, school})
+                }
+              } else {
+                that.axios.post('/api/data/inseReco', {uid, school, rate, cate})
+              }
+            }
+          })
+        })
       })
     }
   },

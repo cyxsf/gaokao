@@ -37,7 +37,7 @@ import {mapState} from 'vuex'
 export default {
   data () {
     return {
-      subject: ['理科', '文科'],
+      subject: ['理科', '文科', '综合'],
       i: 0,
       local: '', // 省份
       showAlert: false, // 提示框

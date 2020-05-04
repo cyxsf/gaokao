@@ -23,14 +23,18 @@ var sqlMap = {
     basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
     basSelect: ' select * from userinfo where userid = ?',
     preUpdate: 'update userinfo set preapp = ?, prereg = ?, premajor = ? where userid = ?',
-    finalTour: 'select distinct school from forPoint where curplace = ? and subject = ? and lowest >= ? and lowest < ? order by lowest',
+    finalTour: 'select school,(diff+line) as score from forDiff a join forLine b where a.curplace = b.curplace and a.subject = b.subject and a.batch = b.batch and a.curplace = ? and a.subject = ? and  (diff+line)>= ? and  (diff+line)< ? order by (diff+line)',
     schoolSelect: 'select * from univerinfo where school = ?',
     resSelect: 'select * from result where cateid = ?',
     preReg: 'select * from preReg',
     preMajor: 'select * from preMajor',
     regSel: 'select * from preReg where region = ?',
     majorSel: 'select * from preMajor where major = ?',
-    goPre: 'select * from userinfo where userid = ? and curplace <> ? and subject <> ? and score <> ?'
+    goPre: 'select * from userinfo where userid = ? and curplace <> ? and subject <> ? and score <> ?',
+    inseReco: 'insert into recoList(userid,school,rate,collect,cate) values (?,?,?,0,?)',
+    upReco: 'update recoList set rate = ?,collect = ? where userid = ? and school = ?',
+    selReco: 'select * from recoList where userid = ? and cate = ?',
+    delReco: 'delete from recoList where userid = ? and school = ?'
   },
   select: {
     // 学校、专业选择

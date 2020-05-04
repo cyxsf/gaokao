@@ -136,7 +136,7 @@ router.post('/preMajor', (req, res) => { // 查找专业偏好
   // conn.end()
 })
 
-router.post('/regSel', (req, res) => { // 查找专业偏好
+router.post('/regSel', (req, res) => { // 查找地域偏好
   let sqlStr = sql.forecast.regSel
   let params = req.body
   let conn = new DBHelper().getConn()
@@ -169,6 +169,62 @@ router.post('/finalTour', (req, res) => { // 填报指南
   let params = req.body
   let conn = new DBHelper().getConn()
   conn.query(sqlStr, [params.cur, params.sub, params.low, params.high], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/inseReco', (req, res) => { // 推荐列表
+  let sqlStr = sql.forecast.inseReco
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid, params.school, params.rate, params.cate], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/selReco', (req, res) => { // 搜索推荐列表
+  let sqlStr = sql.forecast.selReco
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid, params.cate], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/upReco', (req, res) => { // 更新收藏
+  let sqlStr = sql.forecast.upReco
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.rate, params.collect, params.uid, params.school], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/delReco', (req, res) => { // 删除推荐列表
+  let sqlStr = sql.forecast.delReco
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid, params.school], (err, result) => {
     if (err) {
       res.json(err)
     } else {
