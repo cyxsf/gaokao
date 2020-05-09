@@ -43,7 +43,8 @@ export default {
       tabs: [
         {id: 0, title: '可保底', iscurTab: false},
         {id: 1, title: '较稳妥', iscurTab: false},
-        {id: 2, title: '可冲击', iscurTab: true}
+        {id: 2, title: '可冲击', iscurTab: false},
+        {id: 3, title: '感兴趣', iscurTab: false}
       ],
       curtab: 0, // 当前被选择tab标识,用来渲染tab选中样式
       i: 0,
@@ -67,8 +68,10 @@ export default {
         this.finalSelect(0)
       } else if (index === 1) {
         this.finalSelect(1)
-      } else {
+      } else if (index === 2) {
         this.finalSelect(2)
+      } else {
+        this.finalSelect(3)
       }
     },
     finalSelect (cate) {

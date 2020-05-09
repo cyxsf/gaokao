@@ -5,6 +5,7 @@ import math
 import numpy as np
 import pandas as pd
 import pymysql
+import sys
 
 # 建立学校类型矩阵
 
@@ -49,6 +50,46 @@ def creatSchoolMatrix(sql):
     cursor.close()
     db.close()
 
+def creatSchoolMatrix2(sql):
+    # 打开数据库连接
+    db = pymysql.connect('127.0.0.1', 'root', 'sql2008', 'gaokao', charset='utf8')
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+    # sql插入语句
+
+    all_label = ['///', '985', '211', '综合', '工科', '农业', '师范', '民族', '林业', '医药', '语言', '财经', '体育', '艺术', '政法', '军事', '本科',
+                 '其它', '高职专科', '独立院校', '教育部', '教育厅']
+
+    matrix = []
+    items = []
+
+    try:
+        # 执行sql语句
+        cursor.execute(sql,[sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]])
+        # 获取所有记录列表
+        results = cursor.fetchall()
+
+        for item in results:
+            new_row = []
+            for label in all_label:
+                if((item[4] == label) | (item[5] == label) | (item[6].find(label) >= 0) | (item[7].find(label) >= 0)):
+                    new_row.append(1)
+                else:
+                    new_row.append(0)
+            matrix.append(new_row)
+        for i in results:
+            items.append(i[1])
+        for row in matrix:
+            row[0] = items.pop(0)
+        return matrix
+
+    except Exception:
+        print("Error")
+    # 关闭数据库连接
+    cursor.close()
+    db.close()
+
 # 建立评分矩阵
 
 
@@ -59,7 +100,7 @@ def creatRateMatrix():
     # 使用cursor()方法获取操作游标
     cursor = db.cursor()
     # sql插入语句
-    sql = "SELECT * FROM recoList order by userid"
+    sql = "select * from recoList where case when cate = 3 and collect = 0 then 0 else 1 end=1 order by userid"
 
     try:
         # 执行sql语句
@@ -267,11 +308,13 @@ def contentBased(user_profile, items_profiles, items_names, labels_names, items_
 
 def printRecommendedItems(recommend_items_sorted, max_num):
     count = 0
+    str = ''
     for item, degree in recommend_items_sorted:
-        print("学校：%s， 推荐指数：%f" % (item, degree))
+        str += item + ','
         count += 1
         if count == max_num:
             break
+    print(str, end='')
 
 
 # 主程序
@@ -290,7 +333,7 @@ if __name__ == '__main__':
     # 按照"所有用户对学校的评分矩阵"的列序排列的所有的学校名称
     items_users_saw_names1 = df1.columns[0:].tolist()
 
-    sql2 = "SELECT * FROM univerinfo a join recoList b where a.school = b.school"
+    sql2 = "SELECT * FROM univerinfo a join recoList b on a.school = b.school where case when cate = 3 and collect = 0 then 0 else 1 end=1"
     matrix2 = np.array(creatSchoolMatrix(sql2))
     (m2, n2) = matrix2.shape
     data_array2 = matrix2[:m2+1:, 1:]
@@ -303,8 +346,8 @@ if __name__ == '__main__':
     # 建立用户画像users_profiles和系统筛选学校集items_users_saw
     (users_profiles, items_users_saw) = createUsersProfiles(data_array1, all_users_names, items_users_saw_names1, all_labels, items_users_saw_profiles)
 
-    sql3 = "SELECT * FROM univerinfo"
-    matrix3 = np.array(creatSchoolMatrix(sql3))
+    sql3 = "SELECT * ,(diff+line) as score FROM univerinfo a join forDiff b join forLine c on a.school = b.school and b.curplace = c.curplace and b.subject = c.subject and b.batch = c.batch where b.curplace = (%s) and b.subject = (%s) and (diff+line) >= (%s) and (diff+line) < (%s) and a.school not in (select school from recoList where userid = (%s)) order by (diff+line);"
+    matrix3 = np.array(creatSchoolMatrix2(sql3))
     (m3, n3) = matrix3.shape
     data_array3 = matrix3[:m3+1:, 1:]
     # 按照"备选推荐节目集及所属类型01矩阵"的列序排列的所有用户观看过的节目名称
@@ -314,7 +357,7 @@ if __name__ == '__main__':
     items_to_be_recommended_profiles = createItemsProfiles(data_array3, all_labels, items_to_be_recommended_names)
 
     for user in all_users_names:
-        print("对于用户 %s 推荐的学校如下：" % user)
+        # print("对于用户 %s 推荐的学校如下：" % user)
         recommend_items = contentBased(users_profiles[user], items_to_be_recommended_profiles, items_to_be_recommended_names, all_labels, items_users_saw[user])
         printRecommendedItems(recommend_items, 3)
         print()

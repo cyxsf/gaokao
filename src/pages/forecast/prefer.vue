@@ -68,9 +68,14 @@ export default {
       }).then(res => {
         let result = res.data[0]
         let score = parseInt(result.score)
-        this.finalTour(result.curplace, result.subject, score - 50, score - 20, result.prereg, 0.65, 0)
-        this.finalTour(result.curplace, result.subject, score - 20, score - 10, result.prereg, 0.55, 1)
-        this.finalTour(result.curplace, result.subject, score - 10, score + 10, result.prereg, 0.4, 2)
+        let cur = result.curplace
+        let sub = result.subject
+        let lower = score - 80
+        let higher = score + 20
+        this.finalTour(cur, sub, score - 50, score - 20, result.prereg, 0.65, 0)
+        this.finalTour(cur, sub, score - 20, score - 10, result.prereg, 0.55, 1)
+        this.finalTour(cur, sub, score - 10, score + 10, result.prereg, 0.45, 2)
+        this.recommend(cur, sub, lower, higher, result.prereg, 0.7, 3)
         this.$router.push('/final')
       })
     },
@@ -95,19 +100,58 @@ export default {
       let uid = this.currentUserProfile.userID
       this.axios.post('/api/data/finalTour', {
         cur, sub, low, high
-      }).then(res => {
+      }).then(result => {
         var that = this
-        var promiseAll = res.data.map(function (item) {
+        var promiseAll = result.data.map(function (item) {
           let school = item.school
           return that.axios.post('/api/data/schoolSelect', {school})
         })
         that.axios.all(promiseAll).then(resArr => {
-          that.tabContent = []
           resArr.forEach((res, i) => {
             if (res.data.length !== 0) {
               let school = res.data[0].school
               if (reg) {
                 let temp = reg.split(' ')
+                res.data[0].count = 0
+                for (let i = 0; i < temp.length; i++) {
+                  if (temp[i] === res.data[0].curplace) {
+                    that.axios.post('/api/data/inseReco', {uid, school, rate, cate})
+                  } else {
+                    res.data[0].count++
+                  }
+                }
+                if (res.data[0].count === temp.length) {
+                  that.axios.post('/api/data/delReco', {uid, school})
+                }
+              } else {
+                that.axios.post('/api/data/inseReco', {uid, school, rate, cate})
+              }
+            }
+          })
+        })
+      })
+    },
+    recommend (cur, sub, lower, higher, region, rate, cate) {
+      let uid = this.currentUserProfile.userID
+      this.axios.post('./api/data/recoList', {cur, sub, lower, higher, uid
+      }).then(res => {
+        let result = res.data.split(',')
+        let reg = /^([\u4E00-\u9FA5])*$/
+        var that = this
+        var promiseAll = []
+        for (let item of result) {
+          if (reg.test(item)) {
+            let school = item
+            let temp = that.axios.post('/api/data/schoolSelect', {school})
+            promiseAll.push(temp)
+          } else continue
+        }
+        that.axios.all(promiseAll).then(resArr => {
+          resArr.forEach((res, i) => {
+            if (res.data.length !== 0) {
+              let school = res.data[0].school
+              if (region) {
+                let temp = region.split(' ')
                 res.data[0].count = 0
                 for (let i = 0; i < temp.length; i++) {
                   if (temp[i] === res.data[0].curplace) {

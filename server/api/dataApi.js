@@ -234,6 +234,23 @@ router.post('/delReco', (req, res) => { // 删除推荐列表
   // conn.end()
 })
 
+const exec = require('child_process').exec
+// const execSync = require('child_process').execSync
+const iconv = require('iconv-lite') // 解码包，解决中文乱码问题
+
+router.post('/recoList', (req, res) => {
+  let params = req.body
+  // 异步执行
+  exec('python "C:/Users/87046/Documents/GitHub/gaokao/src/CB.py"  ' + params.cur + '  ' + params.sub + '  ' + params.lower + '  ' + params.higher + ' ' + params.uid + '',
+    { encoding: 'buffer' }, function (error, stdout, stderr) {
+      if (error) {
+        console.info('stderr : ' + stderr)
+      }
+      var out = iconv.decode(stdout, 'cp936')
+      res.send(out)
+    })
+})
+
 const IMG_PATH = path.resolve('../static/uploads/')
 const IMG_PATH2 = path.resolve('../../gaokao-back/static/uploads/')
 router.post('/upload', multipartyMiddleware, async (req, res) => {
