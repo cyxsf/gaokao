@@ -65,7 +65,7 @@ $background-deep-dark: #303841;
 
 //定位上下左右居中
 @mixin center {  
-	position: absolute;
+	position: fixed;
 	top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

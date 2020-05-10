@@ -8,7 +8,7 @@
         <icon-svg class="icon" icon-class="icon-form"></icon-svg>
         <span>填报推荐</span>
       </section>
-      <section class="guide_item" @click="drawer = true">
+      <section class="guide_item" @click="gotoPublic">
         <icon-svg class="icon" icon-class="icon-tianjia"></icon-svg>
       </section>
       <section class="guide_item" @click="gotoAddress('/mesList')">
@@ -19,6 +19,7 @@
         <icon-svg class="icon" icon-class="icon-account"></icon-svg>
         <span>个人中心</span>
       </section>
+      <!--
       <el-drawer
       :visible.sync="drawer"
       direction="btt"
@@ -42,15 +43,24 @@
           </section>
         </section>
       </el-drawer>
+      -->
+      <alert-tip id="tip" v-if="showAlert" @closeTip="closeTip"  @submitTip="closeTip" :alertText="alertText" :iconType ="iconType"></alert-tip>
     </div>
 </template>
 <script>
+import alertTip from '@/components/common/alertTip'
 import {mapState} from 'vuex'
 export default {
   data () {
     return {
-      drawer: false
+      drawer: false,
+      showAlert: false,
+      alertText: '',
+      iconType: true
     }
+  },
+  components: {
+    alertTip
   },
   computed: {
     ...mapState({
@@ -73,6 +83,18 @@ export default {
         }
       })
     },
+    gotoPublic () {
+      if (this.currentUserProfile.role === 1) {
+        this.$router.push('/pubArticle')
+      } else {
+        this.showAlert = true
+        this.alertText = '请先进行身份认证'
+      }
+    },
+    closeTip () {
+      this.showAlert = false
+    }
+    /*
     handleClose (done) { // 点击ESC,drawer会关闭
       this.timer = setTimeout(() => {
         done()
@@ -82,6 +104,7 @@ export default {
         }, 400)
       }, 2000)
     }
+    */
   }
 }
 </script>
@@ -115,5 +138,8 @@ export default {
 .item-list {
   display: flex;
   padding: 25px;
+}
+#tip {
+  z-index: 1000;
 }
 </style>

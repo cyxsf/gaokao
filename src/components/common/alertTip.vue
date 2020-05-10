@@ -1,14 +1,14 @@
 <template>
-    <div class="alert_container">
-        <section class="tip_container">
-          <div class="close" @click="closeTip">
-            <icon-svg  icon-class="icon-cuowu"></icon-svg>
-          </div>
-          <icon-svg class="icon" :icon-class="iconType?'icon-jinggao':'icon-cuowu'"></icon-svg>
-          <span class="tip_text">{{alertText}}</span>
-          <button class="confirm" @click="submitTip">确认</button>
-        </section>
-    </div>
+  <div class="alert_container" z-index= "1000">
+    <section class="tip_container">
+      <div class="close" @click="closeTip">
+        <icon-svg  icon-class="icon-cuowu"></icon-svg>
+      </div>
+      <icon-svg class="icon" :icon-class="iconType?'icon-jinggao':'icon-cuowu'"></icon-svg>
+      <span class="tip_text">{{alertText}}</span>
+      <button class="confirm" @click="submitTip">确认</button>
+    </section>
+  </div>
 </template>
 
 <script>

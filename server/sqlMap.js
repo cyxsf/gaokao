@@ -6,8 +6,9 @@ var sqlMap = {
     update: 'update user set password = ? where userid = ?',
     select: 'select * from user where userid = ?',
     upInfo: 'update userinfo set name = ?, avatar = ? where userid = ?',
-    basInfo: 'insert into userinfo(userid,name,avatar) values(?,?,?)',
-    senSelect: 'select * from seniors a join userinfo b on a.userid = b.userid where a.userid <> ?'
+    basInfo: 'insert into userinfo(userid,name,avatar,balance) values(?,?,?,0)',
+    senSelect: 'select * from seniors a join userinfo b on a.userid = b.userid where a.userid <> ?',
+    upBalance: 'update userinfo set balance = ? where userid = ?'
     // select: 'select * from user where name like "%"?"%"'
   },
   test: {
@@ -52,7 +53,8 @@ var sqlMap = {
     myArtList: 'select * from pubArticle where userid = ?',
     selectArt: 'select * from pubArticle where id = ?',
     delArt: 'delete from pubArticle where id = ?',
-    updateArt: 'update pubArticle set userid =?,title=?,markdown=?,html=?,date=? where id = ?'
+    updateArt: 'update pubArticle set userid =?,title=?,markdown=?,html=?,date=? where id = ?',
+    allArt: 'select * from pubArticle'
   }
 }
 

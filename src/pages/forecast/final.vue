@@ -104,6 +104,11 @@ export default {
         })
       })
     },
+    timer (cate) {
+      return setTimeout(() => {
+        this.finalSelect(cate)
+      }, 1000)
+    },
     collect (index, school, prerate) {
       let uid = this.currentUserProfile.userID
       this.tabContent[index].collect = !this.tabContent[index].collect
@@ -120,6 +125,7 @@ export default {
   },
   mounted () {
     this.finalSelect(0)
+    this.timer(0)
   }
 }
 </script>

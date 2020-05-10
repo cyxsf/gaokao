@@ -90,6 +90,20 @@ router.post('/upInfo', (req, res) => { // 更新用户信息
   // conn.end()
 })
 
+router.post('/upBalance', (req, res) => { // 更新用户账户余额
+  let sqlStr = sql.user.upBalance
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.money, params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
 router.post('/senSelect', (req, res) => { // 查找学长学姐
   let sqlStr = sql.user.senSelect
   let params = req.body

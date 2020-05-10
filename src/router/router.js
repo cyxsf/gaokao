@@ -24,7 +24,7 @@ import MesList from '@/pages/community/message/mesList'
 import Seniors from '@/pages/seniors/home'
 import PubArticle from '@/pages/publish/pubArticle'
 import Article from '@/pages/publish/article'
-import RaiseQue from '@/pages/publish/raiseQue'
+import Articles from '@/pages/publish/articles'
 
 Vue.use(Router)
 
@@ -199,11 +199,11 @@ const router = new Router({
       component: Article
     },
     {
-      path: '/raiseQue',
+      path: '/articles',
       meta: {
-        title: '提出问题'
+        title: '文章列表'
       },
-      component: RaiseQue
+      component: Articles
     }
   ]
 })

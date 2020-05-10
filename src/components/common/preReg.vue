@@ -87,7 +87,6 @@ export default {
           })
         }
       })
-
     },
     goSend (name) {
       let uid = this.currentUserProfile.userID

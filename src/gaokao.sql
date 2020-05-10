@@ -29,15 +29,18 @@ create table userinfo(
  score varchar(20),
  preapp varchar(50),
  prereg varchar(500),
- premajor varchar(500)
+ premajor varchar(500),
+ balance float
 );
 
 truncate table userinfo;
 
-insert into userinfo (userid,name,avatar) values('123','白','');
-insert into userinfo (userid,name,avatar) values('111','大白','');
-insert into userinfo (userid,name,avatar) values('222','小白','');
-insert into userinfo (userid,name,avatar) values('333','小小白','');
+insert into userinfo (userid,name,avatar,balance) values('123','白','',0);
+insert into userinfo (userid,name,avatar,balance) values('111','大白','',0);
+insert into userinfo (userid,name,avatar,balance) values('222','小白','',0);
+insert into userinfo (userid,name,avatar,balance) values('333','小小白','',0);
+
+select * from userinfo;
 
 drop table if exists identity; /*身份认证*/
 create table identity(

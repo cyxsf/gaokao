@@ -74,3 +74,16 @@ router.post('/updateArt', (req, res) => { // 更新已经发表的文章
   })
   // conn.end()
 })
+
+router.post('/allArt', (req, res) => { // 查找全部已发表的文章
+  let sqlStr = sql.publish.allArt
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
