@@ -5,6 +5,7 @@
       <div class="introduce">
         输入偏好信息，可以帮助我们更加精确推荐适合您填报的学校
       </div>
+      <!--
       <div class="content">
         <span class="left">报考偏好</span>
         <div class="contain" @click="change">
@@ -12,6 +13,7 @@
           <icon-svg class="icon" icon-class="icon-qiehuan"></icon-svg>
         </div>
       </div>
+      -->
       <div class="content">
         <span class="left">地域偏好</span>
         <div class="contain" @click="goToAddress('/preReg')">

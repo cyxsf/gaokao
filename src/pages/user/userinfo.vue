@@ -54,10 +54,10 @@ export default {
     })
   },
   mounted () {
-    this.inieData()
+    this.initData()
   },
   methods: {
-    inieData () {
+    initData () {
       if (this.currentUserProfile.nick !== '') {
         this.nick = this.currentUserProfile.nick
       }

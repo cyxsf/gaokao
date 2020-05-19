@@ -1,6 +1,6 @@
 <template>
     <div class="home-page">
-      <headTop title='霍兰德兴趣测试'></headTop>
+      <headTop title='霍兰德兴趣测评'></headTop>
       <progressbar :active="active" :total="total" :barwidth="barwidth">
       </progressbar>
       <div v-for="(item,index) in questions" :key="item.qid">
@@ -40,7 +40,7 @@ export default {
       if (this.active >= this.total) this.active = this.total
       this.barchange()
       if (this.active >= this.total) {
-        let res = JSON.stringify(myResults)
+        let res = JSON.stringify(myResults) // {"1":5,"2":4,"3":5,"4":2,"5":2,"6":5}
         this.$router.push({
           path: '/evalresult',
           query: {

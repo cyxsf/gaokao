@@ -118,6 +118,20 @@ router.post('/senSelect', (req, res) => { // 查找学长学姐
   // conn.end()
 })
 
+router.post('/seniSelect', (req, res) => { // 查找学长学姐
+  let sqlStr = sql.select.seniSelect
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
 /*
 发送验证码短信
 */

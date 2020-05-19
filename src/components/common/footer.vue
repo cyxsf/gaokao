@@ -84,12 +84,19 @@ export default {
       })
     },
     gotoPublic () {
-      if (this.currentUserProfile.role === 1) {
-        this.$router.push('/pubArticle')
-      } else {
-        this.showAlert = true
-        this.alertText = '请先进行身份认证'
-      }
+      let uid = this.currentUserProfile.userID
+      this.axios.post('/api/user/seniSelect', {uid})
+        .then(res => {
+          if (res.data.length !== 0) {
+            if (this.currentUserProfile.role === 0) {
+              this.tim.updateMyProfile({role: 1})
+            }
+            this.$router.push('/pubArticle')
+          } else if (res.data.length === 0) {
+            this.showAlert = true
+            this.alertText = '请先进行身份认证'
+          }
+        })
     },
     closeTip () {
       this.showAlert = false

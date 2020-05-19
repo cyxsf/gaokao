@@ -104,6 +104,12 @@ export default {
       }).then((res) => {
         this.balance = res.data[0].balance
       })
+      this.axios.post('/api/user/seniSelect', {uid})
+        .then(res => {
+          if (res.data.length !== 0 && this.currentUserProfile.role === 0) {
+            this.tim.updateMyProfile({role: 1})
+          }
+        })
     },
     userOut () {
       this.$store.dispatch('logout')

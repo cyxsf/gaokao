@@ -40,7 +40,8 @@ var sqlMap = {
   select: {
     // 学校、专业选择
     schoolSelect: 'select * from univerinfo where curplace = ?',
-    majorSelect: 'select * from majors where school = ?'
+    majorSelect: 'select * from majors where school = ?',
+    seniSelect: 'select * from seniors where userid = ?'
   },
   iden: {
     senSelect: 'select * from seniors where userid <> ?',

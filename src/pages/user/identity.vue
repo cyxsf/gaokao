@@ -22,18 +22,18 @@
       </section>
     </section>
     <div class="upload-contain">
-    <div class="user-header" @click="handleClicks">
-      <input type="file" id="imagePick" ref="imagePick" accept=".jpg, .jpeg, .png, .gif"
-      @change="handleImg" style="display:none" />
-      <img  alt="" :src='imgStr' class="user-header-com" :class="{'isUpload':!isShowOne}">
-      <div class="text" v-if="isShowOne">上传身份证个人信息页</div>
-    </div>
-    <div class="user-header" @click="handleClick">
-      <input type="file" id="imagePicker" ref="imagePicker" accept=".jpg, .jpeg, .png, .gif"
-      @change="handleImg" style="display:none" />
-      <img  alt="" :src='imgStrs' class="user-header-com" :class="{'isUpload':!isShowTwo}">
-      <div class="text" v-show="isShowTwo">上传学生证、校园卡、学信网待录取通知或拟录取名单截图</div>
-    </div>
+      <div class="user-header" @click="handleClicks">
+        <input type="file" id="imagePick" ref="imagePick" accept=".jpg, .jpeg, .png, .gif"
+        @change="handleImg" style="display:none" />
+        <img  alt="" :src='imgStr' class="user-header-com" :class="{'isUpload':!isShowOne}">
+        <div class="text" v-if="isShowOne">上传身份证个人信息页</div>
+      </div>
+      <div class="user-header" @click="handleClick">
+        <input type="file" id="imagePicker" ref="imagePicker" accept=".jpg, .jpeg, .png, .gif"
+        @change="handleImg" style="display:none" />
+        <img  alt="" :src='imgStrs' class="user-header-com" :class="{'isUpload':!isShowTwo}">
+        <div class="text" v-show="isShowTwo">上传学生证、校园卡、学信网待录取通知或拟录取名单截图</div>
+      </div>
     </div>
     <span class="tip">提示：所有的证件照片仅用于身份审核，本平台不会外泄</span>
     <button class="btn" @click="handleEdit">提交</button>
@@ -138,6 +138,7 @@ export default {
             this.$router.push('/user')
           })
         }
+        this.tim.updateMyProfile({role: 1})
       })
     }
   }

@@ -1,6 +1,6 @@
 <template>
     <div class="result-page">
-      <headTop title='霍兰德兴趣测试'></headTop>
+      <headTop title='霍兰德兴趣测评'></headTop>
       <div class="result">
         <span class="rs">您的霍兰德类型是:{{rs}}</span>
         <div id="myResultTab"></div>

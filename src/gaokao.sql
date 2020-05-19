@@ -11,12 +11,10 @@ truncate table user;
 insert into user(userid,password,root) values('admin',123,0);
 insert into user(userid,password,root) values('123',123,1);
 insert into user(userid,password,root) values('456',123,1);
-insert into user(userid,password,root) values('789',123,1);
-insert into user(userid,password,root) values('111',123,2);
-insert into user(userid,password,root) values('222',123,2);
-insert into user(userid,password,root) values('333',123,2);
-
-select * from user;
+insert into user(userid,password,root) values('15988815318',123,1);
+insert into user(userid,password,root) values('15988815335',123,2);
+insert into user(userid,password,root) values('15988815351',123,2);
+insert into user(userid,password,root) values('15988815331',123,2);
 
 drop table if exists userinfo; /*用户信息*/
 create table userinfo(
@@ -35,12 +33,13 @@ create table userinfo(
 
 truncate table userinfo;
 
-insert into userinfo (userid,name,avatar,balance) values('123','白','',0);
-insert into userinfo (userid,name,avatar,balance) values('111','大白','',0);
-insert into userinfo (userid,name,avatar,balance) values('222','小白','',0);
-insert into userinfo (userid,name,avatar,balance) values('333','小小白','',0);
-
-select * from userinfo;
+insert into userinfo (userid,name,avatar,balance) values('15988815315','白','',0);
+insert into userinfo (userid,name,avatar,balance) values('123','孔月灵','',0);
+insert into userinfo (userid,name,avatar,balance) values('456','','',0);
+insert into userinfo (userid,name,avatar,balance) values('15988815318','','',0);
+insert into userinfo (userid,name,avatar,balance) values('15988815335','陶芷文','',0);
+insert into userinfo (userid,name,avatar,balance) values('15988815351','沈盈盈','',0);
+insert into userinfo (userid,name,avatar,balance) values('15988815331','融静竹','',0);
 
 drop table if exists identity; /*身份认证*/
 create table identity(
@@ -55,6 +54,14 @@ create table identity(
 
 truncate table identity;
 
+insert into identity (userid,school,major,year,imgStr,imgStrs,exam) values
+('15988815335','北京大学','信息管理与信息系统','2016','','',1),
+('15988815351','北京邮电大学','电子商务','2017','','',1),
+('15988815331','浙江理工大学','电子商务','2017','','',1);
+
+delete from identity where userid = '123';
+select * from userinfo;
+
 drop table if exists seniors; /*学长学姐表*/
 create table seniors(
  userid varchar(20) primary key not null,
@@ -65,135 +72,63 @@ create table seniors(
  
 truncate table seniors;
 
-insert into seniors(userid,school,major,year) values('111','浙江理工大学','信息管理与信息系统','2016');
-insert into seniors(userid,school,major,year) values('222','杭州电子科技大学','电子商务','2017');
-insert into seniors(userid,school,major,year) values('333','浙江理工大学','电子商务','2015');
+insert into seniors(userid,school,major,year) values('15988815335','北京大学','信息管理与信息系统','2016');
+insert into seniors(userid,school,major,year) values('15988815351','北京邮电大学','电子商务','2017');
+insert into seniors(userid,school,major,year) values('15988815331','浙江理工大学','电子商务','2017');
 
 select * from seniors;
 
-drop table if exists topic; /*存放测试题目*/
-create table topic(
- tid varchar(20) primary key not null,
- id varchar(20) not null, /*类型*/
- title varchar(100), /*题目*/
- introduce varchar(1000),/*介绍*/
- img varchar(100)
-);
-
-truncate table topic;
-insert into topic(tid,id,title,introduce,img) values('1','1','霍兰德兴趣测评','','');
-insert into topic(tid,id,title,introduce,img) values('2','2','MBTI性格测评','','');
-
 drop table if exists cate; /*类型*/
 create table cate(
- cateid varchar(20) not null,
- id varchar(20) not null,
+ cateid varchar(20) primary key not null,
  catename varchar(20) not null,
- catekey varchar(20) not null,
- primary key(cateid,id)
+ catekey varchar(20) not null
 );
 
 truncate table cate;
-insert into cate(cateid,id,catename,catekey) values('1','1','常规型','C');
-insert into cate(cateid,id,catename,catekey) values('2','1','现实型','R');
-insert into cate(cateid,id,catename,catekey) values('3','1','研究型','I');
-insert into cate(cateid,id,catename,catekey) values('4','1','管理型','E');
-insert into cate(cateid,id,catename,catekey) values('5','1','社会型','S');
-insert into cate(cateid,id,catename,catekey) values('6','1','艺术型','A');
+insert into cate(cateid,catename,catekey) values('1','常规型','C');
+insert into cate(cateid,catename,catekey) values('2','现实型','R');
+insert into cate(cateid,catename,catekey) values('3','研究型','I');
+insert into cate(cateid,catename,catekey) values('4','管理型','E');
+insert into cate(cateid,catename,catekey) values('5','社会型','S');
+insert into cate(cateid,catename,catekey) values('6','艺术型','A');
 
 drop table if exists questions; /*题目*/
 create table questions(
- qid varchar(20) not null,
- id varchar(20) not null,
+ qid varchar(20) primary key not null,
  cateid varchar(20) not null,
  title varchar(100) not null,
- score int,
- primary key(qid,id)
+ score int
 );
 
 truncate table questions;
-insert into questions(qid,id,cateid,title,score) values('1','1','1','对别人借我的和我借别人的东西，我都能记得很清楚','1');
-insert into questions(qid,id,cateid,title,score) values('2','1','1','我喜欢经常请示上级','1');
-insert into questions(qid,id,cateid,title,score) values('3','1','1','我是一个沉静而不易动感情的人','1');
-insert into questions(qid,id,cateid,title,score) values('4','1','1','我喜欢按部就班地完成要做的工作','1');
-insert into questions(qid,id,cateid,title,score) values('5','1','1','我总留有充裕的时间去赴约会','1');
-insert into questions(qid,id,cateid,title,score) values('6','1','1','我喜欢把一切安排得整整齐齐、井井有条','1');
-insert into questions(qid,id,cateid,title,score) values('7','1','1','对于急躁、爱发脾气的人，我仍能以礼相待','1');
-insert into questions(qid,id,cateid,title,score) values('8','1','1','每次写信我都一挥而就，不再重复','0');
-insert into questions(qid,id,cateid,title,score) values('9','1','1','我办事很少思前想后','0');
-insert into questions(qid,id,cateid,title,score) values('10','1','1','我希望能经常换不同的工作来做','0');
-insert into questions(qid,id,cateid,title,score) values('11','1','2','在工作中我喜欢独自筹划，不愿受别人干涉','1');
-insert into questions(qid,id,cateid,title,score) values('12','1','2','我喜欢在做事情前，对此事情做出细致的安排','1');
-insert into questions(qid,id,cateid,title,score) values('13','1','2','我喜欢亲自动手制作一些东西，从中得到乐趣','1');
-insert into questions(qid,id,cateid,title,score) values('14','1','2','我喜欢使用榔头一类的工具','1');
-insert into questions(qid,id,cateid,title,score) values('15','1','2','如果掌握一门手艺并能以此为生，我会感到非常满意','1');
-insert into questions(qid,id,cateid,title,score) values('16','1','2','我讨厌修理自行车、电器一类的工作','0');
-insert into questions(qid,id,cateid,title,score) values('17','1','2','我的动手能力很差','0');
-insert into questions(qid,id,cateid,title,score) values('18','1','2','我曾渴望当一名汽车司机','0');
-insert into questions(qid,id,cateid,title,score) values('19','1','2','我讨厌跟各类机械打交道','0');
-insert into questions(qid,id,cateid,title,score) values('20','1','2','我小时候经常把玩具拆开，把里面看个究竟','0');
-insert into questions(qid,id,cateid,title,score) values('21','1','3','我经常不停地思考某一问题，直到想出正确的答案','1');
-insert into questions(qid,id,cateid,title,score) values('22','1','3','我喜欢抽象思维的工作，不喜欢动手的工作','1');
-insert into questions(qid,id,cateid,title,score) values('23','1','3','我喜欢需要运用智力的游戏','1');
-insert into questions(qid,id,cateid,title,score) values('24','1','3','当我工作时，我喜欢避免干扰','1');
-insert into questions(qid,id,cateid,title,score) values('25','1','3','我的理想是当一名科学家','1');
-insert into questions(qid,id,cateid,title,score) values('26','1','3','我喜欢阅读自然科学方面的书籍和杂志','1');
-insert into questions(qid,id,cateid,title,score) values('27','1','3','我很难做那种需要持续集中注意力的工作','0');
-insert into questions(qid,id,cateid,title,score) values('28','1','3','我讨厌学数学','0');
-insert into questions(qid,id,cateid,title,score) values('29','1','3','在实验室里独自做实验会令我寂寞难耐','0');
-insert into questions(qid,id,cateid,title,score) values('30','1','3','遇到难解答的问题时，我常常放弃','0');
-insert into questions(qid,id,cateid,title,score) values('31','1','4','我曾经渴望有机会参加探险','1');
-insert into questions(qid,id,cateid,title,score) values('32','1','4','和不熟悉的人交谈对我来说毫不困难','1');
-insert into questions(qid,id,cateid,title,score) values('33','1','4','当我开始做一件事情后，即使碰到再多的困难，我也要执著地干下去','1');
-insert into questions(qid,id,cateid,title,score) values('34','1','4','我总是主动地向别人提出自己的建议','1');
-insert into questions(qid,id,cateid,title,score) values('35','1','4','我更喜欢自己下了赌注的比赛或游戏','1');
-insert into questions(qid,id,cateid,title,score) values('36','1','4','如果待遇相同，我宁愿当商品推销员，而不愿当图书管理员','1');
-insert into questions(qid,id,cateid,title,score) values('37','1','4','我喜欢在人事部门工作','1');
-insert into questions(qid,id,cateid,title,score) values('38','1','4','在集体讨论中，我往往保持沉默','0');
-insert into questions(qid,id,cateid,title,score) values('39','1','4','我愿意从事虽然工资少、但是比较稳定的职业','0');
-insert into questions(qid,id,cateid,title,score) values('40','1','4','和别人谈判时，我总是很容易放弃自己的观点','0');
-insert into questions(qid,id,cateid,title,score) values('41','1','5','我很容易结识同性朋友','1');
-insert into questions(qid,id,cateid,title,score) values('42','1','5','我乐于解除别人的痛苦','1');
-insert into questions(qid,id,cateid,title,score) values('43','1','5','我喜欢作一名教师','1');
-insert into questions(qid,id,cateid,title,score) values('44','1','5','大家公认我是一名勤劳踏实的、愿为大家服务的人','1');
-insert into questions(qid,id,cateid,title,score) values('45','1','5','我喜欢把一件事情做完后再做另一件事','0');
-insert into questions(qid,id,cateid,title,score) values('46','1','5','当我一个独处时，会感到更愉快','0');
-insert into questions(qid,id,cateid,title,score) values('47','1','5','我喜欢参加各种各样的聚会','0');
-insert into questions(qid,id,cateid,title,score) values('48','1','5','对于社会问题，我通常持中庸的态度','0');
-insert into questions(qid,id,cateid,title,score) values('49','1','5','听别人谈“家中被盗”一类的事，很难引起我的同情','0');
-insert into questions(qid,id,cateid,title,score) values('50','1','5','和一群人在一起的时候，我总想不出恰当的话来说','0');
-insert into questions(qid,id,cateid,title,score) values('51','1','6','我喜欢做戏剧、音乐、歌舞、新闻采访等方面的工作','1');
-insert into questions(qid,id,cateid,title,score) values('52','1','6','我喜欢成为人们注意的焦点','1');
-insert into questions(qid,id,cateid,title,score) values('53','1','6','我喜欢不时地夸耀一下自己取得的好成就','1');
-insert into questions(qid,id,cateid,title,score) values('54','1','6','音乐能使我陶醉','1');
-insert into questions(qid,id,cateid,title,score) values('55','1','6','有些人太霸道，有时明明知道他们是对的，也要和他们对着干','1');
-insert into questions(qid,id,cateid,title,score) values('56','1','6','我爱幻想','1');
-insert into questions(qid,id,cateid,title,score) values('57','1','6','当接受新任务后，我喜欢以自己的独特方法去完成它','1');
-insert into questions(qid,id,cateid,title,score) values('58','1','6','我有文艺方面的天赋','1');
-insert into questions(qid,id,cateid,title,score) values('59','1','6','看情感影片时，我常禁不住眼圈红润','1');
-insert into questions(qid,id,cateid,title,score) values('60','1','6','与言情小说相比，我更喜欢推理小说','0');
+insert into questions(qid,cateid,title,score) values
+('1','1','对别人借我的和我借别人的东西，我都能记得很清楚','1'),('2','1','我喜欢经常请示上级','1'),('3','1','我是一个沉静而不易动感情的人','1'),('4','1','我喜欢按部就班地完成要做的工作','1'),('5','1','我总留有充裕的时间去赴约会','1'),('6','1','我喜欢把一切安排得整整齐齐、井井有条','1'),('7','1','对于急躁、爱发脾气的人，我仍能以礼相待','1'),('8','1','每次写信我都一挥而就，不再重复','0'),('9','1','我办事很少思前想后','0'),('10','1','我希望能经常换不同的工作来做','0'),
+('11','2','在工作中我喜欢独自筹划，不愿受别人干涉','1'),('12','2','我喜欢在做事情前，对此事情做出细致的安排','1'),('13','2','我喜欢亲自动手制作一些东西，从中得到乐趣','1'),('14','2','我喜欢使用榔头一类的工具','1'),('15','2','如果掌握一门手艺并能以此为生，我会感到非常满意','1'),('16','2','我讨厌修理自行车、电器一类的工作','0'),('17','2','我的动手能力很差','0'),('18','2','我曾渴望当一名汽车司机','0'),('19','2','我讨厌跟各类机械打交道','0'),('20','2','我小时候经常把玩具拆开，把里面看个究竟','0'),
+('21','3','我经常不停地思考某一问题，直到想出正确的答案','1'),('22','3','我喜欢抽象思维的工作，不喜欢动手的工作','1'),('23','3','我喜欢需要运用智力的游戏','1'),('24','3','当我工作时，我喜欢避免干扰','1'),('25','3','我的理想是当一名科学家','1'),('26','3','我喜欢阅读自然科学方面的书籍和杂志','1'),('27','3','我很难做那种需要持续集中注意力的工作','0'),('28','3','我讨厌学数学','0'),('29','3','在实验室里独自做实验会令我寂寞难耐','0'),('30','3','遇到难解答的问题时，我常常放弃','0'),
+('31','4','我曾经渴望有机会参加探险','1'),('32','4','和不熟悉的人交谈对我来说毫不困难','1'),('33','4','当我开始做一件事情后，即使碰到再多的困难，我也要执著地干下去','1'),('34','4','我总是主动地向别人提出自己的建议','1'),('35','4','我更喜欢自己下了赌注的比赛或游戏','1'),('36','4','如果待遇相同，我宁愿当商品推销员，而不愿当图书管理员','1'),('37','4','我喜欢在人事部门工作','1'),('38','4','在集体讨论中，我往往保持沉默','0'),('39','4','我愿意从事虽然工资少、但是比较稳定的职业','0'),('40','4','和别人谈判时，我总是很容易放弃自己的观点','0'),
+('41','5','我很容易结识同性朋友','1'),('42','5','我乐于解除别人的痛苦','1'),('43','5','我喜欢作一名教师','1'),('44','5','大家公认我是一名勤劳踏实的、愿为大家服务的人','1'),('45','5','我喜欢把一件事情做完后再做另一件事','0'),('46','5','当我一个独处时，会感到更愉快','0'),('47','5','我喜欢参加各种各样的聚会','0'),('48','5','对于社会问题，我通常持中庸的态度','0'),('49','5','听别人谈“家中被盗”一类的事，很难引起我的同情','0'),('50','5','和一群人在一起的时候，我总想不出恰当的话来说','0'),
+('51','6','我喜欢做戏剧、音乐、歌舞、新闻采访等方面的工作','1'),('52','6','我喜欢成为人们注意的焦点','1'),('53','6','我喜欢不时地夸耀一下自己取得的好成就','1'),('54','6','音乐能使我陶醉','1'),('55','6','有些人太霸道，有时明明知道他们是对的，也要和他们对着干','1'),('56','6','我爱幻想','1'),('57','6','当接受新任务后，我喜欢以自己的独特方法去完成它','1'),('58','6','我有文艺方面的天赋','1'),('59','6','看情感影片时，我常禁不住眼圈红润','1'),('60','6','与言情小说相比，我更喜欢推理小说','0');
 
 drop table if exists result; /*结果*/
 create table result(
- rid varchar(20) not null,
- id varchar(20) not null,
+ rid varchar(20) primary key not null,
  cateid varchar(20) not null, /*总体的类型*/
  inclination varchar(1000) not null, /*人格倾向*/
  major varchar(1000) not null, /*专业*/
- occupation varchar(1000) not null, /*职业*/
- primary key(rid,id)
+ occupation varchar(1000) not null /*职业*/
 );
 
 truncate table result;
-insert into result(rid,id,cateid,inclination,major,occupation) values
-('1','1','1','尊重权威和规章制度，喜欢按计划办事，细心、有条理，习惯接受他人的指挥和领导，自己不谋求领导职务。喜欢关注实际和细节情况，通常较为谨慎和保守，缺乏创造性，不喜欢冒险和竞争，富有自我牺牲精神。','电子商务类','秘书、办公室人员、记事员、会计、行政助理、图书馆管理员、出纳员、打字员、投资分析员'),
-('2','1','2','愿意使用工具从事操作性工作，动手能力强，做事手脚灵活，动作协调。偏好于具体任务，不善言辞，做事保守，较为谦虚。缺乏社交能力，通常喜欢独立做事。','经济与贸易类、民族学类、公安学类、心理学类、机械类、自动化类、水利类、纺织类、轻工类、交通运输类、建筑类、公安技术类、林学类','计算机硬件人员、摄影师'),
-('3','1','3','思想家而非实干家,抽象思维能力强，求知欲强，肯动脑，善思考，不愿动手。喜欢独立的和富有创造性的工作。知识渊博，有学识才能，不善于领导他人。考虑问题理性，做事喜欢精确，喜欢逻辑分析和推理，不断探讨未知的领域。','经济学类、财政学类、金融学类、法学类、物理学类、化学类、地理科学类、大气科学类、
+insert into result(rid,cateid,inclination,major,occupation) values
+('1','1','尊重权威和规章制度，喜欢按计划办事，细心、有条理，习惯接受他人的指挥和领导，自己不谋求领导职务。喜欢关注实际和细节情况，通常较为谨慎和保守，缺乏创造性，不喜欢冒险和竞争，富有自我牺牲精神。','电子商务类','秘书、办公室人员、记事员、会计、行政助理、图书馆管理员、出纳员、打字员、投资分析员'),
+('2','2','愿意使用工具从事操作性工作，动手能力强，做事手脚灵活，动作协调。偏好于具体任务，不善言辞，做事保守，较为谦虚。缺乏社交能力，通常喜欢独立做事。','经济与贸易类、民族学类、公安学类、心理学类、机械类、自动化类、水利类、纺织类、轻工类、交通运输类、建筑类、公安技术类、林学类','计算机硬件人员、摄影师'),
+('3','3','思想家而非实干家,抽象思维能力强，求知欲强，肯动脑，善思考，不愿动手。喜欢独立的和富有创造性的工作。知识渊博，有学识才能，不善于领导他人。考虑问题理性，做事喜欢精确，喜欢逻辑分析和推理，不断探讨未知的领域。','经济学类、财政学类、金融学类、法学类、物理学类、化学类、地理科学类、大气科学类、
 海洋科学类、地球物理学类、地质学类、生物科学类、统计学类、力学类、机械类、仪器类、材料类、能源动力类、电气类、电子信息类、计算机类、土木类、测绘类、化工与制药类、地质类、矿业类、交通运输类、海洋工程类、航空航天类、兵器类、核工程类、农业工程类、林业工程类、环境科学与工程类、生物医学工程类、食品科学与工程类、生物工程类、
 公安技术类、植物生产类、动物生产类、水产类、草学类、临床医学类、口腔医学类、公共卫生与预防医学类、中医学类、中西医结合类、药学类、中药学类、法医学类、医学技术类、农业经济管理类、工业工程类','科学研究人员、教师、工程师、电脑编程人员、医生、系统分析员'),
-('4','1','4','追求权力、权威和物质财富，具有领导才能。喜欢竞争、敢冒风险、有野心、抱负。为人务实，习惯以利益得失，权利、地位、金钱等来衡量做事的价值，做事有较强的目的性。','管理科学与工程类、工商管理类、公共管理类、图书情报与档案管理类、物流管理与工程类、旅游管理类','如项目经理、销售人员，营销管理人员、政府官员、企业领导、法官、律师'),
-('5','1','5','喜欢与人交往、不断结交新的朋友、善言谈、愿意教导别人。关心社会问题、渴望发挥自己的社会作用。寻求广泛的人际关系，比较看重社会义务和社会道德。','哲学类、经济与贸易类、政治学类、马克思主义理论类、教育学类、体育学类、历史学类、植物生产类、自然保护与环境生态类、护理学类、设计学类','教育工作者、社会工作者'),
-('6','1','6','有创造力，乐于创造新颖、与众不同的成果，渴望表现自己的个性，实现自身的价值。做事理想化，追求完美，不重实际。具有一定的艺术才能和个性。善于表达、怀旧、心态较为复杂。','中国语言文学类、外国语言文学类、新闻传播学类、轻工类、基础医学类、艺术学理论类、音乐与舞蹈学类、戏剧与影视学类、美术学类、设计学类','艺术、音乐、文学方面');
+('4','4','追求权力、权威和物质财富，具有领导才能。喜欢竞争、敢冒风险、有野心、抱负。为人务实，习惯以利益得失，权利、地位、金钱等来衡量做事的价值，做事有较强的目的性。','管理科学与工程类、工商管理类、公共管理类、图书情报与档案管理类、物流管理与工程类、旅游管理类','如项目经理、销售人员，营销管理人员、政府官员、企业领导、法官、律师'),
+('5','5','喜欢与人交往、不断结交新的朋友、善言谈、愿意教导别人。关心社会问题、渴望发挥自己的社会作用。寻求广泛的人际关系，比较看重社会义务和社会道德。','哲学类、经济与贸易类、政治学类、马克思主义理论类、教育学类、体育学类、历史学类、植物生产类、自然保护与环境生态类、护理学类、设计学类','教育工作者、社会工作者'),
+('6','6','有创造力，乐于创造新颖、与众不同的成果，渴望表现自己的个性，实现自身的价值。做事理想化，追求完美，不重实际。具有一定的艺术才能和个性。善于表达、怀旧、心态较为复杂。','中国语言文学类、外国语言文学类、新闻传播学类、轻工类、基础医学类、艺术学理论类、音乐与舞蹈学类、戏剧与影视学类、美术学类、设计学类','艺术、音乐、文学方面');
 
 drop table if exists province; /*省份*/
 create table province(
@@ -235,7 +170,7 @@ insert into province(name,premark) values('海南','省');
 insert into province(name,premark) values('浙江','省');
 insert into province(name,premark) values('青海','省');
 
-drop table if exists nationline; /*省份历年国家线*/
+drop table if exists nationline; /*历年省份线*/
 create table nationline(
  id int PRIMARY KEY AUTO_INCREMENT,
  year varchar(20),
@@ -246,8 +181,7 @@ create table nationline(
 );
 
 truncate table nationline;
-
-select * from nationline where year = '2013';
+select * from nationline where curplace = '重庆';
 
 drop table if exists univerinfo; /*学校基本信息*/
 create table univerinfo(
@@ -263,8 +197,9 @@ create table univerinfo(
 );
 
 truncate table univerinfo;
+select * from univerinfo limit 0,10;
 
-drop table if exists univerpoint; /*各学校省份分数线 81260条*/
+drop table if exists univerpoint; /*各学校省份分数线*/
 create table univerpoint(
  id int PRIMARY KEY AUTO_INCREMENT,
  school varchar(100) not null,
@@ -278,7 +213,6 @@ create table univerpoint(
 );
 
 truncate table univerpoint;
-select * from univerpoint where subject = '理科' or subject = '文科' and  line <> '';
 
 drop table if exists majors; /*专业 81190条*/
 create table majors(
@@ -291,7 +225,6 @@ create table majors(
  flag211 varchar(10) not null
 );
 truncate table majors;
-select * from majors;
 
 drop table if exists pubArticle; /*发布文章*/
 create table pubArticle(
@@ -316,7 +249,6 @@ create table forDiff(
  batch varchar(50)
 );
 truncate table forDiff;
-select * from forDiff where id = '3000';
 
 drop table if exists forLine; /*省控线预测*/
 create table forLine(
@@ -328,11 +260,6 @@ create table forLine(
  line varchar(20)
 );
 truncate table forLine;
-select * from forLine where curplace = '山西';
-
-select *,(diff+line) as score from forDiff a join forLine b 
-where a.curplace = b.curplace and a.subject = b.subject and a.batch = b.batch 
-and a.curplace = '山西' and a.subject = '理科' and (diff+line) >= 500 and (diff+line) < 700;
 
 drop table if exists preReg; /*地域偏好*/
 create table preReg(

@@ -93,7 +93,7 @@ export default {
         uid
       }).then((res) => {
         let money = res.data[0].balance + 30
-        this.axios.post('/api/user/upBalance', {money, uid})    
+        this.axios.post('/api/user/upBalance', {money, uid})
       })
     },
     queryData () {

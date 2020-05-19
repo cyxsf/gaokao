@@ -3,7 +3,7 @@
       <headTop title='霍兰德兴趣测评'></headTop>
       <div class="main">
         <div class="holland">
-          <span class="title">霍兰德职业兴趣测试</span>
+          <span class="title">霍兰德兴趣测评</span>
           <p class="introduce">
             霍兰德职业适应性测验(The Self-Directed Search，简称SDS)由美国著名职业指导专家 Ｊ.霍兰德（ＨＯＬＬＡＮＤ）编制。
             在几十年间经过一百多次大规模的实验研究，形成了人格类型与职业类型的学说和测验
