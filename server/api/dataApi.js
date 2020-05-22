@@ -44,7 +44,7 @@ router.post('/basUpdate', (req, res) => { // 更新基本信息
   let sqlStr = sql.forecast.basUpdate
   let params = req.body
   let conn = new DBHelper().getConn()
-  conn.query(sqlStr, [params.local, params.sub, params.score, params.uid], (err, result) => {
+  conn.query(sqlStr, [params.local, params.sub, params.score, params.isNew, params.uid], (err, result) => {
     if (err) {
       res.json(err)
     } else {
@@ -54,11 +54,41 @@ router.post('/basUpdate', (req, res) => { // 更新基本信息
   // conn.end()
 })
 
-router.post('/preUpdate', (req, res) => { // 更新基本信息
+router.post('/upNewScore', (req, res) => { // 新高考
+  let sqlStr = sql.forecast.upNewScore
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr,
+    [params.local, params.sub, params.phy, params.chem, params.bio, params.pol, params.his, params.geo, params.tech, params.score, params.isNew, params.uid],
+    (err, result) => {
+      if (err) {
+        res.json(err)
+      } else {
+        res.json(result)
+      }
+    })
+  // conn.end()
+})
+
+router.post('/preUpdate', (req, res) => { // 更新偏好信息
   let sqlStr = sql.forecast.preUpdate
   let params = req.body
   let conn = new DBHelper().getConn()
   conn.query(sqlStr, [params.preApp, params.reg, params.major, params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/reqSelect', (req, res) => { // 查找选科要求
+  let sqlStr = sql.select.reqSelect
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.cur, params.school], (err, result) => {
     if (err) {
       res.json(err)
     } else {
@@ -164,11 +194,25 @@ router.post('/majorSel', (req, res) => { // 查找专业偏好
   // conn.end()
 })
 
-router.post('/finalTour', (req, res) => { // 填报指南
-  let sqlStr = sql.forecast.finalTour
+router.post('/schoolTour', (req, res) => { // 学校优先的填报指南
+  let sqlStr = sql.forecast.schoolTour
   let params = req.body
   let conn = new DBHelper().getConn()
   conn.query(sqlStr, [params.cur, params.sub, params.low, params.high], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/majorTour', (req, res) => { // 学校优先的填报指南
+  let sqlStr = sql.forecast.majorTour
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.cur, params.sub, params.major, params.low, params.high], (err, result) => {
     if (err) {
       res.json(err)
     } else {
@@ -225,6 +269,90 @@ router.post('/delReco', (req, res) => { // 删除推荐列表
   let params = req.body
   let conn = new DBHelper().getConn()
   conn.query(sqlStr, [params.uid, params.school], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/delCateRe', (req, res) => { // 删除推荐的感兴趣列表
+  let sqlStr = sql.forecast.delCateRe
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/delAllReco', (req, res) => { // 删除全部推荐列表
+  let sqlStr = sql.forecast.delAllReco
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/majorListSel', (req, res) => { // 填报指南中专业列表
+  let sqlStr = sql.select.majorListSel
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid, params.school], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/majorDataSel', (req, res) => { // 专业大类和专业
+  let sqlStr = sql.select.majorDataSel
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.discmajor], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/inMajorList', (req, res) => { // 插入填报指南的专业列表中
+  let sqlStr = sql.forecast.inMajorList
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid, params.school, params.ma, params.cate], (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+  // conn.end()
+})
+
+router.post('/delMajorList', (req, res) => { // 插入填报指南的列表中
+  let sqlStr = sql.forecast.delMajorList
+  let params = req.body
+  let conn = new DBHelper().getConn()
+  conn.query(sqlStr, [params.uid], (err, result) => {
     if (err) {
       res.json(err)
     } else {

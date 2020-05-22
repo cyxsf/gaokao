@@ -121,6 +121,7 @@ export default {
       this.axios.post('/api/data/preUpdate', {
         preApp, reg, major, uid
       }).then(res => {
+        this.axios.post('/api/data/delMajorList', {uid})
         this.$router.push('/prefer')
       })
     }

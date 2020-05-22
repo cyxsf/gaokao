@@ -24,14 +24,24 @@ create table userinfo(
  cateid varchar(20),
  curplace varchar(40),
  subject varchar(20),
+ physics varchar(20),
+ chemistry varchar(20),
+ biology varchar(20),
+ politics varchar(20),
+ history varchar(20),
+ geography varchar(20),
+ technology varchar(20),
  score varchar(20),
  preapp varchar(50),
  prereg varchar(500),
  premajor varchar(500),
- balance float
+ balance float,
+ isNew varchar(10) /*是否是新高考*/
 );
 
 truncate table userinfo;
+
+select * from userinfo;
 
 insert into userinfo (userid,name,avatar,balance) values('15988815315','白','',0);
 insert into userinfo (userid,name,avatar,balance) values('123','孔月灵','',0);
@@ -170,18 +180,34 @@ insert into province(name,premark) values('海南','省');
 insert into province(name,premark) values('浙江','省');
 insert into province(name,premark) values('青海','省');
 
-drop table if exists nationline; /*历年省份线*/
+/*
+drop table if exists nationline; 历年省份线
 create table nationline(
  id int PRIMARY KEY AUTO_INCREMENT,
  year varchar(20),
  curplace varchar(50),
  subject varchar(20),
- batch varchar(50), /*批次*/
- line varchar(20) /*省控线*/
+ batch varchar(50), 批次
+ line varchar(20) 省控线
 );
 
 truncate table nationline;
-select * from nationline where curplace = '重庆';
+
+drop table if exists univerpoint; 各学校省份分数线
+create table univerpoint(
+ id int PRIMARY KEY AUTO_INCREMENT,
+ school varchar(100) not null,
+ curplace varchar(50),
+ subject varchar(20),
+ year varchar(20),
+ lowest varchar(20),
+ average varchar(20),
+ line varchar(20), /省控线
+ batch varchar(50)
+);
+
+truncate table univerpoint;
+*/
 
 drop table if exists univerinfo; /*学校基本信息*/
 create table univerinfo(
@@ -197,34 +223,31 @@ create table univerinfo(
 );
 
 truncate table univerinfo;
-select * from univerinfo limit 0,10;
-
-drop table if exists univerpoint; /*各学校省份分数线*/
-create table univerpoint(
- id int PRIMARY KEY AUTO_INCREMENT,
- school varchar(100) not null,
- curplace varchar(50),
- subject varchar(20),
- year varchar(20),
- lowest varchar(20),
- average varchar(20),
- line varchar(20), /*省控线*/
- batch varchar(50)
-);
-
-truncate table univerpoint;
 
 drop table if exists majors; /*专业 81190条*/
 create table majors(
  id int PRIMARY KEY AUTO_INCREMENT,
  school varchar(100) not null,
  major varchar(100) not null,
- keymajor varchar(10) not null, /*重点专业*/
- lishuyu varchar(10) not null,
- flag985 varchar(10) not null,
- flag211 varchar(10) not null
+ keymajor varchar(10) not null /*重点专业*/
 );
 truncate table majors;
+
+drop table if exists majorpoint; /*专业分数线*/
+create table majorpoint(
+ id int PRIMARY KEY AUTO_INCREMENT,
+ school varchar(100) not null,
+ major varchar(1000) not null,
+ discMajor varchar(20) not null,
+ curplace varchar(50),
+ subject varchar(20),
+ year varchar(20),
+ average varchar(20),
+ lowest varchar(20),
+ batch varchar(50)
+);
+
+truncate table majorpoint;
 
 drop table if exists pubArticle; /*发布文章*/
 create table pubArticle(
@@ -249,6 +272,20 @@ create table forDiff(
  batch varchar(50)
 );
 truncate table forDiff;
+
+drop table if exists forPoint; /*专业分数线预测*/
+create table forPoint(
+ id int PRIMARY KEY AUTO_INCREMENT,
+ school varchar(100) not null,
+ major varchar(1000) not null,
+ curplace varchar(50),
+ subject varchar(20),
+ year varchar(20),
+ point varchar(20),
+ batch varchar(50)
+);
+truncate table forPoint;
+select * from forPoint;
 
 drop table if exists forLine; /*省控线预测*/
 create table forLine(
@@ -320,3 +357,37 @@ create table recoList(
   primary key(userid,school)
 );
 truncate table recoList;
+
+drop table if exists requirement; /*专业要求选科*/
+create table requirement(
+ id int PRIMARY KEY AUTO_INCREMENT,
+ curplace varchar(20),
+ school varchar(100) not null,
+ discmajor varchar(100) not null, /*大类专业*/
+ major varchar(1000),
+ requires varchar(50)
+ );
+ truncate table requirement;
+ 
+drop table if exists majorList; /*推荐专业*/
+create table majorList(
+  userid varchar(20) not null,
+  school varchar(100) not null,
+  major varchar(100) not null,
+  cate int, /*0:保底, 1:稳妥, 2:冲刺 3:感兴趣*/
+  primary key(userid,school,major)
+);
+truncate table majorList;
+
+insert into majorList(userid,school,major,cate) values ('123','南京邮电大学','信管','0'),
+('123','南京邮电大学','电商','0'),('123','南京邮电大学','图书管理','0'),('123','东北电力大学','工商管理','0');
+
+drop table if exists majorData; /*专业类表*/
+create table majorData(
+  id int PRIMARY KEY AUTO_INCREMENT,
+  general varchar(20),
+  discMajor varchar(20),
+  major varchar(50)
+);
+truncate table majorData;
+select * from majorList;

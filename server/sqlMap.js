@@ -21,10 +21,12 @@ var sqlMap = {
   forecast: {
     // 学校预测
     proSelect: 'select * from province',
-    basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ? where userid = ?',
+    basUpdate: 'update userinfo set curplace = ?,subject = ?,score = ?,isNew = ? where userid = ?',
+    upNewScore: 'update userinfo set curplace = ?,subject = ?,physics =?,chemistry=?,biology=?,politics=?,history=?,geography=?,technology=?,score = ?,isNew = ? where userid = ?',
     basSelect: ' select * from userinfo where userid = ?',
     preUpdate: 'update userinfo set preapp = ?, prereg = ?, premajor = ? where userid = ?',
-    finalTour: 'select school,(diff+line) as score from forDiff a join forLine b where a.curplace = b.curplace and a.subject = b.subject and a.batch = b.batch and a.curplace = ? and a.subject = ? and  (diff+line)>= ? and  (diff+line)< ? order by (diff+line)',
+    schoolTour: 'select school,(diff+line) as score from forDiff a join forLine b where a.curplace = b.curplace and a.subject = b.subject and a.batch = b.batch and a.curplace = ? and a.subject = ? and  (diff+line)>= ? and  (diff+line)< ? order by (diff+line)',
+    majorTour: 'select * from forPoint where curplace = ? and subject = ? and major = ? and point >= ? and point < ? order by point',
     schoolSelect: 'select * from univerinfo where school = ?',
     resSelect: 'select * from result where cateid = ?',
     preReg: 'select * from preReg',
@@ -35,13 +37,20 @@ var sqlMap = {
     inseReco: 'insert into recoList(userid,school,rate,collect,cate) values (?,?,?,0,?)',
     upReco: 'update recoList set rate = ?,collect = ? where userid = ? and school = ?',
     selReco: 'select * from recoList where userid = ? and cate = ?',
-    delReco: 'delete from recoList where userid = ? and school = ?'
+    delReco: 'delete from recoList where userid = ? and school = ?',
+    delCateRe: 'delete from recoList where userid = ? and cate = 3',
+    delAllReco: 'delete from recoList where userid = ?',
+    inMajorList: 'insert into majorList(userid,school,major,cate) values (?,?,?,?)',
+    delMajorList: 'delete from majorList where userid = ?'
   },
   select: {
     // 学校、专业选择
     schoolSelect: 'select * from univerinfo where curplace = ?',
     majorSelect: 'select * from majors where school = ?',
-    seniSelect: 'select * from seniors where userid = ?'
+    seniSelect: 'select * from seniors where userid = ?',
+    reqSelect: 'select * from requirement where curplace = ? and school = ?',
+    majorListSel: 'select * from majorList where userid = ? and school = ?',
+    majorDataSel: 'select * from majorData where discmajor = ?'
   },
   iden: {
     senSelect: 'select * from seniors where userid <> ?',
