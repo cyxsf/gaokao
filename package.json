@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "cos-js-sdk-v5": "^0.5.22",
     "echarts": "^4.6.0",
     "element-ui": "^2.13.0",
